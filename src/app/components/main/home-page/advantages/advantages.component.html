@@ -1,31 +1,6 @@
-<div class="adv-boxes">
-    <app-advantages-card *ngFor="let card of cardList"></app-advantages-card>
-    <!-- <div class="adv-box">
-        <img class="adv-img" src="/assets/img/adv-1.png"/>
-        <div class="text-box">
-            <h3>The Best Brands selected for you</h3>
-            <p class="p-desc">We search the world to discover and acquire historical, new, and innovative brands, selecting them to give you the best of design.</p>
-        </div>
-    </div> -->
-    <!-- <div class="adv-box">
-        <img class="adv-img" src="/assets/img/adv-2.png"/>
-        <div class="text-box">
-            <h3>There are only 100% original design</h3>
-            <p class="p-desc">Archiproducts is an online reference for those who want to be inspired, plan and purchase only 100% original design.</p>
-        </div>
+<div class="advantages-banner">
+    <h1>Our advantages</h1>
+    <div class="adv-boxes">
+        <app-advantages-card *ngFor="let card of cardList" [card]="card"></app-advantages-card>
     </div>
-    <div class="adv-box">
-        <img class="adv-img" src="/assets/img/adv-3.png"/>
-        <div class="text-box">
-            <h3>Community all around the world</h3>
-            <p class="p-desc">1,000 Architects, decorators, designers, resellers, manufacturers, buyers and design lovers, join archiproducts every day to find products and get inspired.</p>
-        </div>
-    </div>
-    <div class="adv-box">
-        <img class="adv-img" src="/assets/img/adv-4.png"/>
-        <div class="text-box">
-            <h3>Product stories as told by designers</h3>
-            <p class="p-desc">Find out avout the creative process from prorotype to final products, wich you can buy on archiproducts.</p>
-        </div>
-    </div> -->
 </div>

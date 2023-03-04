@@ -1,38 +1,14 @@
-<div class="main-banner">
-    <h1>Design from Milan</h1>
-    <p>All the latest from Milano Design Week 2023</p>
-    <button class="btn btn-light">Follow our special showcase</button>
-</div>
-<div class="about-banner">
-    <img class="img-about" src="/assets/img/homepage-what-is-arch.png"/>
-    <div class="about-box">
-        <div>
-            <h1>What is</h1>
-            <h1>Archiproduct</h1>
+<app-main-banner></app-main-banner>
+<app-about></app-about>
+<app-advantages></app-advantages>
+<app-subscribe></app-subscribe>
+<div class="articles">
+    <div class="articles-box">
+        <h1>Articles</h1>
+        <div class="articles-cards">
+            <app-articles-cards *ngFor="let article of articles" [article]="article"></app-articles-cards>
         </div>
-        <p class="desc">Archiproducts is the world's largest informative and inspirational source for architecture and design. 1,000 Architects, decorators, designers, resellers, manufacturers, buyers and design lovers, join archiproducts every day to find products and get inspired.</p>
-        <div class="statistics-box">
-            <div class="statistic">
-                <p>250 000</p>
-                <p>products</p>
-            </div>
-            <div class="statistic">
-                <p>250 000</p>
-                <p>products</p>
-            </div>
-            <div class="statistic">
-                <p>250 000</p>
-                <p>products</p>
-            </div>
-            <div class="statistic">
-                <p>250 000</p>
-                <p>products</p>
-            </div>
-        </div>
+        <button class="btn btn-light">All articles</button>
     </div>
 </div>
-<div class="advantages-banner">
-    <h1>Our advantages</h1>
-    <app-advantages></app-advantages>
-</div>
-<app-subscribe></app-subscribe>
+
