@@ -1,27 +1,45 @@
-.articles {
+.articles,
+.text-container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     padding: 84px 0;
+}
+
+.articles {
     background-color: var(--accent);
 
-    .articles-box {
-        max-width: 1600px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    .box {
         gap: 72px;
-
+    
         .articles-cards {
             display: flex;
             gap: 90px;
         }
+    
+        .small-text {
+            font-weight: 300;
+            font-size: 14px;
+        }
     }
 }
 
+.box,
+.text-box {
+    max-width: 1600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.text-box {
+    gap: 24px;
+}
+
 @media only screen and (max-width: 1600px) {
-    .articles .articles-box {
-        max-width: 1400px;
+    .box,
+    .text-box {
+        max-width: 1260px;
     }
 }

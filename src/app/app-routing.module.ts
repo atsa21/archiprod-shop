@@ -5,8 +5,8 @@ import { MainComponent } from './components/main/main.component';
 import { SignUpComponent } from './components/main/sign-up/sign-up.component';
 
 const routes: Routes = [
-  { path:'', redirectTo:'mainpage', pathMatch:'full' },
-  { path:'mainpage', component: MainComponent,
+  { path:'', redirectTo:'homepage', pathMatch:'full' },
+  { path:'homepage', component: MainComponent,
     loadChildren: () => import('./components/main/main.module').then((mod) => mod.MainModule)
   },
   { path:'login', component: LoginComponent },
