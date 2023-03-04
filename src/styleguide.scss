@@ -1,0 +1,79 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+$archiprod-primary: mat.define-palette(mat.$indigo-palette);
+$archiprod-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$archiprod-warn: mat.define-palette(mat.$red-palette);
+
+$archiprod-theme: mat.define-light-theme((
+  color: (
+    primary: $archiprod-primary,
+    accent: $archiprod-accent,
+    warn: $archiprod-warn,
+  )
+));
+@include mat.all-component-themes($archiprod-theme);
+
+:root {
+    --black: rgb(31, 31, 31);
+    --light-grey: #EEEEEE;
+    --white: rgb(255, 255, 255);
+    --accent: #F2CF8D;
+    --accent-click: #EBB26C;
+    --second: #ADC1C6;
+    --pink: #FF7474;
+    --danger: #F24535;
+    --warning: #F29F05;
+    --success: #35BF30;
+}
+
+h1 {
+    font-size: 72px;
+    font-weight: 400;
+    text-align: center;
+}
+
+h3 {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.btn {
+    all: none;
+    padding: 16px 32px;
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: uppercase;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.btn-light {
+    color: black;
+    background-color: var(--white);
+}
+
+.btn-accent {
+    color: black;
+    background-color: var(--accent);
+}
+
+.input {
+    padding: 18px;
+    border-radius: 6px;
+    outline: none;
+    border: 0;
+}
+
+p {
+    font-size: 18px;
+    text-align: center;
+}

@@ -1,0 +1,97 @@
+.main-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 220px;
+    width: 100%;
+    height: 980px;
+    gap: 32px;
+    background: no-repeat center/100% url('/assets/img/Homepage-img1.png');
+    background-size: cover;
+}
+
+#img-back {
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+}
+
+.about-banner {
+    display: flex;
+    width: 100%;
+    background-color: var(--accent);
+    padding: 56px 64px;
+    gap: 92px;
+
+    .img-about {
+        width: 815px;
+    }
+
+    .about-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 36px;
+    }
+}
+
+.advantages-banner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 120px 64px;
+    gap: 92px;
+}
+
+
+
+.p-desc {
+    font-weight: 300;
+    font-size: 16px;
+}
+
+.statistics-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+
+    .statistic {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+.desc {
+    text-align: center;
+}
+
+@media only screen and (max-width: 1600px) {
+    .about-banner {
+        .img-about {
+            width: 615px;
+        }
+    }
+
+    .advantages-banner {
+        gap: 64px;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    h3 {
+        font-size: 18px;
+    }
+
+    .about-banner {
+        .img-about {
+            width: 415px;
+        }
+    }
+
+    .advantages-banner {
+        gap: 48px;
+    }
+}

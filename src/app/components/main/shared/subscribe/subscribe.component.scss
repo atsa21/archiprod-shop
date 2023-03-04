@@ -1,0 +1,20 @@
+.subscribe-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 92px 64px;
+    gap: 36px;
+    background-color: var(--second);
+}
+
+.form {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.input-subs {
+    width: 600px;
+}
