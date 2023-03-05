@@ -1,5 +1,7 @@
 .articles,
-.text-container {
+.products,
+.sale-products,
+.recommended {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,39 +9,41 @@
     padding: 84px 0;
 }
 
-.articles {
+.articles,
+.products,
+.recommended {
     background-color: var(--accent);
-
-    .box {
-        gap: 72px;
-    
-        .articles-cards {
-            display: flex;
-            gap: 90px;
-        }
-    
-        .small-text {
-            font-weight: 300;
-            font-size: 14px;
-        }
-    }
 }
 
-.box,
-.text-box {
+.sale-products {
+    background-color: var(--second);
+}
+
+.box {
     max-width: 1600px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 72px;
+
+    .articles-cards,
+    .cards {
+        display: flex;
+        gap: 90px;
+    }
+
+    .small-text {
+        font-weight: 300;
+        font-size: 14px;
+    }
 }
 
-.text-box {
-    gap: 24px;
+.cards {
+    display: flex;
 }
 
 @media only screen and (max-width: 1600px) {
-    .box,
-    .text-box {
+    .box {
         max-width: 1260px;
     }
 }

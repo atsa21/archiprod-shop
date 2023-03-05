@@ -5,18 +5,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { SubscribeComponent } from './subscribe/subscribe.component';
-import { RecommendationsComponent } from './recommendations/recommendations.component';
 import { OnSaleComponent } from './on-sale/on-sale.component';
 import { ArticlesCardsComponent } from './articles-cards/articles-cards.component';
+import { RecommendCardComponent } from './recommend-card/recommend-card.component';
+import { BannerComponent } from './banner/banner.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
     SubscribeComponent,
-    RecommendationsComponent,
+    RecommendCardComponent,
     OnSaleComponent,
-    ArticlesCardsComponent
+    ArticlesCardsComponent,
+    BannerComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -29,9 +31,10 @@ import { ArticlesCardsComponent } from './articles-cards/articles-cards.componen
     HeaderComponent,
     FooterComponent,
     SubscribeComponent,
-    RecommendationsComponent,
+    RecommendCardComponent,
     OnSaleComponent,
-    ArticlesCardsComponent
+    ArticlesCardsComponent,
+    BannerComponent
   ]
 })
 export class SharedModule { }

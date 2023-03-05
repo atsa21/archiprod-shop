@@ -10,6 +10,7 @@ import { AngularMaterialsModule } from './shared/angular-materials.module';
 import { AdvantagesCardComponent } from './home-page/advantages/advantages-card/advantages-card.component';
 import { AboutComponent } from './home-page/about/about.component';
 import { MainBannerComponent } from './home-page/main-banner/main-banner.component';
+import { SeoTextComponent } from './home-page/seo-text/seo-text.component';
 
 @NgModule({
     declarations: [
@@ -18,7 +19,8 @@ import { MainBannerComponent } from './home-page/main-banner/main-banner.compone
         AdvantagesComponent,
         AdvantagesCardComponent,
         AboutComponent,
-        MainBannerComponent
+        MainBannerComponent,
+        SeoTextComponent
     ],
     imports: [
         CommonModule,
