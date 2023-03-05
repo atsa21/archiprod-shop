@@ -1,1 +1,15 @@
-<p>footer works!</p>
+<div class="footer-container">
+    <div class="footer-box">
+        <div *ngFor="let footer of footerList" class="footer-section">
+            <h3>{{ footer.name }}</h3>
+            <p *ngFor="let item of footer.items"> {{ item }}</p>
+        </div>
+    </div>
+    <div class="footer-contact">
+        <h3>Subscribe to newsletter</h3>
+        <div class="input-box">
+            <input class="input-lined" placeholder="Insert your email address"/>
+            <button class="btn btn-light">Subscribe</button>
+        </div>
+    </div>
+</div>
