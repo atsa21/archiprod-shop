@@ -8,9 +8,9 @@ import { SignUpComponent } from './components/main/sign-up/sign-up.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AngularMaterialsModule } from './components/main/shared/angular-materials.module';
-import { SharedModule } from './components/main/shared/shared.module';
 import { AdminComponent } from './components/admin/admin.component';
+import { AngularMaterialsModule } from './components/shared/angular-materials.module';
+import { SharedModule } from './components/shared/shared.module';
 
 @NgModule({
   declarations: [

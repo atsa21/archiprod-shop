@@ -15,9 +15,9 @@
 
     .right-menu {
         position: absolute;
-        right: 104px;
+        right: 115px;
         display: flex;
-        gap: 24px;
+        gap: 18px;
     }
 }
 
@@ -26,8 +26,26 @@
     top: 70px;
 }
 
-.icon {
+.nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    width: 36px;
+    border: 0;
+    border-radius: 18px;
+    color: var(--white);
+    background: none;
     cursor: pointer;
+    transition: background-color 0.4s ease-in-out;
+
+    &:hover {
+        background-color: var(--dark-grey);
+    }
+}
+
+.icon-card {
+    width: 18px;
 }
 
 .list {
@@ -41,4 +59,8 @@
 
 .list-item {
     cursor: pointer;
+    
+    a {
+        all: none;
+    }
 }
