@@ -9,13 +9,15 @@ import { AdminProductsComponent } from './admin-products/admin-products.componen
 import { AdminRoutingModule } from './admin-routing.module';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { AddEditProdDialogComponent } from './admin-products/add-edit-prod-dialog/add-edit-prod-dialog.component';
+import { AddEditCategoryComponent } from './admin-products/add-edit-category/add-edit-category.component';
 
 @NgModule({
   declarations: [
     UsersComponent,
     AdminProductsComponent,
     SideBarComponent,
-    AddEditProdDialogComponent
+    AddEditProdDialogComponent,
+    AddEditCategoryComponent
   ],
   imports: [
     CommonModule,

@@ -33,8 +33,22 @@ export class AddEditProdDialogComponent implements OnInit {
   ngOnInit(): void {
     // this.userId = localStorage.getItem('userId');
     this.prodForm = this.fb.group({
-      category: new FormControl('',[Validators.required, Validators.minLength(2), Validators.maxLength(70)])
+      name: new FormControl('',[Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
+      category: new FormControl(''),
+      
     });
+
+    // name: string,
+    // category: string,
+    // brand: string,
+    // shape: string,
+    // amount: number,
+    // price: number,
+    // currency: string,
+    // productCode?: string,
+    // year?: number,
+    // collection?: string,
+    // designer?: string
 
     if(this.editData) {
       this.dialogTitle = "Edit Todo";

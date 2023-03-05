@@ -1,0 +1,24 @@
+<div class="header">
+    <h1 class="fs-2 m-0">{{dialogTitle}}</h1>
+    <button mat-dialog-close class="close-btn">
+        <mat-icon>clear</mat-icon>
+    </button>
+</div>
+<p class="mt-2">Add product category</p>
+<div mat-dialog-content>
+    <form [formGroup]="categotyForm" class="form">
+
+        <div>
+            <label>Category name</label>
+            <input formControlName="name" class="input" placeholder="Enter category name"/>
+        </div>
+        <div>
+            <label>Category type</label>
+            <input formControlName="type" class="input" placeholder="Enter category type"/>
+        </div>
+
+        <button (click)="addCategory()">Add categoty</button>
+
+    </form>
+</div>
+

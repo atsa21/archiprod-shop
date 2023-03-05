@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddEditProdDialogComponent } from './add-edit-prod-dialog/add-edit-prod-dialog.component';
+import { AddEditCategoryComponent } from './add-edit-category/add-edit-category.component';
+// import { AddEditProdDialogComponent } from './add-edit-prod-dialog/add-edit-prod-dialog.component';
 
 @Component({
   selector: 'app-admin-products',
@@ -8,6 +9,8 @@ import { AddEditProdDialogComponent } from './add-edit-prod-dialog/add-edit-prod
   styleUrls: ['./admin-products.component.scss']
 })
 export class AdminProductsComponent {
+
+  public menuOpened = false;
 
   products = [
     { id:'1', brand: 'FLOS', description:'CHIARA T PINK GOLD - LED aluminium table lamp', image:'/assets/img/homepage-what-is-arch.png', onSale: false },
@@ -20,10 +23,16 @@ export class AdminProductsComponent {
     private dialog : MatDialog
   ){}
 
-  openDialog(): void {
-    this.dialog.open(AddEditProdDialogComponent, {
+  public openCategory(): void {
+    this.dialog.open(AddEditCategoryComponent, {
       width: '420px'
     });
   }
+
+  // public openProducts(): void {
+  //   this.dialog.open(AddEditProdDialogComponent, {
+  //     width: '420px'
+  //   });
+  // }
   
 }
