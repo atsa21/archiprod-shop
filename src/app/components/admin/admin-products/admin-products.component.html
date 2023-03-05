@@ -3,7 +3,7 @@
     <div class="products-container">
         <div class="products-header">
             <h2>Products</h2>
-            <button class="btn">Add product</button>
+            <button class="btn" (click)="openDialog()">Add product</button>
         </div>
         <div class="products-box">
             <app-recommend-card *ngFor="let product of products" [product]="product"></app-recommend-card>

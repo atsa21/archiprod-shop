@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AddEditProdDialogComponent } from './add-edit-prod-dialog/add-edit-prod-dialog.component';
 
 @Component({
   selector: 'app-admin-products',
@@ -13,5 +15,15 @@ export class AdminProductsComponent {
     { id:'3', brand: 'FLOS', description:'CHIARA T PINK GOLD - LED aluminium table lamp', image:'/assets/img/homepage-what-is-arch.png', onSale: false },
     { id:'4', brand: 'FLOS', description:'CHIARA T PINK GOLD - LED aluminium table lamp', image:'/assets/img/homepage-what-is-arch.png', onSale: false }
   ];
+
+  constructor(
+    private dialog : MatDialog
+  ){}
+
+  openDialog(): void {
+    this.dialog.open(AddEditProdDialogComponent, {
+      width: '420px'
+    });
+  }
   
 }

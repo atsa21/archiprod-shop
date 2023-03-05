@@ -33,42 +33,18 @@ export class AddEditProdDialogComponent implements OnInit {
   ngOnInit(): void {
     // this.userId = localStorage.getItem('userId');
     this.prodForm = this.fb.group({
-      category: new FormControl('', Validators.required),
-      task: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
-      date: new FormControl('', Validators.required),
-      priority: new FormControl('', Validators.required),
-      checked: false
+      category: new FormControl('',[Validators.required, Validators.minLength(2), Validators.maxLength(70)])
     });
 
     if(this.editData) {
       this.dialogTitle = "Edit Todo";
       this.actionBtn = "Save";
-      const date = new Date(this.editData.date);
       this.prodForm.controls['category'].setValue(this.editData.category);
-      this.prodForm.controls['task'].setValue(this.editData.task);
-      this.prodForm.controls['date'].setValue(date);
-      this.prodForm.controls['priority'].setValue(this.editData.priority);
       this.key = this.editData.key;
     }
   }
 
   get category(){
     return this.prodForm.get('category');
-  }
-
-  get date(){
-    return this.prodForm.get('date');
-  }
-
-  get priority(){
-    return this.prodForm.get('priority');
-  }
-
-  get task(){
-    return this.prodForm.get('task');
-  }
-
-  get tags(){
-    return this.prodForm.get('tags');
   }
 }
