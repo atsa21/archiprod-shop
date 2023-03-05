@@ -1,1 +1,43 @@
-<p>home-page works!</p>
+<app-main-banner></app-main-banner>
+<app-about></app-about>
+<app-advantages></app-advantages>
+<div class="products">
+    <div class="box">
+        <h1>Top products</h1>
+        <div class="cards">
+            <app-recommend-card *ngFor="let product of products" [product]="product"></app-recommend-card>
+        </div>
+        <button class="btn btn-light">See all products</button>
+    </div>
+</div>
+<div class="sale-products">
+    <div class="box">
+        <h1>On sale</h1>
+        <div class="cards">
+            <app-recommend-card *ngFor="let product of products" [product]="product"></app-recommend-card>
+        </div>
+        <button class="btn btn-light">See all products</button>
+    </div>
+</div>
+<app-seo-text></app-seo-text>
+<div class="recommended">
+    <div class="box">
+        <h1>Recommendations</h1>
+        <div class="cards">
+            <app-recommend-card *ngFor="let product of products" [product]="product"></app-recommend-card>
+        </div>
+        <button class="btn btn-light">See all products</button>
+    </div>
+</div>
+<app-banner></app-banner>
+<app-subscribe></app-subscribe>
+<div class="articles">
+    <div class="box">
+        <h1>Articles</h1>
+        <div class="articles-cards">
+            <app-articles-cards *ngFor="let article of articles" [article]="article"></app-articles-cards>
+        </div>
+        <button class="btn btn-light">All articles</button>
+    </div>
+</div>
+<app-seo-text></app-seo-text>

@@ -1,0 +1,25 @@
+.advantages-banner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 120px 64px;
+    gap: 92px;
+
+    .adv-boxes {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+@media only screen and (max-width: 1600px) {
+    .advantages-banner {
+        gap: 64px;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    .advantages-banner {
+        gap: 48px;
+    }
+}

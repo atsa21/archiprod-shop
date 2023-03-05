@@ -1,0 +1,31 @@
+.adv-box {
+    display: flex;
+    flex-direction: column;
+    width: 290px;
+    text-align: center;
+    gap: 24px;
+
+    .text-box {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+.p-desc {
+    line-height: 21px;
+    font-weight: 300;
+    font-size: 16px;
+}
+
+@media only screen and (max-width: 1600px) {
+    .adv-box {
+        width: 220px;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    .adv-box {
+        width: 180px;
+    }
+}
