@@ -51,6 +51,11 @@ h1 {
     text-align: center;
 }
 
+h2 {
+    font-size: 48px;
+    font-weight: 400;
+}
+
 h3 {
     font-size: 24px;
     font-weight: 600;
@@ -99,4 +104,9 @@ h3 {
 p {
     font-size: 18px;
     text-align: center;
+}
+
+.link-light {
+    color: var(--white);
+    text-decoration-line: none;
 }

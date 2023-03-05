@@ -49,8 +49,7 @@
 }
 
 .list {
-    list-style-type: none;
-    transition: text-decoration 0.4s ease-in-out;
+    display: flex;
 
     &:hover {
         list-style-type: disc;
@@ -58,9 +57,7 @@
 }
 
 .list-item {
+    display: flex;
     cursor: pointer;
-    
-    a {
-        all: none;
-    }
+    transition: text-decoration 0.4s ease-in-out;
 }
