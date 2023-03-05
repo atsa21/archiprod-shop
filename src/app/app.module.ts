@@ -10,13 +10,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialsModule } from './components/main/shared/angular-materials.module';
 import { SharedModule } from './components/main/shared/shared.module';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
