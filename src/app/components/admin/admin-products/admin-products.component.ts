@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { map } from 'rxjs';
+import { Category } from 'src/app/models/category';
+import { CategoryRes } from 'src/app/models/category-res';
+import { CategoryService } from 'src/app/services/category.service';
 import { AddEditCategoryComponent } from './add-edit-category/add-edit-category.component';
-// import { AddEditProdDialogComponent } from './add-edit-prod-dialog/add-edit-prod-dialog.component';
+import { AddEditProdDialogComponent } from './add-edit-prod-dialog/add-edit-prod-dialog.component';
 
 @Component({
   selector: 'app-admin-products',
@@ -12,6 +16,7 @@ export class AdminProductsComponent {
 
   public menuOpened = false;
 
+  categories: Category[] = [];
   products = [
     { id:'1', brand: 'FLOS', description:'CHIARA T PINK GOLD - LED aluminium table lamp', image:'/assets/img/homepage-what-is-arch.png', onSale: false },
     { id:'2', brand: 'FLOS', description:'CHIARA T PINK GOLD - LED aluminium table lamp', image:'/assets/img/homepage-what-is-arch.png', onSale: false },
@@ -20,19 +25,41 @@ export class AdminProductsComponent {
   ];
 
   constructor(
-    private dialog : MatDialog
+    private dialog : MatDialog,
+    private categoryService: CategoryService
   ){}
+
+  ngOnInit(): void {
+    this.getCategories();
+  }
+
+  private getCategories(): void {
+    this.categoryService.getAllCategories()
+      .pipe(map((data) => {
+        return data.data.map( (res: CategoryRes) => {
+          return {
+            id: res._id,
+            name: res.name
+          }
+        })
+      }))
+      .subscribe(data => {
+        this.categories = data;
+    })
+  }
 
   public openCategory(): void {
     this.dialog.open(AddEditCategoryComponent, {
-      width: '420px'
+      width: '420px',
+      data: this.categories
     });
   }
 
-  // public openProducts(): void {
-  //   this.dialog.open(AddEditProdDialogComponent, {
-  //     width: '420px'
-  //   });
-  // }
+  public openProducts(): void {
+    this.dialog.open(AddEditProdDialogComponent, {
+      width: '420px',
+      data: this.categories
+    });
+  }
   
 }

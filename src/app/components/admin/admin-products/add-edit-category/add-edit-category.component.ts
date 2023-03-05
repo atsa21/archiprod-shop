@@ -12,7 +12,7 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
 export class AddEditCategoryComponent implements OnInit {
 
   categotyForm !: FormGroup;
-  categories: string[] = [];
+  categories: any[] = [];
 
   dialogTitle : string = "Add Todo";
   actionBtn : string = "Submit";
@@ -28,13 +28,14 @@ export class AddEditCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.categotyForm = this.fb.group({
-      name: new FormControl('',[Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
-      type: new FormControl(''),
+      name: new FormControl('',[Validators.required, Validators.minLength(2), Validators.maxLength(70)])
     });
 
     if(this.editData) {
       this.dialogTitle = "Edit Category";
       this.actionBtn = "Save";
+      this.categories = this.editData;
+      console.log(this.categories);
       // this.categotyForm.controls['name'].setValue(this.editData);
       this.key = this.editData.key;
     }
@@ -45,6 +46,16 @@ export class AddEditCategoryComponent implements OnInit {
   }
   
   public addCategory(): void {
-    this.categoryService.postCategory(this.categotyForm);
+    if(this.categotyForm.valid) {
+      this.categoryService.addCategory(this.categotyForm.value).subscribe( res => {
+        const id = res.categoryId;
+      });
+    }
+  }
+
+  public deleteCategory(id: string): void {
+    this.categoryService.deleteCategory(id).subscribe((res: any) => {
+      console.log("You deleted the category");
+    });
   }
 }

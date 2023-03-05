@@ -7,18 +7,16 @@
 <p class="mt-2">Add product category</p>
 <div mat-dialog-content>
     <form [formGroup]="categotyForm" class="form">
-
         <div>
             <label>Category name</label>
             <input formControlName="name" class="input" placeholder="Enter category name"/>
         </div>
-        <div>
-            <label>Category type</label>
-            <input formControlName="type" class="input" placeholder="Enter category type"/>
-        </div>
 
-        <button (click)="addCategory()">Add categoty</button>
-
+        <button class="btn" (click)="addCategory()">Add categoty</button>
     </form>
+    <div *ngFor="let category of categories">
+        <p>{{ category.name }}</p>
+        <button class="btn" (click)="deleteCategory(category.id)">Delete</button>
+    </div>
 </div>
 
