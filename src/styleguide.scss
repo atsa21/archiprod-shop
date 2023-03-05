@@ -17,6 +17,7 @@ $archiprod-theme: mat.define-light-theme((
 
 :root {
     --black: rgb(31, 31, 31);
+    --dark-grey: rgb(58, 58, 58);
     --grey: #979797;
     --light-grey: #EEEEEE;
     --white: rgb(255, 255, 255);
@@ -48,6 +49,11 @@ h1 {
     font-size: 72px;
     font-weight: 400;
     text-align: center;
+}
+
+h2 {
+    font-size: 48px;
+    font-weight: 400;
 }
 
 h3 {
@@ -98,4 +104,9 @@ h3 {
 p {
     font-size: 18px;
     text-align: center;
+}
+
+.link-light {
+    color: var(--white);
+    text-decoration-line: none;
 }

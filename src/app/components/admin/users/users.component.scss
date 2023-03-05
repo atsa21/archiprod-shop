@@ -1,0 +1,33 @@
+.admin-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    padding-top: 70px;
+    background: var(--light-grey);
+
+    .products-container {
+        width: 100%;
+
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            margin: 24px;
+            padding: 18px;
+            border-radius: 6px;
+            background-color: var(--white);
+        }
+
+        .users-box {
+            display: flex;
+            justify-content: space-between;
+            margin: 24px;
+            padding: 24px 18px;
+            border-radius: 6px;
+            background-color: var(--white);
+        }
+    }
+}
+
+h1 {
+    font-size: 46px;
+}

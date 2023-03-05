@@ -1,0 +1,27 @@
+<div class="container">
+    <button class="nav-icon">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+    <img class="logo" (click)="toHomepage()" src="/assets/img/logo.svg"/>
+    <div class="right-menu">
+        <button class="nav-icon">
+            <img class="icon-card" src="/assets/img/cart-shopping-line.svg" />
+        </button>
+        <button class="nav-icon">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+        <button class="nav-icon">
+            <i class="fa-regular fa-user"></i>
+        </button>
+    </div>
+    <button class="nav-icon menu-icon" (click)="openMenu()">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+</div>
+<div class="container menu" *ngIf="menuOpened">
+    <div class="list">
+        <div *ngFor="let menu of menuList" class="list-item">
+            <a [href]="menu.link" class="link-light">{{ menu.name }}</a>
+        </div>
+    </div>
+</div>
