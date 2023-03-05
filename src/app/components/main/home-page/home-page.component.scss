@@ -20,16 +20,18 @@
 }
 
 .box {
-    max-width: 1600px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 1600px;
     gap: 72px;
 
     .articles-cards,
     .cards {
         display: flex;
-        gap: 90px;
+        align-items: center;
+        justify-content: space-between;
+        width: 1600px;
     }
 
     .small-text {
@@ -38,12 +40,17 @@
     }
 }
 
-.cards {
-    display: flex;
-}
-
 @media only screen and (max-width: 1600px) {
+    .containers .containers-box {
+        max-width: 1260px;
+    }
+
     .box {
         max-width: 1260px;
+
+        .articles-cards,
+        .cards {
+            width: 1260px;
+        }
     }
 }

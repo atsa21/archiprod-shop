@@ -1,7 +1,7 @@
 .card-box {
     display: flex;
     flex-direction: column;
-    width: 290px;
+    max-width: 290px;
     border-radius: 6px;
     background: var(--light-grey);
     cursor: pointer;
@@ -16,7 +16,8 @@
         width: 290px;
 
         .img {
-            max-width: 100%;
+            border-radius: 6px 6px 0 0;
+            max-width: 290px;
         }
     }
 
@@ -26,5 +27,19 @@
         align-items: center;
         gap: 24px;
         padding: 24px;
+    }
+}
+
+@media only screen and (max-width: 1600px) {
+    .card-box {
+        max-width: 260px;
+
+        .card-image{
+            width: 260px;
+    
+            .img {
+                max-width: 260px;
+            }
+        }
     }
 }

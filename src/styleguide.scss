@@ -17,6 +17,7 @@ $archiprod-theme: mat.define-light-theme((
 
 :root {
     --black: rgb(31, 31, 31);
+    --grey: #979797;
     --light-grey: #EEEEEE;
     --white: rgb(255, 255, 255);
     --accent: #F2CF8D;
@@ -26,6 +27,21 @@ $archiprod-theme: mat.define-light-theme((
     --danger: #F24535;
     --warning: #F29F05;
     --success: #35BF30;
+}
+
+body::-webkit-scrollbar {
+    width: 16px;
+}
+   
+body::-webkit-scrollbar-track {
+    background-color: var(--light-grey);
+}
+   
+body::-webkit-scrollbar-thumb {
+    border-radius: 100px;
+    border: 3px solid transparent;
+    background-color: var(--grey);
+    background-clip: content-box;
 }
 
 h1 {
