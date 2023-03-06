@@ -3,14 +3,13 @@
     <div class="products-container">
         <div class="products-header">
             <h2>Products</h2>
-            <button class="btn" (click)="menuOpened = !menuOpened">More</button>
-            <div class="container menu" *ngIf="menuOpened">
-                <div class="list">
-                    <div class="list-item">
-                        <div>
-                            <button class="btn" (click)="openCategory()">Add Category</button>
-                            <button class="btn" (click)="openProducts()">Add Product</button>
-                        </div>
+            <div class="prod-buttons">
+                <button class="btn btn-accent" (click)="openProducts()">Add Product</button>
+                <button class="btn btn-accent btn-gear" (click)="menuOpened = !menuOpened"><i class="fa-solid fa-gear"></i></button>
+                <div class="menu-box" *ngIf="menuOpened">
+                    <div class="list">
+                        <button class="btn-list" (click)="openCategory()">Categories List</button>
+                        <button class="btn-list" (click)="openCategory()">Brands List</button>
                     </div>
                 </div>
             </div>

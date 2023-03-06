@@ -50,15 +50,13 @@ export class AdminProductsComponent {
 
   public openCategory(): void {
     this.dialog.open(AddEditCategoryComponent, {
-      width: '420px',
-      data: this.categories
+      width: '420px'
     });
   }
 
   public openProducts(): void {
     this.dialog.open(AddEditProdDialogComponent, {
-      width: '420px',
-      data: this.categories
+      width: '420px'
     });
   }
   

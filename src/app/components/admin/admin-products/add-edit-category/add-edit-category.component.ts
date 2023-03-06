@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { map } from 'rxjs';
+import { CategoryRes } from 'src/app/models/category-res';
 import { CategoryService } from 'src/app/services/category.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 
@@ -14,14 +16,14 @@ export class AddEditCategoryComponent implements OnInit {
   categotyForm !: FormGroup;
   categories: any[] = [];
 
-  dialogTitle : string = "Add Todo";
+  title : string = "Categories";
   actionBtn : string = "Submit";
   userId: string | null = '';
-  key: any;
+  isEditing = false;
 
   constructor( private fb : FormBuilder,
     private categoryService: CategoryService,
-    @Inject(MAT_DIALOG_DATA) public editData: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogReg: MatDialogRef<AddEditCategoryComponent>,
     private snackbar: SnackBarService,
     ) { }
@@ -30,19 +32,38 @@ export class AddEditCategoryComponent implements OnInit {
     this.categotyForm = this.fb.group({
       name: new FormControl('',[Validators.required, Validators.minLength(2), Validators.maxLength(70)])
     });
-
-    if(this.editData) {
-      this.dialogTitle = "Edit Category";
-      this.actionBtn = "Save";
-      this.categories = this.editData;
-      console.log(this.categories);
-      // this.categotyForm.controls['name'].setValue(this.editData);
-      this.key = this.editData.key;
-    }
+    this.getCategories();
+    // if(this.data) {
+    //   this.isEditing = this.data.isEditing;
+    //   this.categories = this.data;
+    //   this.dialogTitle = "Edit Category";
+    //   this.actionBtn = "Save";
+    // }
   }
 
   get name(){
     return this.categotyForm.get('name');
+  }
+
+  // private setEditingData(category: any[]) {
+  //   this.dialogTitle = "Edit Category";
+  //   this.actionBtn = "Save";
+  //   this.categories = ''
+  // }
+
+  private getCategories(): void {
+    this.categoryService.getAllCategories()
+      .pipe(map((data) => {
+        return data.data.map( (res: CategoryRes) => {
+          return {
+            id: res._id,
+            name: res.name
+          }
+        })
+      }))
+      .subscribe(data => {
+        this.categories = data;
+    })
   }
   
   public addCategory(): void {

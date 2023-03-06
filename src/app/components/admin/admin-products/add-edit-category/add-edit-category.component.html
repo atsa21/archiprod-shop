@@ -1,11 +1,13 @@
-<div class="header">
-    <h1 class="fs-2 m-0">{{dialogTitle}}</h1>
-    <button mat-dialog-close class="close-btn">
-        <mat-icon>clear</mat-icon>
-    </button>
+<div class="dialog-container">
+    <div class="header">
+        <h2 class="diatog-title">{{ title }}</h2>
+        <button mat-dialog-close class="close-btn">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+    <p>Add product category</p>
 </div>
-<p class="mt-2">Add product category</p>
-<div mat-dialog-content>
+<!-- <div mat-dialog-content>
     <form [formGroup]="categotyForm" class="form">
         <div>
             <label>Category name</label>
@@ -18,5 +20,5 @@
         <p>{{ category.name }}</p>
         <button class="btn" (click)="deleteCategory(category.id)">Delete</button>
     </div>
-</div>
+</div> -->
 
