@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ProductService } from 'src/app/services/product.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { SnackBarService } from 'src/app/services/snack-bar.service';
+import { Category } from 'src/app/models/category';
 
 @Component({
   selector: 'app-add-edit-prod-dialog',
@@ -11,17 +12,17 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
 })
 export class AddEditProdDialogComponent implements OnInit {
 
-  prodForm !: FormGroup;
-  categories: string[] = ['work', 'study', 'home', 'hobbies', 'other'];
+  prodForm!: FormGroup;
+  categories!: Category[];
 
-  dialogTitle : string = "Add Todo";
-  actionBtn : string = "Submit";
+  dialogTitle: string = "Add Todo";
+  actionBtn: string = "Submit";
   userId: string | null = '';
-  key: any;
+  id: any;
 
   constructor( private fb : FormBuilder,
     private prodService: ProductService,
-    @Inject(MAT_DIALOG_DATA) public editData: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogReg: MatDialogRef<AddEditProdDialogComponent>,
     private snackbar: SnackBarService,
     // private dateAdapter: DateAdapter<Date>
@@ -33,14 +34,29 @@ export class AddEditProdDialogComponent implements OnInit {
   ngOnInit(): void {
     // this.userId = localStorage.getItem('userId');
     this.prodForm = this.fb.group({
-      category: new FormControl('',[Validators.required, Validators.minLength(2), Validators.maxLength(70)])
+      name: new FormControl('',[Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
+      category: new FormControl(''),
     });
 
-    if(this.editData) {
-      this.dialogTitle = "Edit Todo";
+    // name: string,
+    // category: string,
+    // brand: string,
+    // shape: string,
+    // amount: number,
+    // price: number,
+    // currency: string,
+    // productCode?: string,
+    // year?: number,
+    // collection?: string,
+    // designer?: string
+
+    if(this.data) {
+      this.dialogTitle = "Edit Product";
       this.actionBtn = "Save";
-      this.prodForm.controls['category'].setValue(this.editData.category);
-      this.key = this.editData.key;
+      console.log(this.data);
+      this.categories = this.data;
+      // this.prodForm.controls['category'].setValue(this.data.category);
+      this.id = this.data.id;
     }
   }
 
