@@ -4,8 +4,8 @@ import { map } from 'rxjs';
 import { Category } from 'src/app/models/category';
 import { CategoryRes } from 'src/app/models/category-res';
 import { CategoryService } from 'src/app/services/category.service';
-import { AddEditCategoryComponent } from './add-edit-category/add-edit-category.component';
 import { AddEditProdDialogComponent } from './add-edit-prod-dialog/add-edit-prod-dialog.component';
+import { AddEditProdListsComponent } from './add-edit-prod-lists/add-edit-prod-lists.component';
 
 @Component({
   selector: 'app-admin-products',
@@ -59,7 +59,7 @@ export class AdminProductsComponent {
   }
 
   public openDialog(data: any): void {
-    this.dialog.open(AddEditCategoryComponent, {
+    this.dialog.open(AddEditProdListsComponent, {
       width: '420px',
       data: data
     });
