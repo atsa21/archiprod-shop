@@ -1,19 +1,40 @@
 <div class="dialog-container">
-    <div class="header">
+    <div>
         <h2>{{ dialogTitle }} Product</h2>
         <button mat-dialog-close class="btn-close">
             <i class="fa-solid fa-xmark"></i>
         </button>
     </div>
-    <div mat-dialog-content>
+    <div class="dialog-body">
         <form [formGroup]="prodForm" class="form">
-    
-            <select class="select" formControlName="category">
-                <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+
+            <input formControlName="image" class="input input-accent-lined" placeholder="Add image"/>
+            <input formControlName="name" class="input input-accent-lined" placeholder="Enter product name"/>
+            <select formControlName="category" class="select select-accent-lined">
+                <option value="" disabled selected hidden>Select category</option>
+                <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
             </select>
-            <input class="input input-subs" placeholder="Insert your email address"/>
-    
-            <button class="btn btn-accent">Add product</button>
+            <select formControlName="type" class="select select-accent-lined">
+                <option value="" disabled selected hidden>Select type</option>
+                <option *ngFor="let type of types" [value]="type.name">{{ type.name }}</option>
+            </select>
+            <select formControlName="brand" class="select select-accent-lined">
+                <option value="" disabled selected hidden>Select brand</option>
+                <option *ngFor="let brand of brands" [value]="brand.name">{{ brand.name }}</option>
+            </select>
+            <input formControlName="amount" class="input input-accent-lined" placeholder="Enter product amount"/>
+            <input formControlName="price" class="input input-accent-lined" placeholder="Enter product price"/>
+            <select formControlName="currency" class="select select-accent-lined">
+                <option value="" disabled selected hidden>Select currency</option>
+                <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+            </select>
+            <input formControlName="productCode" class="input input-accent-lined" placeholder="Enter product code"/>
+            <input formControlName="year" class="input input-accent-lined" placeholder="Enter year"/>
+            <input formControlName="collection" class="input input-accent-lined" placeholder="Enter collection name"/>
+            <input formControlName="designer" class="input input-accent-lined" placeholder="Enter designer name"/>
+            <input type="radio"/>
+
+            <button [disabled]="!prodForm.valid" class="btn btn-accent">Add product</button>
         </form>
     </div>
 </div>

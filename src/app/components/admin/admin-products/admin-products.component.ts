@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { map } from 'rxjs';
+import { map, take } from 'rxjs';
 import { Category } from 'src/app/models/category';
 import { CategoryRes } from 'src/app/models/category-res';
 import { CategoryService } from 'src/app/services/category.service';
@@ -20,8 +20,8 @@ export class AdminProductsComponent {
 
   descriptionList: any;
   categories: Category[] = [];
-  types: any;
-  brands: any;
+  types: any = ['Chair'];
+  brands: any = [];
 
   products = [
     { id:'1', brand: 'FLOS', description:'CHIARA T PINK GOLD - LED aluminium table lamp', image:'/assets/img/homepage-what-is-arch.png', onSale: false },
@@ -38,9 +38,9 @@ export class AdminProductsComponent {
   ngOnInit(): void {
     this.getCategories();
     this.prodDescriptionData = {
-      categories: this.categories,
-      types: this.types,
-      brands: this.brands
+      categories: [],
+      types: [],
+      brands: []
     };
   }
 
@@ -56,21 +56,30 @@ export class AdminProductsComponent {
       }))
       .subscribe(data => {
         this.categories = data;
+        this.prodDescriptionData.categories = this.categories;
     })
   }
 
   public openDialog( title: string, name: string, data: any ): void {
-    this.dialog.open(AddEditProdListsComponent, {
+    const dialogRef = this.dialog.open(AddEditProdListsComponent, {
       width: '420px',
-      data: { dialogTitle: title,dialogName: name, list: data }
+      data: { dialogTitle: title, dialogName: name, list: data }
     });
     this.openCloseMenu();
+    dialogRef
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(() => {
+        
+      });
   }
 
   public openAddProducts(): void {
     this.dialog.open(AddEditProdDialogComponent, {
       width: '420px',
-      data: { descriptionList: this.prodDescriptionData , isEditing: false }
+      data: { 
+        descriptionList: this.prodDescriptionData , 
+        isEditing: false }
     });
   }
 

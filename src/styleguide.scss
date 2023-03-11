@@ -19,6 +19,7 @@ $archiprod-theme: mat.define-light-theme((
     --black: rgb(31, 31, 31);
     --dark-grey: rgb(58, 58, 58);
     --grey: #979797;
+    --med-grey: #e2e2e2;
     --light-grey: #EEEEEE;
     --white: rgb(255, 255, 255);
     --accent: #F2CF8D;
@@ -68,10 +69,10 @@ h3 {
     text-transform: uppercase;
     border: 0;
     border-radius: 6px;
-    cursor: pointer;
     transition: all 0.4s ease-in-out;
 
-    &:hover {
+    &:hover:enabled {
+        cursor: pointer;
         box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.2);
     }
 }
@@ -84,6 +85,11 @@ h3 {
 .btn-accent {
     color: var(--black);
     background-color: var(--accent);
+
+    &:disabled {
+        color: var(--white);
+        background-color: var(--med-grey);
+    }
 }
 
 .btn-line {
@@ -151,6 +157,20 @@ h3 {
 
 .input-accent-lined {
     border: 2px solid var(--accent);
+
+    &:focus {
+        border: 2px solid var(--black);
+    }
+}
+
+.select-accent-lined {
+    padding: 16px;
+    border-radius: 6px;
+    border: 2px solid var(--accent);
+
+    &:focus {
+        border: 2px solid var(--black);
+    }
 }
 
 p {

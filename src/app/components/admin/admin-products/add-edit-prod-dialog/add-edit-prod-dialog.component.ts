@@ -14,17 +14,17 @@ export class AddEditProdDialogComponent implements OnInit {
 
   prodForm!: FormGroup;
   categories!: Category[];
+  types!: Category[];
+  brands!: Category[];
+  currencies: string[] = ['Euro', 'Dollar', 'Pound'];
 
-  dialogTitle: string = "Add";
-  actionBtn: string = "Submit";
-  userId: string | null = '';
-  id: any;
+  dialogTitle: string = 'Add';
+  actionBtn: string = 'Submit';
+  isEditing = false;
 
   constructor( private fb : FormBuilder,
     private prodService: ProductService,
-    @Inject(MAT_DIALOG_DATA) public editData: any,
-    private dialogReg: MatDialogRef<AddEditProdDialogComponent>,
-    private snackbar: SnackBarService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     // private dateAdapter: DateAdapter<Date>
     ) {
       // this.dateAdapter.setLocale('en-GB');
@@ -48,14 +48,13 @@ export class AddEditProdDialogComponent implements OnInit {
       onSale: new FormControl(false, Validators.required),
     });
 
-    // if(this.editData) {
-    //   this.dialogTitle = "Edit";
-    //   this.actionBtn = "Save";
-    //   console.log(this.data);
-    //   this.categories = this.data;
-    //   // this.prodForm.controls['category'].setValue(this.data.category);
-    //   this.id = this.data.id;
-    // }
+    if(this.data) {
+      this.dialogTitle = 'Add';
+      this.isEditing = this.data.isEditing;
+      this.categories = this.data.descriptionList.categories;
+      this.types = this.data.descriptionList.types;
+      this.brands = this.data.descriptionList.brands;
+    }
 
     this.getCategories();
   }
