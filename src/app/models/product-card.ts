@@ -1,5 +1,5 @@
 export interface ProductCard {
-    id: number,
+    id?: string,
     brand: string,
     collection: string,
     type: {

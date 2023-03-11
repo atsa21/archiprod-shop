@@ -15,14 +15,14 @@ export class AddEditProdDialogComponent implements OnInit {
   prodForm!: FormGroup;
   categories!: Category[];
 
-  dialogTitle: string = "Add Todo";
+  dialogTitle: string = "Add Product";
   actionBtn: string = "Submit";
   userId: string | null = '';
   id: any;
 
   constructor( private fb : FormBuilder,
     private prodService: ProductService,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public editData: any,
     private dialogReg: MatDialogRef<AddEditProdDialogComponent>,
     private snackbar: SnackBarService,
     // private dateAdapter: DateAdapter<Date>
@@ -32,35 +32,43 @@ export class AddEditProdDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.userId = localStorage.getItem('userId');
     this.prodForm = this.fb.group({
       name: new FormControl('',[Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
-      category: new FormControl(''),
+      category: new FormControl('', Validators.required),
+      type: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
+      image: new FormControl('', Validators.required),
+      brand: new FormControl('', Validators.required),
+      amount: new FormControl(null, Validators.required),
+      price: new FormControl(null, Validators.required),
+      currency: new FormControl('', Validators.required),
+      productCode: new FormControl(''),
+      year: new FormControl(''),
+      collection: new FormControl(''),
+      designer: new FormControl(''),
+      onSale: new FormControl(false, Validators.required),
     });
 
-    // name: string,
-    // category: string,
-    // brand: string,
-    // shape: string,
-    // amount: number,
-    // price: number,
-    // currency: string,
-    // productCode?: string,
-    // year?: number,
-    // collection?: string,
-    // designer?: string
+    // if(this.editData) {
+    //   this.dialogTitle = "Edit Product";
+    //   this.actionBtn = "Save";
+    //   console.log(this.data);
+    //   this.categories = this.data;
+    //   // this.prodForm.controls['category'].setValue(this.data.category);
+    //   this.id = this.data.id;
+    // }
 
-    if(this.data) {
-      this.dialogTitle = "Edit Product";
-      this.actionBtn = "Save";
-      console.log(this.data);
-      this.categories = this.data;
-      // this.prodForm.controls['category'].setValue(this.data.category);
-      this.id = this.data.id;
-    }
+    this.getCategories();
+  }
+
+  get name(){
+    return this.prodForm.get('name');
   }
 
   get category(){
     return this.prodForm.get('category');
+  }
+
+  getCategories(): any {
+
   }
 }

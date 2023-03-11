@@ -4,14 +4,14 @@
         <i class="fa-solid fa-xmark"></i>
     </button>
 </div>
-<p>What you need to do?</p>
 <div mat-dialog-content>
     <form [formGroup]="prodForm" class="form">
 
         <select class="select" formControlName="category">
             <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
         </select>
+        <input class="input input-subs" placeholder="Insert your email address"/>
 
-
+        <button class="btn btn-accent">Add product</button>
     </form>
 </div>

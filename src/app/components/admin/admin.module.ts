@@ -9,7 +9,7 @@ import { AdminProductsComponent } from './admin-products/admin-products.componen
 import { AdminRoutingModule } from './admin-routing.module';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { AddEditProdDialogComponent } from './admin-products/add-edit-prod-dialog/add-edit-prod-dialog.component';
-import { AddEditCategoryComponent } from './admin-products/add-edit-category/add-edit-category.component';
+import { AddEditProdListsComponent } from './admin-products/add-edit-prod-lists/add-edit-prod-lists.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import { AddEditCategoryComponent } from './admin-products/add-edit-category/add
     AdminProductsComponent,
     SideBarComponent,
     AddEditProdDialogComponent,
-    AddEditCategoryComponent
+    AddEditProdListsComponent
   ],
   imports: [
     CommonModule,

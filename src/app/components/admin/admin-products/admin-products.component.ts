@@ -17,6 +17,11 @@ export class AdminProductsComponent {
   public menuOpened = false;
 
   categories: Category[] = [];
+  types: any;
+  brands: any;
+
+  prodDescriptionData: any;
+
   products = [
     { id:'1', brand: 'FLOS', description:'CHIARA T PINK GOLD - LED aluminium table lamp', image:'/assets/img/homepage-what-is-arch.png', onSale: false },
     { id:'2', brand: 'FLOS', description:'CHIARA T PINK GOLD - LED aluminium table lamp', image:'/assets/img/homepage-what-is-arch.png', onSale: false },
@@ -31,6 +36,11 @@ export class AdminProductsComponent {
 
   ngOnInit(): void {
     this.getCategories();
+    this.prodDescriptionData = {
+      categories: this.categories,
+      types: this.types,
+      brands: this.brands
+    }
   }
 
   private getCategories(): void {
@@ -48,15 +58,17 @@ export class AdminProductsComponent {
     })
   }
 
-  public openCategory(): void {
+  public openDialog(data: any): void {
     this.dialog.open(AddEditCategoryComponent, {
-      width: '420px'
+      width: '420px',
+      data: data
     });
   }
 
-  public openProducts(): void {
+  public openAddProducts(): void {
     this.dialog.open(AddEditProdDialogComponent, {
-      width: '420px'
+      width: '420px',
+      data: this.prodDescriptionData
     });
   }
   
