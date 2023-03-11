@@ -1,0 +1,55 @@
+.dialog-container {
+    display: flex;
+    flex-direction: column;
+    padding: 36px;
+    gap: 24px;
+
+    .dialog-body {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        .add-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+
+            .add-input {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                gap: 12px;
+
+                .input {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+.btn-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+.btn-accent {
+    padding: 16px 20px;
+}
+
+h2 {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 42px;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+
+    .buttons-box {
+        display: flex;
+        gap: 4px;
+    }
+}

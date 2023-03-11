@@ -15,7 +15,7 @@ export class AddEditProdDialogComponent implements OnInit {
   prodForm!: FormGroup;
   categories!: Category[];
 
-  dialogTitle: string = "Add Product";
+  dialogTitle: string = "Add";
   actionBtn: string = "Submit";
   userId: string | null = '';
   id: any;
@@ -49,7 +49,7 @@ export class AddEditProdDialogComponent implements OnInit {
     });
 
     // if(this.editData) {
-    //   this.dialogTitle = "Edit Product";
+    //   this.dialogTitle = "Edit";
     //   this.actionBtn = "Save";
     //   console.log(this.data);
     //   this.categories = this.data;

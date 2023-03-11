@@ -24,9 +24,7 @@ $archiprod-theme: mat.define-light-theme((
     --accent: #F2CF8D;
     --accent-click: #EBB26C;
     --second: #ADC1C6;
-    --pink: #FF7474;
-    --danger: #F24535;
-    --warning: #F29F05;
+    --danger: #FF7474;
     --success: #35BF30;
 }
 
@@ -94,11 +92,65 @@ h3 {
     border: 2px solid var(--black);
 }
 
+.btn-icon-light {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    width: 36px;
+    border: 0;
+    border-radius: 18px;
+    background: none;
+    cursor: pointer;
+}
+
+.btn-edit {
+    color: var(--black);
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        background-color: var(--accent);
+    }
+}
+
+.btn-delete {
+    color: var(--danger);
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        color: var(--black);
+        background-color: var(--danger);
+    }
+}
+
+.btn-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    width: 36px;
+    border: 0;
+    border-radius: 18px;
+    color: var(--grey);
+    background: none;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        color: var(--black);
+        background-color: var(--light-grey);
+    }
+}
+
 .input {
     padding: 16px;
     border-radius: 6px;
     outline: none;
     border: 0;
+}
+
+.input-accent-lined {
+    border: 2px solid var(--accent);
 }
 
 p {

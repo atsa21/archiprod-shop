@@ -14,8 +14,8 @@ export class CategoryService {
     return this.http.get<{ message: string, data: any }>('http://localhost:3000/api/categories');
   }
 
-  addCategory(category: Category) {
-    const body = { name: category.name }
+  addCategory(name: string) {
+    const body = { name: name }
     console.log(this.http.post('http://localhost:3000/api/categories', body));
     return this.http.post<{ message: string, categoryId: string}>('http://localhost:3000/api/categories', body);
   }

@@ -5,12 +5,12 @@
             <h2>Products</h2>
             <div class="prod-buttons">
                 <button class="btn btn-accent" (click)="openAddProducts()">Add Product</button>
-                <button class="btn btn-accent btn-gear" (click)="menuOpened = !menuOpened"><i class="fa-solid fa-gear"></i></button>
+                <button class="btn btn-accent btn-gear" (click)="openCloseMenu()"><i class="fa-solid fa-gear"></i></button>
                 <div class="menu-box" *ngIf="menuOpened">
                     <div class="list">
-                        <button class="btn-list" (click)="openDialog(categories)">Categories List</button>
-                        <button class="btn-list" (click)="openDialog(types)">Types List</button>
-                        <button class="btn-list" (click)="openDialog(brands)">Brands List</button>
+                        <button class="btn-list" (click)="openDialog('Categories', 'category', categories)">Categories List</button>
+                        <button class="btn-list" (click)="openDialog('Types', 'type', types)">Types List</button>
+                        <button class="btn-list" (click)="openDialog('Brands', 'brand', brands)">Brands List</button>
                     </div>
                 </div>
             </div>

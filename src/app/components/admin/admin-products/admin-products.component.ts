@@ -16,11 +16,12 @@ export class AdminProductsComponent {
 
   public menuOpened = false;
 
+  prodDescriptionData: any;
+
+  descriptionList: any;
   categories: Category[] = [];
   types: any;
   brands: any;
-
-  prodDescriptionData: any;
 
   products = [
     { id:'1', brand: 'FLOS', description:'CHIARA T PINK GOLD - LED aluminium table lamp', image:'/assets/img/homepage-what-is-arch.png', onSale: false },
@@ -40,7 +41,7 @@ export class AdminProductsComponent {
       categories: this.categories,
       types: this.types,
       brands: this.brands
-    }
+    };
   }
 
   private getCategories(): void {
@@ -58,18 +59,23 @@ export class AdminProductsComponent {
     })
   }
 
-  public openDialog(data: any): void {
+  public openDialog( title: string, name: string, data: any ): void {
     this.dialog.open(AddEditProdListsComponent, {
       width: '420px',
-      data: data
+      data: { dialogTitle: title,dialogName: name, list: data }
     });
+    this.openCloseMenu();
   }
 
   public openAddProducts(): void {
     this.dialog.open(AddEditProdDialogComponent, {
       width: '420px',
-      data: this.prodDescriptionData
+      data: { descriptionList: this.prodDescriptionData , isEditing: false }
     });
+  }
+
+  public openCloseMenu(): void {
+    this.menuOpened = !this.menuOpened;
   }
   
 }

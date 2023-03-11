@@ -1,10 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { map } from 'rxjs';
-import { CategoryRes } from 'src/app/models/category-res';
+import { FormControl } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
-import { SnackBarService } from 'src/app/services/snack-bar.service';
 
 @Component({
   selector: 'app-add-edit-prod-lists',
@@ -12,65 +10,79 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
   styleUrls: ['./add-edit-prod-lists.component.scss']
 })
 export class AddEditProdListsComponent {
-  categotyForm !: FormGroup;
-  categories: any[] = [];
 
-  title : string = "Categories";
-  actionBtn : string = "Submit";
-  userId: string | null = '';
+  list: Category[] = [];
+  name!: FormControl;
+
+  dialogTitle: string = "";
+  dialogName: string = "";
   isEditing = false;
 
-  constructor( private fb : FormBuilder,
+  constructor(
     private categoryService: CategoryService,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogReg: MatDialogRef<AddEditProdListsComponent>,
-    private snackbar: SnackBarService,
+    @Inject(MAT_DIALOG_DATA) public data: any
     ) { }
 
   ngOnInit(): void {
-    this.categotyForm = this.fb.group({
-      name: new FormControl('',[Validators.required, Validators.minLength(2), Validators.maxLength(70)])
-    });
-    this.getCategories();
-    // if(this.data) {
-    //   this.isEditing = this.data.isEditing;
-    //   this.categories = this.data;
-    //   this.dialogTitle = "Edit Category";
-    //   this.actionBtn = "Save";
-    // }
+    this.name = new FormControl('');
+    if(this.data) {
+      this.list = this.data.list;
+      this.dialogTitle = this.data.dialogTitle;
+      this.dialogName = this.data.dialogName;
+    }
   }
 
-  get name(){
-    return this.categotyForm.get('name');
+  public addItem(item: string): void {
+    switch (item) {
+      case 'category':
+        this.addCategory();
+        break;
+      case 'type':
+        this.addCategory();
+        break;
+      default:
+        this.addCategory();
+    }
   }
 
-  // private setEditingData(category: any[]) {
-  //   this.dialogTitle = "Edit Category";
-  //   this.actionBtn = "Save";
-  //   this.categories = ''
-  // }
+  public editItem(item: string, id: string): void {
+    switch (item) {
+      case 'category':
+        this.editCategory(id);
+        break;
+      case 'type':
+        this.editCategory(id);
+        break;
+      default:
+        this.editCategory(id);
+    }
+  }
 
-  private getCategories(): void {
-    this.categoryService.getAllCategories()
-      .pipe(map((data) => {
-        return data.data.map( (res: CategoryRes) => {
-          return {
-            id: res._id,
-            name: res.name
-          }
-        })
-      }))
-      .subscribe(data => {
-        this.categories = data;
-    })
+  public deleteItem(item: string, id: string): void {
+    switch (item) {
+      case 'category':
+        this.deleteCategory(id);
+        break;
+      case 'type':
+        this.deleteCategory(id);
+        break;
+      default:
+        this.deleteCategory(id);
+    }
   }
   
   public addCategory(): void {
-    if(this.categotyForm.valid) {
-      this.categoryService.addCategory(this.categotyForm.value).subscribe( res => {
-        const id = res.categoryId;
+    if(this.name.value) {
+      this.categoryService.addCategory(this.name.value).subscribe( res => {
+        console.log("You added the category");
       });
     }
+  }
+
+  public editCategory(id: string): void {
+    this.categoryService.deleteCategory(id).subscribe((res: any) => {
+      console.log("You deleted the category");
+    });
   }
 
   public deleteCategory(id: string): void {
