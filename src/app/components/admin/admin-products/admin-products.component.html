@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <div class="products-box">
+        <div *ngIf="products" class="products-box">
             <app-recommend-card *ngFor="let product of products" [product]="product"></app-recommend-card>
         </div>
     </div>

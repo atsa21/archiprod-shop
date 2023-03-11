@@ -42,4 +42,13 @@ h2 {
 .form {
     display: flex;
     flex-direction: column;
+    gap: 12px;
+}
+
+.img-preview {
+    width: 200px;
+
+    img {
+        width: 100%;
+    }
 }

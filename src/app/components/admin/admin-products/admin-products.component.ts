@@ -76,7 +76,7 @@ export class AdminProductsComponent {
 
   public openAddProducts(): void {
     this.dialog.open(AddEditProdDialogComponent, {
-      width: '420px',
+      width: '480px',
       data: { 
         descriptionList: this.prodDescriptionData , 
         isEditing: false }

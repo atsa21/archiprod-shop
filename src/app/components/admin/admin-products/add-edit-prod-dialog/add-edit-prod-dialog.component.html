@@ -5,34 +5,76 @@
             <i class="fa-solid fa-xmark"></i>
         </button>
     </div>
-    <div class="dialog-body">
+    <div class="dialog-body" mat-dialog-content>
         <form [formGroup]="prodForm" class="form">
-
-            <input formControlName="image" class="input input-accent-lined" placeholder="Add image"/>
-            <input formControlName="name" class="input input-accent-lined" placeholder="Enter product name"/>
-            <select formControlName="category" class="select select-accent-lined">
-                <option value="" disabled selected hidden>Select category</option>
-                <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
-            </select>
-            <select formControlName="type" class="select select-accent-lined">
-                <option value="" disabled selected hidden>Select type</option>
-                <option *ngFor="let type of types" [value]="type.name">{{ type.name }}</option>
-            </select>
-            <select formControlName="brand" class="select select-accent-lined">
-                <option value="" disabled selected hidden>Select brand</option>
-                <option *ngFor="let brand of brands" [value]="brand.name">{{ brand.name }}</option>
-            </select>
-            <input formControlName="amount" class="input input-accent-lined" placeholder="Enter product amount"/>
-            <input formControlName="price" class="input input-accent-lined" placeholder="Enter product price"/>
-            <select formControlName="currency" class="select select-accent-lined">
-                <option value="" disabled selected hidden>Select currency</option>
-                <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
-            </select>
-            <input formControlName="productCode" class="input input-accent-lined" placeholder="Enter product code"/>
-            <input formControlName="year" class="input input-accent-lined" placeholder="Enter year"/>
-            <input formControlName="collection" class="input input-accent-lined" placeholder="Enter collection name"/>
-            <input formControlName="designer" class="input input-accent-lined" placeholder="Enter designer name"/>
-            <input type="radio"/>
+            <div class="prod-image-box">
+                <div *ngIf="imagePreview" class="img-preview">
+                    <img [src]="imagePreview" alt="Product image preview"/>
+                </div>
+                <button class="btn btn-accent" (click)="filePicker.click()">Select Image</button>
+                <input formControlName="image" type="file" #filePicker hidden (change)="onImagePicked($event)"/>
+                <image-cropper
+                    [imageChangedEvent]="imageChangedEvent"
+                    [maintainAspectRatio]="true"
+                    [aspectRatio]="4 / 3"
+                    format="png"
+                    (imageCropped)="imageCropped($event)"
+                    (imageLoaded)="imageLoaded($event)"
+                    (cropperReady)="cropperReady()"
+                    (loadImageFailed)="loadImageFailed()"
+                ></image-cropper>
+            </div>
+            <div class="prod-description-box">
+                <input formControlName="name" class="input input-accent-lined" placeholder="Enter product name"/>
+                <select formControlName="category" class="select select-accent-lined">
+                    <option value="" disabled selected hidden>Select category</option>
+                    <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
+                </select>
+                <select formControlName="type" class="select select-accent-lined">
+                    <option value="" disabled selected hidden>Select type</option>
+                    <option *ngFor="let type of types" [value]="type.name">{{ type.name }}</option>
+                </select>
+                <select formControlName="brand" class="select select-accent-lined">
+                    <option value="" disabled selected hidden>Select brand</option>
+                    <option *ngFor="let brand of brands" [value]="brand.name">{{ brand.name }}</option>
+                </select>
+                <input formControlName="amount" class="input input-accent-lined" placeholder="Enter product amount"/>
+                <input formControlName="price" class="input input-accent-lined" placeholder="Enter product price"/>
+                <select formControlName="currency" class="select select-accent-lined">
+                    <option value="" disabled selected hidden>Select currency</option>
+                    <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+                </select>
+                <input formControlName="productCode" class="input input-accent-lined" placeholder="Enter product code"/>
+                <input formControlName="year" class="input input-accent-lined" placeholder="Enter year"/>
+                <input formControlName="collection" class="input input-accent-lined" placeholder="Enter collection name"/>
+                <input formControlName="designer" class="input input-accent-lined" placeholder="Enter designer name"/>
+                <div>
+                    <h3>Product is on sale?</h3>
+                    <mat-radio-group
+                        aria-labelledby="example-radio-group-label"
+                        class="example-radio-group"
+                        formControlName="isOnSale"
+                    >
+                        <mat-radio-button class="example-radio-button" [value]="true">Yes</mat-radio-button>
+                        <mat-radio-button class="example-radio-button" [value]="false">No</mat-radio-button>
+                    </mat-radio-group>
+                    <div *ngIf="isOnSale && isOnSale.value">
+                        <div class="example-label-container">
+                            <label id="example-name-label" class="example-name-label">Value</label>
+                            <label class="example-value-label">{{ sale?.value }}</label>
+                        </div>
+                        <mat-slider
+                            class="example-margin"
+                            [max]="95"
+                            [min]="5"
+                            [step]="5"
+                            [discrete]="false"
+                            [showTickMarks]="true">
+                        <input matSliderThumb formControlName="sale">
+                        </mat-slider>
+                    </div>
+                </div>
+            </div>
 
             <button [disabled]="!prodForm.valid" class="btn btn-accent">Add product</button>
         </form>

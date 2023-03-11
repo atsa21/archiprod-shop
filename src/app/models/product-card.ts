@@ -7,5 +7,5 @@ export interface ProductCard {
         description: string
     },
     image: string,
-    onSale: boolean
+    isOnSale: boolean
 }

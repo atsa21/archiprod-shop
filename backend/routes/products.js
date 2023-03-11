@@ -1,28 +1,28 @@
 const express = require("express");
 
-const Category = require("../models/category");
+const Product = require("../models/Product");
 
 const router = express.Router();
 
 router.post("", (req, res, next) => {
-    const category = new Category({
+    const product = new product({
         name: req.body.name,
         type: req.body.type
     });
-    category.save().then( crearedCategory => {
+    product.save().then( crearedProduct => {
         res.status(201).json({
-            message:"Category added succesfully",
-            categoryId: crearedCategory._id
+            message:"Product added succesfully",
+            categoryId: crearedProduct._id
         });
     });
 })
 
 router.put("/:id", (req, res, next) => {
-    const category = new Category({
+    const product = new product({
         name: req.body.name,
         type: req.body.type
     });
-    category.updateOne({ _id: req.params.id }, category).then( result => {
+    Product.updateOne({ _id: req.params.id }, product).then( result => {
         res.status(200).json({
             message:"Update succesfully"
         });
@@ -30,18 +30,18 @@ router.put("/:id", (req, res, next) => {
 })
 
 router.get("",(req, res, next) => {
-    Category.find().then(documents => {
+    Product.find().then(documents => {
         res.status(200).json({
-            message: "Post fetched succesfully!",
+            message: "Product fetched succesfully!",
             data: documents
         })
     });
 });
 
 router.delete("/:id",(req, res, next) => {
-    Category.deleteOne({_id: req.params.id}).then(result => {
+    Product.deleteOne({_id: req.params.id}).then(result => {
         console.log(result);
-        res.status(200).json({ message: "Category deleted!"})
+        res.status(200).json({ message: "Product deleted!"})
     });
 });
 

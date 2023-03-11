@@ -14,7 +14,8 @@ const productSchema = new mongoose.Schema({
     year: { type: Number, required: false },
     collection: { type: String, required: false },
     designer: { type: String, required: false },
-    onSale: { type: Boolean, required: true }
+    isOnSale: { type: Boolean, required: true },
+    sale: { type: Number, required: false },
 });
 
 module.exports = mongoose.model("Product", productSchema);

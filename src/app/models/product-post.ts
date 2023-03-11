@@ -12,5 +12,6 @@ export interface ProductPost {
     year?: number,
     collection?: string,
     designer?: string,
-    onSale: boolean
+    isOSale: boolean,
+    sale?: number
 }

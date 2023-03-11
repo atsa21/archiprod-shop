@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { SnackBarService } from 'src/app/services/snack-bar.service';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Category } from 'src/app/models/category';
+import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-add-edit-prod-dialog',
@@ -18,9 +18,14 @@ export class AddEditProdDialogComponent implements OnInit {
   brands!: Category[];
   currencies: string[] = ['Euro', 'Dollar', 'Pound'];
 
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+
   dialogTitle: string = 'Add';
   actionBtn: string = 'Submit';
   isEditing = false;
+
+  imagePreview: any;
 
   constructor( private fb : FormBuilder,
     private prodService: ProductService,
@@ -36,7 +41,7 @@ export class AddEditProdDialogComponent implements OnInit {
       name: new FormControl('',[Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
       category: new FormControl('', Validators.required),
       type: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
-      image: new FormControl('', Validators.required),
+      image: new FormControl(null, Validators.required),
       brand: new FormControl('', Validators.required),
       amount: new FormControl(null, Validators.required),
       price: new FormControl(null, Validators.required),
@@ -45,7 +50,14 @@ export class AddEditProdDialogComponent implements OnInit {
       year: new FormControl(''),
       collection: new FormControl(''),
       designer: new FormControl(''),
-      onSale: new FormControl(false, Validators.required),
+      isOnSale: new FormControl(false, Validators.required),
+      sale: new FormControl(null)
+    });
+
+    this.prodForm.get('isOnSale')?.valueChanges.subscribe( value => {
+      if(value) {
+        this.prodForm.get('sale')?.setValidators(Validators.required);
+      }
     });
 
     if(this.data) {
@@ -55,8 +67,6 @@ export class AddEditProdDialogComponent implements OnInit {
       this.types = this.data.descriptionList.types;
       this.brands = this.data.descriptionList.brands;
     }
-
-    this.getCategories();
   }
 
   get name(){
@@ -67,7 +77,39 @@ export class AddEditProdDialogComponent implements OnInit {
     return this.prodForm.get('category');
   }
 
-  getCategories(): any {
+  get image(){
+    return this.prodForm.get('image');
+  }
 
+  get isOnSale(){
+    return this.prodForm.get('isOnSale');
+  }
+
+  get sale(){
+    return this.prodForm.get('sale');
+  }
+
+  onImagePicked(event: Event): void {
+    this.imageChangedEvent = event;
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.imagePreview = event.base64;
+  }
+
+  imageLoaded(image: LoadedImage) {
+      // show cropper
+  }
+
+  cropperReady() {
+      // cropper ready
+  }
+
+  loadImageFailed() {
+      // show message
+  }
+
+  addProduct(): void {
+    
   }
 }

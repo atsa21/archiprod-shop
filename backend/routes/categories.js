@@ -32,7 +32,7 @@ router.put("/:id", (req, res, next) => {
 router.get("",(req, res, next) => {
     Category.find().then(documents => {
         res.status(200).json({
-            message: "Post fetched succesfully!",
+            message: "Category fetched succesfully!",
             data: documents
         })
     });

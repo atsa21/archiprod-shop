@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { ImageCropperModule } from 'ngx-image-cropper';
+
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { SubscribeComponent } from './subscribe/subscribe.component';
@@ -23,7 +25,8 @@ import { BannerComponent } from './banner/banner.component';
   imports: [
     ReactiveFormsModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    ImageCropperModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -34,7 +37,8 @@ import { BannerComponent } from './banner/banner.component';
     RecommendCardComponent,
     OnSaleComponent,
     ArticlesCardsComponent,
-    BannerComponent
+    BannerComponent,
+    ImageCropperModule
   ]
 })
 export class SharedModule { }
