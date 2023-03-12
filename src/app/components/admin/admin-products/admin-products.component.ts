@@ -56,11 +56,14 @@ export class AdminProductsComponent {
         return data.data.map( (res: any) => {
           return {
             id: res._id,
-            brand: res.brand,
-            collectionName: res.collectionName,
             category: res.category,
             type: res.type,
+            brand: res.brand,
+            collectionName: res.collectionName,
+            material: res.material,
             imagePath: res.imagePath,
+            price: res.price,
+            currency: res.currency,
             isOnSale: res.isOnSale
           }
         })

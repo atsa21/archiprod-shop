@@ -12,6 +12,7 @@ import { ArticlesCardsComponent } from './articles-cards/articles-cards.componen
 import { RecommendCardComponent } from './recommend-card/recommend-card.component';
 import { BannerComponent } from './banner/banner.component';
 import { ProductCardComponent } from './product-card/product-card.component';
+import { CurrencyPipe } from 'src/app/pipe/currency.pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ProductCardComponent } from './product-card/product-card.component';
     OnSaleComponent,
     ArticlesCardsComponent,
     BannerComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    CurrencyPipe
   ],
   imports: [
     ReactiveFormsModule,
@@ -41,7 +43,8 @@ import { ProductCardComponent } from './product-card/product-card.component';
     ArticlesCardsComponent,
     BannerComponent,
     ImageCropperModule,
-    ProductCardComponent
+    ProductCardComponent,
+    CurrencyPipe
   ]
 })
 export class SharedModule { }

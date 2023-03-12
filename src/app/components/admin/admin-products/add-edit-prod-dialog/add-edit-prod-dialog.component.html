@@ -38,6 +38,7 @@
                     <option value="" disabled selected hidden>Select brand</option>
                     <option *ngFor="let brand of brands" [value]="brand.name">{{ brand.name }}</option>
                 </select>
+                <input formControlName="collectionName" class="input input-accent-lined" placeholder="Enter collection name"/>
                 <input formControlName="amount" type="number" class="input input-accent-lined" placeholder="Enter product amount"/>
                 <input formControlName="price" type="number" class="input input-accent-lined" placeholder="Enter product price"/>
                 <select formControlName="currency" class="select select-accent-lined">
@@ -46,7 +47,6 @@
                 </select>
                 <input formControlName="productCode" class="input input-accent-lined" placeholder="Enter product code"/>
                 <input formControlName="year" type="number" class="input input-accent-lined" placeholder="Enter year"/>
-                <input formControlName="collectionName" class="input input-accent-lined" placeholder="Enter collection name"/>
                 <input formControlName="designer" class="input input-accent-lined" placeholder="Enter designer name"/>
                 <div>
                     <h3>Product is on sale?</h3>

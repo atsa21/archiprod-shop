@@ -18,7 +18,6 @@ export class AddEditProdDialogComponent implements OnInit {
   brands!: Category[];
   materials!: Category[];
   currencies: string[] = ['Euro', 'Dollar', 'Pound'];
-  shapes: string[] = ['Rectangle', 'Round', 'Oval', 'Square'];
 
   imageChangedEvent: any = '';
   prodImage: any;
