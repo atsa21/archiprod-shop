@@ -15,7 +15,7 @@ router.post("", (req, res, next) => {
             categoryId: crearedCategory._id
         });
     });
-})
+});
 
 router.put("/:id", (req, res, next) => {
     const category = new Category({
@@ -27,7 +27,7 @@ router.put("/:id", (req, res, next) => {
             message:"Update succesfully"
         });
     });
-})
+});
 
 router.get("",(req, res, next) => {
     Category.find().then(documents => {

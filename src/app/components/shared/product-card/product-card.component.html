@@ -1,7 +1,9 @@
 <div class="card-box">
-    <img class="card-image" />
+    <div class="card-image">
+        <img class="img" [src]="product.imagePath"/>
+    </div>
     <div class="card-text">
-        <p></p>
-        <p></p>
+        <h4>{{ product.brand }}</h4>
+        <p>{{ product.description }}</p>
     </div>
 </div>

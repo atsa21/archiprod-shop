@@ -16,16 +16,16 @@ export class AddEditProdDialogComponent implements OnInit {
   categories!: Category[];
   types!: Category[];
   brands!: Category[];
+  materials!: Category[];
   currencies: string[] = ['Euro', 'Dollar', 'Pound'];
+  shapes: string[] = ['Rectangle', 'Round', 'Oval', 'Square'];
 
   imageChangedEvent: any = '';
-  croppedImage: any = '';
+  prodImage: any;
 
   dialogTitle: string = 'Add';
   actionBtn: string = 'Submit';
   isEditing = false;
-
-  imagePreview: any;
 
   constructor( private fb : FormBuilder,
     private prodService: ProductService,
@@ -38,17 +38,17 @@ export class AddEditProdDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.prodForm = this.fb.group({
-      name: new FormControl('',[Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
       category: new FormControl('', Validators.required),
       type: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
-      image: new FormControl(null, Validators.required),
+      material: new FormControl('', Validators.required),
       brand: new FormControl('', Validators.required),
+      image: new FormControl(null),
       amount: new FormControl(null, Validators.required),
       price: new FormControl(null, Validators.required),
-      currency: new FormControl('', Validators.required),
+      currency: new FormControl('Euro', Validators.required),
       productCode: new FormControl(''),
       year: new FormControl(''),
-      collection: new FormControl(''),
+      collectionName: new FormControl('', Validators.required),
       designer: new FormControl(''),
       isOnSale: new FormControl(false, Validators.required),
       sale: new FormControl(null)
@@ -66,6 +66,7 @@ export class AddEditProdDialogComponent implements OnInit {
       this.categories = this.data.descriptionList.categories;
       this.types = this.data.descriptionList.types;
       this.brands = this.data.descriptionList.brands;
+      this.materials = this.data.descriptionList.materials;
     }
   }
 
@@ -77,10 +78,6 @@ export class AddEditProdDialogComponent implements OnInit {
     return this.prodForm.get('category');
   }
 
-  get image(){
-    return this.prodForm.get('image');
-  }
-
   get isOnSale(){
     return this.prodForm.get('isOnSale');
   }
@@ -89,27 +86,39 @@ export class AddEditProdDialogComponent implements OnInit {
     return this.prodForm.get('sale');
   }
 
-  onImagePicked(event: Event): void {
+  public onImagePicked(event: Event): void {
     this.imageChangedEvent = event;
   }
 
-  imageCropped(event: ImageCroppedEvent) {
-    this.imagePreview = event.base64;
+  public imageCropped(event: ImageCroppedEvent) {
+    this.prodImage = this.base64ToFile(
+      event.base64,
+      this.imageChangedEvent?.target?.files[0].name,
+    )
   }
 
-  imageLoaded(image: LoadedImage) {
-      // show cropper
+  private base64ToFile(data: any, filename: any) {
+    const arr = data.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    let u8arr = new Uint8Array(n);
+  
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+  
+    return new File([u8arr], filename, { type: mime });
   }
 
-  cropperReady() {
-      // cropper ready
-  }
-
-  loadImageFailed() {
-      // show message
+  public loadImageFailed() {
+    console.log('Load image is filed');
   }
 
   addProduct(): void {
-    
+    const image: File = this.prodImage;
+    this.prodService.postProduct(this.prodForm.value, image).subscribe((res) => {
+      console.log(res);
+    })
   }
 }

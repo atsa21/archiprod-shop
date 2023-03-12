@@ -3,7 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { map, take } from 'rxjs';
 import { Category } from 'src/app/models/category';
 import { CategoryRes } from 'src/app/models/category-res';
+import { ProductCard } from 'src/app/models/product-card';
 import { CategoryService } from 'src/app/services/category.service';
+import { ProductService } from 'src/app/services/product.service';
 import { AddEditProdDialogComponent } from './add-edit-prod-dialog/add-edit-prod-dialog.component';
 import { AddEditProdListsComponent } from './add-edit-prod-lists/add-edit-prod-lists.component';
 
@@ -19,29 +21,53 @@ export class AdminProductsComponent {
   prodDescriptionData: any;
 
   descriptionList: any;
+  products: ProductCard[] = [];
   categories: Category[] = [];
-  types: any = ['Chair'];
-  brands: any = [];
-
-  products = [
-    { id:'1', brand: 'FLOS', description:'CHIARA T PINK GOLD - LED aluminium table lamp', image:'/assets/img/homepage-what-is-arch.png', onSale: false },
-    { id:'2', brand: 'FLOS', description:'CHIARA T PINK GOLD - LED aluminium table lamp', image:'/assets/img/homepage-what-is-arch.png', onSale: false },
-    { id:'3', brand: 'FLOS', description:'CHIARA T PINK GOLD - LED aluminium table lamp', image:'/assets/img/homepage-what-is-arch.png', onSale: false },
-    { id:'4', brand: 'FLOS', description:'CHIARA T PINK GOLD - LED aluminium table lamp', image:'/assets/img/homepage-what-is-arch.png', onSale: false }
+  types: any = [
+    {id: '111', name: 'Chair'}
+  ];
+  brands: any = [
+    {id: '111', name: 'Flexform'}
+  ];
+  materials: any = [
+    {id: '111', name: 'Wood'}
   ];
 
   constructor(
     private dialog : MatDialog,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private productService: ProductService
   ){}
 
   ngOnInit(): void {
+    this.getProducts();
     this.getCategories();
     this.prodDescriptionData = {
       categories: [],
-      types: [],
-      brands: []
+      types: this.types,
+      brands: this.brands,
+      materials: this.materials
     };
+  }
+
+  private getProducts(): void {
+    this.productService.getAllProducts()
+      .pipe(map((data) => {
+        return data.data.map( (res: any) => {
+          return {
+            id: res._id,
+            brand: res.brand,
+            collectionName: res.collectionName,
+            category: res.category,
+            type: res.type,
+            imagePath: res.imagePath,
+            isOnSale: res.isOnSale
+          }
+        })
+      }))
+      .subscribe(data => {
+        this.products = data;
+    })
   }
 
   private getCategories(): void {

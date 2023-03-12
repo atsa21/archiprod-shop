@@ -11,6 +11,7 @@ import { OnSaleComponent } from './on-sale/on-sale.component';
 import { ArticlesCardsComponent } from './articles-cards/articles-cards.component';
 import { RecommendCardComponent } from './recommend-card/recommend-card.component';
 import { BannerComponent } from './banner/banner.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { BannerComponent } from './banner/banner.component';
     RecommendCardComponent,
     OnSaleComponent,
     ArticlesCardsComponent,
-    BannerComponent
+    BannerComponent,
+    ProductCardComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -38,7 +40,8 @@ import { BannerComponent } from './banner/banner.component';
     OnSaleComponent,
     ArticlesCardsComponent,
     BannerComponent,
-    ImageCropperModule
+    ImageCropperModule,
+    ProductCardComponent
   ]
 })
 export class SharedModule { }

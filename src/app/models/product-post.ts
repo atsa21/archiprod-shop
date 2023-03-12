@@ -10,7 +10,7 @@ export interface ProductPost {
     currency: string,
     productCode?: string,
     year?: number,
-    collection?: string,
+    collectionName: string,
     designer?: string,
     isOSale: boolean,
     sale?: number
