@@ -1,11 +1,12 @@
 export interface ProductCard {
-    id: number,
+    id?: string,
+    category: string,
+    type: string,
     brand: string,
-    collection: string,
-    type: {
-        name: string,
-        description: string
-    },
-    image: string,
-    onSale: boolean
+    collectionName: string,
+    material: string,
+    price: number,
+    currency: string,
+    imagePath: string,
+    isOnSale: boolean
 }

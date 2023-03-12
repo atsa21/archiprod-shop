@@ -24,6 +24,7 @@
 .menu {
     border-top: 1px solid var(--white);
     top: 70px;
+    z-index: 99;
 }
 
 .nav-icon {
@@ -50,14 +51,18 @@
 
 .list {
     display: flex;
-
-    &:hover {
-        list-style-type: disc;
-    }
+    justify-content: space-between;
+    width: 100%;
 }
 
 .list-item {
     display: flex;
+    padding: 12px 24px;
     cursor: pointer;
-    transition: text-decoration 0.4s ease-in-out;
+    border-bottom: 1px solid var(--black);
+    transition: border-bottom 0.4s ease-in-out;
+
+    &:hover {
+        border-bottom: 1px solid var(--white);
+    }
 }

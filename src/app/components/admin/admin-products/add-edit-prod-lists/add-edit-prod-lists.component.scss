@@ -34,22 +34,22 @@
     right: 16px;
 }
 
+.btn-accent {
+    padding: 16px 20px;
+}
+
 h2 {
+    margin-top: 16px;
     text-align: center;
     font-size: 42px;
 }
 
-.form {
+.item {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
+    justify-content: space-between;
 
-.img-preview {
-    height: 300px;
-    width: 300px;
-
-    img {
-        width: 100%;
+    .buttons-box {
+        display: flex;
+        gap: 4px;
     }
 }

@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { map } from 'rxjs';
+import { map, take } from 'rxjs';
 import { Category } from 'src/app/models/category';
 import { CategoryRes } from 'src/app/models/category-res';
+import { ProductCard } from 'src/app/models/product-card';
 import { CategoryService } from 'src/app/services/category.service';
-import { AddEditCategoryComponent } from './add-edit-category/add-edit-category.component';
+import { ProductService } from 'src/app/services/product.service';
 import { AddEditProdDialogComponent } from './add-edit-prod-dialog/add-edit-prod-dialog.component';
+import { AddEditProdListsComponent } from './add-edit-prod-lists/add-edit-prod-lists.component';
 
 @Component({
   selector: 'app-admin-products',
@@ -16,21 +18,59 @@ export class AdminProductsComponent {
 
   public menuOpened = false;
 
+  prodDescriptionData: any;
+
+  descriptionList: any;
+  products: ProductCard[] = [];
   categories: Category[] = [];
-  products = [
-    { id:'1', brand: 'FLOS', description:'CHIARA T PINK GOLD - LED aluminium table lamp', image:'/assets/img/homepage-what-is-arch.png', onSale: false },
-    { id:'2', brand: 'FLOS', description:'CHIARA T PINK GOLD - LED aluminium table lamp', image:'/assets/img/homepage-what-is-arch.png', onSale: false },
-    { id:'3', brand: 'FLOS', description:'CHIARA T PINK GOLD - LED aluminium table lamp', image:'/assets/img/homepage-what-is-arch.png', onSale: false },
-    { id:'4', brand: 'FLOS', description:'CHIARA T PINK GOLD - LED aluminium table lamp', image:'/assets/img/homepage-what-is-arch.png', onSale: false }
+  types: any = [
+    {id: '111', name: 'Chair'}
+  ];
+  brands: any = [
+    {id: '111', name: 'Flexform'}
+  ];
+  materials: any = [
+    {id: '111', name: 'Wood'}
   ];
 
   constructor(
     private dialog : MatDialog,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private productService: ProductService
   ){}
 
   ngOnInit(): void {
+    this.getProducts();
     this.getCategories();
+    this.prodDescriptionData = {
+      categories: [],
+      types: this.types,
+      brands: this.brands,
+      materials: this.materials
+    };
+  }
+
+  private getProducts(): void {
+    this.productService.getAllProducts()
+      .pipe(map((data) => {
+        return data.data.map( (res: any) => {
+          return {
+            id: res._id,
+            category: res.category,
+            type: res.type,
+            brand: res.brand,
+            collectionName: res.collectionName,
+            material: res.material,
+            imagePath: res.imagePath,
+            price: res.price,
+            currency: res.currency,
+            isOnSale: res.isOnSale
+          }
+        })
+      }))
+      .subscribe(data => {
+        this.products = data;
+    })
   }
 
   private getCategories(): void {
@@ -45,19 +85,35 @@ export class AdminProductsComponent {
       }))
       .subscribe(data => {
         this.categories = data;
+        this.prodDescriptionData.categories = this.categories;
     })
   }
 
-  public openCategory(): void {
-    this.dialog.open(AddEditCategoryComponent, {
-      width: '420px'
+  public openDialog( title: string, name: string, data: any ): void {
+    const dialogRef = this.dialog.open(AddEditProdListsComponent, {
+      width: '420px',
+      data: { dialogTitle: title, dialogName: name, list: data }
+    });
+    this.openCloseMenu();
+    dialogRef
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(() => {
+        
+      });
+  }
+
+  public openAddProducts(): void {
+    this.dialog.open(AddEditProdDialogComponent, {
+      width: '480px',
+      data: { 
+        descriptionList: this.prodDescriptionData , 
+        isEditing: false }
     });
   }
 
-  public openProducts(): void {
-    this.dialog.open(AddEditProdDialogComponent, {
-      width: '420px'
-    });
+  public openCloseMenu(): void {
+    this.menuOpened = !this.menuOpened;
   }
   
 }

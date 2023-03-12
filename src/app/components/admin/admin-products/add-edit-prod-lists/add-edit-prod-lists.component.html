@@ -1,0 +1,38 @@
+<div class="dialog-container">
+    <div>
+        <h2 class="dialog-title">{{ dialogTitle }} List</h2>
+        <button mat-dialog-close class="btn-close" type="button">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+    <div class="dialog-body">
+        <div class="items-container">
+            <div *ngFor="let item of list" class="item-box">
+                <div *ngIf="!item.isEditing" class="item">
+                    <p>{{ item.name }}</p>
+                    <div class="buttons-box">
+                        <button class="btn-icon-light btn-edit" (click)="item.isEditing = !item.isEditing">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </button>
+                        <button class="btn-icon-light btn-delete" (click)="deleteCategory(item.id)">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
+                    </div>
+                </div>
+                <div *ngIf="item.isEditing">
+                    <input class="input" [placeholder]="'Enter ' + dialogName + ' name'"/>
+                    <button class="btn" (click)="editItem(dialogName, item.id)">Save</button>
+                </div>
+            </div>
+        </div>
+        <div class="add-container">
+            <h3>Add {{ dialogName }}</h3>
+            <div class="add-input">
+                <input [formControl]="name" class="input input-accent-lined" [placeholder]="'Enter ' + dialogName + ' name'"/>
+                <button class="btn btn-accent" (click)="addItem(dialogName)">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
