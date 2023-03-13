@@ -7,6 +7,9 @@
     </div>
     <div class="dialog-body" mat-dialog-content>
         <form [formGroup]="prodForm" class="form">
+            <div class="img-preview">
+                <img *ngIf="isEditing" [src]="editImage"/>
+            </div>
             <div class="prod-image-box">
                 <button class="btn btn-accent" (click)="filePicker.click()">Select Image</button>
                 <input formControlName="image" type="file" #filePicker hidden (change)="onImagePicked($event)"/>

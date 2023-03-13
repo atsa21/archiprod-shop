@@ -3,7 +3,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ProductService } from 'src/app/services/product.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Category } from 'src/app/models/category';
-import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { CategoryService } from 'src/app/services/category.service';
+import { map, take } from 'rxjs';
+import { CategoryRes } from 'src/app/models/category-res';
 
 @Component({
   selector: 'app-add-edit-prod-dialog',
@@ -14,21 +17,33 @@ export class AddEditProdDialogComponent implements OnInit {
 
   prodForm!: FormGroup;
   categories!: Category[];
-  types!: Category[];
-  brands!: Category[];
-  materials!: Category[];
+  types: Category[] = [
+    { id: '111', name: 'Chair'}
+  ];
+
+  brands: Category[] = [
+    {id: '111', name: 'Flexform'}
+  ];
+
+  materials: Category[] = [
+    {id: '111', name: 'Wood'}
+  ];
+
   currencies: string[] = ['Euro', 'Dollar', 'Pound'];
 
   imageChangedEvent: any = '';
   prodImage: any;
+  editImage: string = '';
 
   dialogTitle: string = 'Add';
   actionBtn: string = 'Submit';
   isEditing = false;
+  id: string = '';
 
   constructor( private fb : FormBuilder,
     private prodService: ProductService,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private categoryService: CategoryService,
     // private dateAdapter: DateAdapter<Date>
     ) {
       // this.dateAdapter.setLocale('en-GB');
@@ -36,18 +51,19 @@ export class AddEditProdDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getCategories();
     this.prodForm = this.fb.group({
       category: new FormControl('', Validators.required),
       type: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
-      material: new FormControl('', Validators.required),
       brand: new FormControl('', Validators.required),
-      image: new FormControl(null),
+      collectionName: new FormControl('', Validators.required),
+      material: new FormControl('', Validators.required),
+      image: new FormControl(null, Validators.required),
       amount: new FormControl(null, Validators.required),
       price: new FormControl(null, Validators.required),
       currency: new FormControl('Euro', Validators.required),
       productCode: new FormControl(''),
       year: new FormControl(''),
-      collectionName: new FormControl('', Validators.required),
       designer: new FormControl(''),
       isOnSale: new FormControl(false, Validators.required),
       sale: new FormControl(null)
@@ -58,15 +74,26 @@ export class AddEditProdDialogComponent implements OnInit {
         this.prodForm.get('sale')?.setValidators(Validators.required);
       }
     });
-
     if(this.data) {
-      this.dialogTitle = 'Add';
       this.isEditing = this.data.isEditing;
-      this.categories = this.data.descriptionList.categories;
-      this.types = this.data.descriptionList.types;
-      this.brands = this.data.descriptionList.brands;
-      this.materials = this.data.descriptionList.materials;
+      if(this.isEditing){
+        console.log(this.data);
+        this.dialogTitle = 'Edit';
+        this.prodForm.get('category')?.setValue(this.data.product.category);
+        this.prodForm.get('type')?.setValue(this.data.product.type);
+        this.prodForm.get('brand')?.setValue(this.data.product.brand);
+        this.prodForm.get('collectionName')?.setValue(this.data.product.collectionName);
+        this.prodForm.get('material')?.setValue(this.data.product.material);
+        this.prodForm.get('image')?.setValue(this.data.product.image);
+        this.prodForm.get('amount')?.setValue(this.data.product.amount);
+        this.prodForm.get('price')?.setValue(this.data.product.price);
+        this.prodForm.get('currency')?.setValue(this.data.product.currency);
+        this.prodForm.get('isOnSale')?.setValue(this.data.product.isOnSale);
+        this.editImage = this.data.product.imagePath;
+        this.id = this.data.product.id;
+      }
     }
+    
   }
 
   get name(){
@@ -83,6 +110,21 @@ export class AddEditProdDialogComponent implements OnInit {
 
   get sale(){
     return this.prodForm.get('sale');
+  }
+
+  private getCategories(): void {
+    this.categoryService.getAllCategories()
+      .pipe(map((data) => {
+        return data.data.map( (res: CategoryRes) => {
+          return {
+            id: res._id,
+            name: res.name
+          }
+        })
+      }))
+      .subscribe(data => {
+        this.categories = data;
+    })
   }
 
   public onImagePicked(event: Event): void {
@@ -117,6 +159,12 @@ export class AddEditProdDialogComponent implements OnInit {
   addProduct(): void {
     const image: File = this.prodImage;
     this.prodService.postProduct(this.prodForm.value, image).subscribe((res) => {
+      console.log(res);
+    })
+  }
+
+  updateProduct(): void {
+    this.prodService.updateProduct(this.id, this.prodForm.value).subscribe((res) => {
       console.log(res);
     })
   }

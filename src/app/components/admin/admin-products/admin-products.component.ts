@@ -20,18 +20,8 @@ export class AdminProductsComponent {
 
   prodDescriptionData: any;
 
-  descriptionList: any;
   products: ProductCard[] = [];
   categories: Category[] = [];
-  types: any = [
-    {id: '111', name: 'Chair'}
-  ];
-  brands: any = [
-    {id: '111', name: 'Flexform'}
-  ];
-  materials: any = [
-    {id: '111', name: 'Wood'}
-  ];
 
   constructor(
     private dialog : MatDialog,
@@ -42,12 +32,6 @@ export class AdminProductsComponent {
   ngOnInit(): void {
     this.getProducts();
     this.getCategories();
-    this.prodDescriptionData = {
-      categories: [],
-      types: this.types,
-      brands: this.brands,
-      materials: this.materials
-    };
   }
 
   private getProducts(): void {
@@ -62,6 +46,7 @@ export class AdminProductsComponent {
             collectionName: res.collectionName,
             material: res.material,
             imagePath: res.imagePath,
+            amount: res.amount,
             price: res.price,
             currency: res.currency,
             isOnSale: res.isOnSale
@@ -85,14 +70,13 @@ export class AdminProductsComponent {
       }))
       .subscribe(data => {
         this.categories = data;
-        this.prodDescriptionData.categories = this.categories;
     })
   }
 
-  public openDialog( title: string, name: string, data: any ): void {
+  public openDialog( title: string, name: string ): void {
     const dialogRef = this.dialog.open(AddEditProdListsComponent, {
       width: '420px',
-      data: { dialogTitle: title, dialogName: name, list: data }
+      data: { dialogTitle: title, dialogName: name }
     });
     this.openCloseMenu();
     dialogRef
@@ -106,8 +90,7 @@ export class AdminProductsComponent {
   public openAddProducts(): void {
     this.dialog.open(AddEditProdDialogComponent, {
       width: '480px',
-      data: { 
-        descriptionList: this.prodDescriptionData , 
+      data: {
         isEditing: false }
     });
   }
