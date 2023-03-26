@@ -82,11 +82,23 @@ router.put("/:id", multer({ storage: storage }).single("image"), (req, res, next
 });
 
 router.get("",(req, res, next) => {
-    Product.find().then(documents => {
+    const pageSize = +req.query.size;
+    const currentPage = +req.query.page;
+    const postQuery = Product.find();
+    let fetchedProduct;
+    if(pageSize && currentPage) {
+        postQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
+    }
+    postQuery.then(documents => {
+        fetchedProduct = documents;
+        return Product.count();
+    })
+    .then(count => {
         res.status(200).json({
             message: "Product fetched succesfully!",
-            data: documents
-        })
+            data: fetchedProduct,
+            totalElements: count
+        });
     });
 });
 
@@ -101,7 +113,6 @@ router.get("/:id",(req, res, next) => {
 
 router.delete("/:id",(req, res, next) => {
     Product.deleteOne({_id: req.params.id}).then(result => {
-        console.log(result);
         res.status(200).json({ message: "Product deleted!"})
     });
 });

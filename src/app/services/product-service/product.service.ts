@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ProductPost } from '../models/product-post';
+import { ProductPost } from 'src/app/models/product-post';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,10 @@ export class ProductService {
 
   getAllProducts() {
     return this.http.get<{ message: string, data: any }>('http://localhost:3000/api/products');
+  }
+
+  getProducts(page: number, pageSize: number) {
+    return this.http.get<{ message: string, data: any , totalElements: number}>(`http://localhost:3000/api/products?size=${pageSize}&page=${page}`);
   }
 
   postProduct(product: any, image: File) {

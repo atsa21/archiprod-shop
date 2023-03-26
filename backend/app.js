@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const categoriesRoutes = require("./routes/categories");
+const brandsRoutes = require("./routes/brands");
 const productsRoutes = require("./routes/products");
 
 const app = express();
@@ -36,6 +37,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/categories", categoriesRoutes);
+app.use("/api/brands", brandsRoutes);
 app.use("/api/products", productsRoutes);
 
 module.exports = app;
