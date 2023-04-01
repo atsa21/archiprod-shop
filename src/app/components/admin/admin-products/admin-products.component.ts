@@ -4,8 +4,8 @@ import { map, take } from 'rxjs';
 import { Category } from 'src/app/models/category';
 import { CategoryRes } from 'src/app/models/category-res';
 import { ProductCard } from 'src/app/models/product-card';
-import { CategoryService } from 'src/app/services/category.service';
-import { ProductService } from 'src/app/services/product.service';
+import { CategoryService } from 'src/app/services/category-service/category.service';
+import { ProductService } from 'src/app/services/product-service/product.service';
 import { AddEditProdDialogComponent } from './add-edit-prod-dialog/add-edit-prod-dialog.component';
 import { AddEditProdListsComponent } from './add-edit-prod-lists/add-edit-prod-lists.component';
 
@@ -18,20 +18,13 @@ export class AdminProductsComponent {
 
   public menuOpened = false;
 
-  prodDescriptionData: any;
-
-  descriptionList: any;
   products: ProductCard[] = [];
+  // categories: string[] = ['Furniture', 'Bathroom', 'Kitchen', 'Lighting', 'Decor'];
   categories: Category[] = [];
-  types: any = [
-    {id: '111', name: 'Chair'}
-  ];
-  brands: any = [
-    {id: '111', name: 'Flexform'}
-  ];
-  materials: any = [
-    {id: '111', name: 'Wood'}
-  ];
+
+  prodDescriptionData: any;
+  totalElements = 0;
+  pageSize = 8;
 
   constructor(
     private dialog : MatDialog,
@@ -42,35 +35,35 @@ export class AdminProductsComponent {
   ngOnInit(): void {
     this.getProducts();
     this.getCategories();
-    this.prodDescriptionData = {
-      categories: [],
-      types: this.types,
-      brands: this.brands,
-      materials: this.materials
-    };
   }
 
   private getProducts(): void {
-    this.productService.getAllProducts()
-      .pipe(map((data) => {
-        return data.data.map( (res: any) => {
-          return {
-            id: res._id,
-            category: res.category,
-            type: res.type,
-            brand: res.brand,
-            collectionName: res.collectionName,
-            material: res.material,
-            imagePath: res.imagePath,
-            price: res.price,
-            currency: res.currency,
-            isOnSale: res.isOnSale
-          }
-        })
+    this.productService.getProducts(1, this.pageSize)
+      .pipe(map((res) => {
+        return {
+          prod: res.data.map((res: any) => {
+            return {
+              id: res._id,
+              category: res.category,
+              type: res.type,
+              brand: res.brand,
+              collectionName: res.collectionName,
+              material: res.material,
+              imagePath: res.imagePath,
+              amount: res.amount,
+              price: res.price,
+              currency: res.currency,
+              isOnSale: res.isOnSale
+            };
+          }),
+          totalElements: res.totalElements
+        }
       }))
-      .subscribe(data => {
-        this.products = data;
-    })
+      .subscribe( data => {
+        this.products = data.prod;
+        this.totalElements = data.totalElements;
+      })
+
   }
 
   private getCategories(): void {
@@ -85,30 +78,35 @@ export class AdminProductsComponent {
       }))
       .subscribe(data => {
         this.categories = data;
-        this.prodDescriptionData.categories = this.categories;
     })
   }
 
-  public openDialog( title: string, name: string, data: any ): void {
+  public openDialog( title: string, name: string, isEditing: boolean ): void {
     const dialogRef = this.dialog.open(AddEditProdListsComponent, {
       width: '420px',
-      data: { dialogTitle: title, dialogName: name, list: data }
+      data: { dialogTitle: title, dialogName: name, list: this.categories, isEditing: isEditing}
     });
     this.openCloseMenu();
     dialogRef
       .afterClosed()
       .pipe(take(1))
       .subscribe(() => {
-        
       });
   }
 
   public openAddProducts(): void {
-    this.dialog.open(AddEditProdDialogComponent, {
+    const dialogRef = this.dialog.open(AddEditProdDialogComponent, {
       width: '480px',
-      data: { 
-        descriptionList: this.prodDescriptionData , 
-        isEditing: false }
+      data: {
+        isEditing: false,
+        categories: this.categories
+      }
+    });
+    dialogRef
+    .afterClosed()
+    .pipe(take(1))
+    .subscribe(() => {
+      this.getProducts();
     });
   }
 

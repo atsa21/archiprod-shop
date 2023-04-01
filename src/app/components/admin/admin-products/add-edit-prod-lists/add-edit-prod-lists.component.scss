@@ -28,6 +28,47 @@
     }
 }
 
+.edit-input {
+    display: flex;
+    height: 44px;
+    border: 2px solid var(--grey);
+    border-radius: 6px;
+
+    .input {
+        display: flex;
+        width: 262px;
+        border: 0;
+        outline: 0;
+    }
+
+    .btn-icon-light {
+        width: 40px;
+        height: 40px;
+    }
+
+    .save {
+        transition: background-color 0.4s ;
+        &:hover {
+            background-color: var(--accent);
+        }
+    }
+}
+
+.item-box {
+    margin-bottom: 6px;
+
+    .item {
+        display: flex;
+        justify-content: space-between;
+        gap: 4px;
+    
+        .buttons-box {
+            display: flex;
+            gap: 4px;
+        }
+    }
+}
+
 .btn-close {
     position: absolute;
     top: 16px;
@@ -39,17 +80,11 @@
 }
 
 h2 {
-    margin-top: 16px;
     text-align: center;
+    margin-top: 16px;
     font-size: 42px;
 }
 
-.item {
-    display: flex;
-    justify-content: space-between;
-
-    .buttons-box {
-        display: flex;
-        gap: 4px;
-    }
+h3 {
+    margin-bottom: 8px;
 }

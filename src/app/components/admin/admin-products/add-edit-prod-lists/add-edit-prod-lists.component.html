@@ -6,33 +6,50 @@
         </button>
     </div>
     <div class="dialog-body">
-        <div class="items-container">
-            <div *ngFor="let item of list" class="item-box">
-                <div *ngIf="!item.isEditing" class="item">
-                    <p>{{ item.name }}</p>
-                    <div class="buttons-box">
-                        <button class="btn-icon-light btn-edit" (click)="item.isEditing = !item.isEditing">
-                            <i class="fa-regular fa-pen-to-square"></i>
-                        </button>
-                        <button class="btn-icon-light btn-delete" (click)="deleteCategory(item.id)">
-                            <i class="fa-regular fa-trash-can"></i>
-                        </button>
+        <div *ngIf="dialogName === 'category' || 'type'" class="add-container">
+            <div *ngIf="!isEditing">
+                <div *ngFor="let item of categories" class="item-box">
+                    <div *ngIf="!item.isEditing" class="item">
+                        <p>{{ item.name }}</p>
+                        <div class="buttons-box">
+                            <button class="btn-icon-light btn-edit" (click)="item.isEditing = !item.isEditing">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </button>
+                            <button class="btn-icon-light btn-delete" (click)="deleteCategory(item.id)">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </div>
                     </div>
+                    <div *ngIf="item.isEditing" class="edit-input">
+                        <input class="input" [value]="item.name" [placeholder]="'Enter ' + dialogName + ' name'"/>
+                        <button class="btn-icon-light save" (click)="editItem(dialogName, item.id)">
+                            <i class="fa-regular fa-floppy-disk"></i>
+                        </button>
+                        <button class="btn-icon-light cancel" type="button" (click)="item.isEditing = !item.isEditing">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div> 
                 </div>
-                <div *ngIf="item.isEditing">
-                    <input class="input" [placeholder]="'Enter ' + dialogName + ' name'"/>
-                    <button class="btn" (click)="editItem(dialogName, item.id)">Save</button>
+                <h3>Add {{ dialogName }}</h3>
+                <div class="add-input">
+                    <input [formControl]="item" class="input input-accent-lined" [placeholder]="'Enter ' + dialogName + ' name'"/>
+                    <button class="btn btn-accent" [disabled]="!item.value" (click)="addCategory()">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
                 </div>
             </div>
-        </div>
-        <div class="add-container">
-            <h3>Add {{ dialogName }}</h3>
-            <div class="add-input">
-                <input [formControl]="name" class="input input-accent-lined" [placeholder]="'Enter ' + dialogName + ' name'"/>
-                <button class="btn btn-accent" (click)="addItem(dialogName)">
-                    <i class="fa-solid fa-plus"></i>
-                </button>
-            </div>
+            <form *ngIf="isEditing" [formGroup]="categoryForm" class="add-form">
+                <h3>Add category type</h3>
+                <select formControlName="name" class="select select-accent-lined">
+                    <option value="" disabled hidden>Select category</option>
+                    <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
+                </select>
+                <input formControlName="typeName" class="input input-accent-lined" [placeholder]="'Enter type name'"/>
+                <input formControlName="materials" class="input input-accent-lined" [placeholder]="'Enter materials'"/>
+                <input formControlName="shapes" class="input input-accent-lined" [placeholder]="'Enter shapes'"/>
+                <input formControlName="extras" class="input input-accent-lined" [placeholder]="'Enter extras'"/>
+                <button class="btn btn-accent" [disabled]="this.categoryForm.invalid" (click)="addCategoryType()">Submit</button>
+            </form>
         </div>
     </div>
 </div>

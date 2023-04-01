@@ -1,5 +1,10 @@
 <div class="card-container">
     <div class="card-image">
+        <div *ngIf="canEdit" class="edit-box">
+            <button class="btn-icon-light btn-edit" (click)="openEditProducts()">
+                <i class="fa-regular fa-pen-to-square"></i>
+            </button>
+        </div>
         <img class="img" [src]="product.imagePath" [alt]="product.brand + product.material + product.type"/>
     </div>
     <div class="card-box">

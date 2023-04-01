@@ -1,6 +1,7 @@
 .card-container {
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
     max-width: 290px;
     border-radius: 6px;
     background: var(--light-grey);
@@ -12,6 +13,7 @@
     }
 
     .card-image{
+        position: relative;
         border-radius: 6px 6px 0 0;
         width: 290px;
 
@@ -54,6 +56,13 @@
             color: var(--danger);
         }
     }
+}
+
+.edit-box{
+    display: flex;
+    position: absolute;
+    top: 16px;
+    right: 16px;
 }
 
 @media only screen and (max-width: 1600px) {

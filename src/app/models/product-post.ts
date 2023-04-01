@@ -1,9 +1,9 @@
 export interface ProductPost {
     id?: string,
-    name: string,
     category: string,
     type: string,
-    image: string,
+    material: string,
+    imagePath: string,
     brand: string,
     amount: number,
     price: number,
@@ -12,6 +12,6 @@ export interface ProductPost {
     year?: number,
     collectionName: string,
     designer?: string,
-    isOSale: boolean,
+    isOnSale: boolean,
     sale?: number
 }
