@@ -15,7 +15,8 @@
         </button>
         <div class="menu-container" *ngIf="isUserMenuOpened">
             <div class="list">
-                <button class="btn-list" (click)="openLoginDialog()">Login</button>
+                <button *ngIf="!isUserLogin" class="btn-list" (click)="openLoginDialog()">Login</button>
+                <button *ngIf="isUserLogin" class="btn-list" (click)="openLoginDialog()">Logout</button>
             </div>
         </div>
     </div>

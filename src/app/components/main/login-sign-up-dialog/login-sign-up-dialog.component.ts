@@ -12,7 +12,7 @@ export class LoginSignUpDialogComponent {
 
   loginForm!: FormGroup;
   signUpForm!: FormGroup;
-  isLogin = false;
+  isLogin = true;
   showPassword = true;
 
   constructor(
@@ -27,11 +27,11 @@ export class LoginSignUpDialogComponent {
   initForm(): void {
     this.loginForm = this.fb.group({
       email: new FormControl('', [Validators.required, Validators.email]),
-      password : new FormControl('', [Validators.required, Validators.minLength(6)])
+      password : new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(256)])
     })
     this.signUpForm = this.fb.group({
       email: new FormControl('', [Validators.required, Validators.email]),
-      password : new FormControl('', [Validators.required, Validators.minLength(6)])
+      password : new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(256)])
     })
   }
 

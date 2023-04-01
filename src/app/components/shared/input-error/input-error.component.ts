@@ -14,10 +14,10 @@ export class InputErrorComponent implements OnInit {
 
   private validatorErrors = {
     required: 'This field is required',
-    minlength: 'The field contains insufficient characters',
-    maxlength: 'input-error.max-length',
-    minlengthPassword: 'Password ',
-    maxlengthPassword: 'Password is too long',
+    minlength: 'The field must contain more characters',
+    maxlength: 'The field must contain fewer characters',
+    minlengthPassword: 'Password must contain at least 6 characters',
+    maxlengthPassword: 'Password must contain fewer that 256 characters',
     pattern: 'Wrong pattern',
     email: 'Please enter a correct email format'
   };
@@ -53,14 +53,7 @@ export class InputErrorComponent implements OnInit {
   }
 
   getMaxlength(maxlength: number): string {
-    switch (maxlength) {
-      case 70:
-        return this.validatorErrors.maxlengthPassword;
-      case 63206:
-        return this.validatorErrors.maxlengthPassword;
-      default:
-        return this.validatorErrors.maxlength;
-    }
+    return maxlength === 256 ? this.validatorErrors.maxlengthPassword : this.validatorErrors.maxlength;
   }
 
 }

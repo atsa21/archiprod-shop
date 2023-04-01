@@ -1,21 +1,23 @@
-<div class="page-container">
-    <div class="container">
-        <div class="headings">
-            <button><h1 class="title">Login</h1></button>
-            <button><h1 class="title">Sign Up</h1></button>
-        </div>
-
-        <form [formGroup]="isLogin ? loginForm : signUpForm" class="form">
-            <input formControlName="email" class="input input-accent-lined" placeholder="Enter email"/>
-            <app-input-error [validator]="getControl('email')"></app-input-error>
-
-            <input formControlName="password" [type]="showPassword ? 'password' : 'text'" matInput placeholder="enter your password" required>
-            <button (click)="showPassword = !showPassword">
-                <i class="fa-regular" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
-            </button>
-            <app-input-error [validator]="getControl('password')"></app-input-error>
-            
-            <button [disabled]="isLogin ? loginForm.invalid : signUpForm.invalid" class="btn btn-accent" (click)="isLogin ? login() : signUp()">Submit</button>
-        </form>
+<div class="container">
+    <div class="headings">
+        <button class="nav" [ngClass]="{selected : isLogin}" [disabled]="isLogin" (click)="isLogin = true">Login</button>
+        <button class="nav" [ngClass]="{selected : !isLogin}" [disabled]="!isLogin" (click)="isLogin = false">Sign Up</button>
     </div>
+
+    <form [formGroup]="isLogin ? loginForm : signUpForm" class="form">
+        <input formControlName="email" class="input input-accent-lined width-100" placeholder="Enter email" required/>
+        <span *ngIf="getControl('email')?.touched && getControl('email')?.invalid ">
+            <app-input-error [validator]="getControl('email')"></app-input-error>
+        </span>
+        
+        <input formControlName="password" [type]="showPassword ? 'password' : 'text'" class="input input-accent-lined width-100" placeholder="enter your password" required>
+        <button (click)="showPassword = !showPassword" class="password-btn">
+            <i class="fa-regular" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+        </button>
+        <span *ngIf="getControl('password')?.touched && getControl('password')?.invalid">
+            <app-input-error [validator]="getControl('password')"></app-input-error>
+        </span>
+
+        <button [disabled]="isLogin ? loginForm.invalid : signUpForm.invalid" class="btn btn-accent width-100" (click)="isLogin ? login() : signUp()">{{isLogin ? 'Login' : 'Sign up'}}</button>
+    </form>
 </div>

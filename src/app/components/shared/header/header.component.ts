@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Navigation } from 'src/app/models/navigation';
 import { LoginSignUpDialogComponent } from '../../main/login-sign-up-dialog/login-sign-up-dialog.component';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +15,8 @@ export class HeaderComponent implements OnInit {
 
   isMenuOpened = false;
   isUserMenuOpened = false;
+  isUserLogin = false;
+
   menuList: Navigation[] = [
     { name: 'Furniture', link: '/homepage/shop'},
     { name: 'Bathroom', link: '/homepage/shop'},
@@ -22,12 +26,20 @@ export class HeaderComponent implements OnInit {
     { name: 'Admin', link: '/admin'}
   ];
 
+  private authListenerSubs!: Subscription;
+  private destroy: Subject<boolean> = new Subject<boolean>();
+
   constructor(
     private router: Router,
-    private dialog : MatDialog
+    private dialog : MatDialog,
+    private auth: AuthService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authListenerSubs = this.auth.getStatusListener().pipe(takeUntil(this.destroy)).subscribe( isAuthenticated => {
+      this.isUserLogin = isAuthenticated;
+    });
+  }
 
   goToHomepage(): void {
     this.router.navigate(['/homepage']);
@@ -38,6 +50,10 @@ export class HeaderComponent implements OnInit {
       width: '420px'
     });
     this.openCloseMenu('user-menu');
+  }
+
+  logOut(): void {
+
   }
 
   openCloseMenu(menuName: string): void {
