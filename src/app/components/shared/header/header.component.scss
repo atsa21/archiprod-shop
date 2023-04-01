@@ -21,6 +21,12 @@
     }
 }
 
+.menu-container {
+    right: -22px;
+    top: 58px;
+    z-index: 100;
+}
+
 .menu {
     border-top: 1px solid var(--white);
     top: 70px;

@@ -9,8 +9,9 @@ import { Navigation } from 'src/app/models/navigation';
 })
 export class HeaderComponent implements OnInit {
 
-  public menuOpened = false;
-  public menuList: Navigation[] = [
+  isMenuOpened = false;
+  isUserMenuOpened = false;
+  menuList: Navigation[] = [
     { name: 'Furniture', link: '/homepage/shop'},
     { name: 'Bathroom', link: '/homepage/shop'},
     { name: 'Kitchen', link: '/homepage/shop'},
@@ -26,12 +27,16 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  public toHomepage(): void {
+  goToHomepage(): void {
     this.router.navigate(['/homepage']);
   }
 
-  public openMenu(): void {
-    this.menuOpened = !this.menuOpened;
+  goToLogin(): void {
+    this.router.navigate(['/login']);
+  }
+
+  openCloseMenu(menuName: string): void {
+    menuName === 'nav-menu' ? this.isMenuOpened = !this.isMenuOpened : this.isUserMenuOpened = !this.isUserMenuOpened;
   }
 
 }

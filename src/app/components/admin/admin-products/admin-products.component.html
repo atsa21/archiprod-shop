@@ -6,7 +6,7 @@
             <div class="prod-buttons">
                 <button class="btn btn-accent" (click)="openAddProducts()">Add Product</button>
                 <button class="btn btn-accent btn-gear" (click)="openCloseMenu()"><i class="fa-solid fa-gear"></i></button>
-                <div class="menu-box" *ngIf="menuOpened">
+                <div class="menu-container" *ngIf="menuOpened">
                     <div class="list">
                         <button class="btn-list" (click)="openDialog('Categories', 'category', categories)">Categories List</button>
                         <button class="btn-list" (click)="openDialog('Types', 'type', types)">Types List</button>
