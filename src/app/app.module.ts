@@ -3,8 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from './components/main/main.component';
-import { LoginComponent } from './components/main/login/login.component';
-import { SignUpComponent } from './components/main/sign-up/sign-up.component';
+import { LoginSignUpDialogComponent } from './components/main/login-sign-up-dialog/login-sign-up-dialog.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,8 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     MainComponent,
-    LoginComponent,
-    SignUpComponent,
+    LoginSignUpDialogComponent,
     AdminComponent
   ],
   imports: [
