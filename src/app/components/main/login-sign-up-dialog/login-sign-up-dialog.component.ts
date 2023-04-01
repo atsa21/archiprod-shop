@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { take } from 'rxjs';
 
@@ -35,25 +35,23 @@ export class LoginSignUpDialogComponent {
     })
   }
 
-  get email(){
-    return this.loginForm.get('email');
-  }
-
-  get password(){
-    return this.loginForm.get('password');
+  getControl(control: string): AbstractControl | null {
+    return this.isLogin ? this.loginForm.get(control) : this.signUpForm.get(control);
   }
 
   login(){
     if(this.loginForm.valid){
-      
+      this.auth.login(this.getControl('email')?.value, this.getControl('password')?.value).pipe(take(1)).subscribe(() => {
+
+      });
     }
   }
 
   signUp(){
     if(this.signUpForm.valid){
-      this.auth.createUser(this.signUpForm.get('email')?.value, this.signUpForm.get('password')?.value).pipe(take(1)).subscribe(() => {
+      this.auth.createUser(this.getControl('email')?.value, this.getControl('password')?.value).pipe(take(1)).subscribe(() => {
         console.log("User created :)");
-      })
+      });
     }
   }
 }

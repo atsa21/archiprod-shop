@@ -9,8 +9,8 @@
             <mat-form-field appearance="outline" color="primary" floatLabel="always">
                 <mat-label>Email</mat-label>
                 <input formControlName="email" matInput placeholder="example@gmail.com" required>
-                <mat-error *ngIf="email?.errors?.['required']">Email is required</mat-error>
-                <mat-error *ngIf="email?.errors?.['email']">Please enter a correct email format</mat-error>
+                <mat-error *ngIf="getControl('email')?.errors?.['required']">Email is required</mat-error>
+                <mat-error *ngIf="getControl('email')?.errors?.['email']">Please enter a correct email format</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" color="primary" floatLabel="always">
                 <mat-label>Password</mat-label>
@@ -18,7 +18,7 @@
                 <button (click)="showPassword = !showPassword">
                     <i class="fa-regular" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
                 </button>
-                <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
+                <mat-error *ngIf="getControl('password')?.errors?.['required']">Password is required</mat-error>
             </mat-form-field>
             <button [disabled]="isLogin ? loginForm.invalid : signUpForm.invalid" class="btn btn-accent" (click)="isLogin ? login() : signUp()">Submit</button>
         </form>
