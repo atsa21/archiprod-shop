@@ -37,9 +37,9 @@ export class LoginComponent {
   }
 
 
-  // login(){
-  //   if(typeof this.loginForm.value.email === 'string' && typeof this.loginForm.value.password === 'string'){
-  //     this.auth.login(this.loginForm.value.email, this.loginForm.value.password);
-  //   }
-  // }
+  login(){
+    if(typeof this.loginForm.valid){
+      
+    }
+  }
 }
