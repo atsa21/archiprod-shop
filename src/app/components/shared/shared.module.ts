@@ -12,6 +12,7 @@ import { ArticlesCardsComponent } from './articles-cards/articles-cards.componen
 import { BannerComponent } from './banner/banner.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { CurrencyPipe } from 'src/app/pipe/currency.pipe';
+import { InputErrorComponent } from './input-error/input-error.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CurrencyPipe } from 'src/app/pipe/currency.pipe';
     ArticlesCardsComponent,
     BannerComponent,
     ProductCardComponent,
-    CurrencyPipe
+    CurrencyPipe,
+    InputErrorComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -41,7 +43,8 @@ import { CurrencyPipe } from 'src/app/pipe/currency.pipe';
     BannerComponent,
     ImageCropperModule,
     ProductCardComponent,
-    CurrencyPipe
+    CurrencyPipe,
+    InputErrorComponent
   ]
 })
 export class SharedModule { }

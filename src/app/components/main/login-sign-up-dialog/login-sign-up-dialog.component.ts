@@ -41,9 +41,7 @@ export class LoginSignUpDialogComponent {
 
   login(){
     if(this.loginForm.valid){
-      this.auth.login(this.getControl('email')?.value, this.getControl('password')?.value).pipe(take(1)).subscribe(() => {
-
-      });
+      this.auth.login(this.getControl('email')?.value, this.getControl('password')?.value);
     }
   }
 
