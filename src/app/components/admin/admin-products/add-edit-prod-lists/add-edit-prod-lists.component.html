@@ -12,20 +12,20 @@
                     <div *ngIf="!item.isEditing" class="item">
                         <p>{{ item.name }}</p>
                         <div class="buttons-box">
-                            <button class="btn-icon-light btn-edit" (click)="item.isEditing = !item.isEditing">
+                            <button class="btn-icon btn-icon-white" (click)="item.isEditing = !item.isEditing">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </button>
-                            <button class="btn-icon-light btn-delete" (click)="deleteCategory(item.id)">
+                            <button class="btn-icon btn-icon-white btn-delete" (click)="deleteCategory(item.id)">
                                 <i class="fa-regular fa-trash-can"></i>
                             </button>
                         </div>
                     </div>
                     <div *ngIf="item.isEditing" class="edit-input">
                         <input class="input" [value]="item.name" [placeholder]="'Enter ' + dialogName + ' name'"/>
-                        <button class="btn-icon-light save" (click)="editItem(dialogName, item.id)">
+                        <button class="btn-icon btn-icon-white save" (click)="editItem(dialogName, item.id)">
                             <i class="fa-regular fa-floppy-disk"></i>
                         </button>
-                        <button class="btn-icon-light cancel" type="button" (click)="item.isEditing = !item.isEditing">
+                        <button class="btn-icon btn-icon-white cancel" type="button" (click)="item.isEditing = !item.isEditing">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
                     </div> 

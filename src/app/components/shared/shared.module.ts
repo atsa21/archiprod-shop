@@ -9,7 +9,6 @@ import { HeaderComponent } from './header/header.component';
 import { SubscribeComponent } from './subscribe/subscribe.component';
 import { OnSaleComponent } from './on-sale/on-sale.component';
 import { ArticlesCardsComponent } from './articles-cards/articles-cards.component';
-import { RecommendCardComponent } from './recommend-card/recommend-card.component';
 import { BannerComponent } from './banner/banner.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { CurrencyPipe } from 'src/app/pipe/currency.pipe';
@@ -19,7 +18,6 @@ import { CurrencyPipe } from 'src/app/pipe/currency.pipe';
     HeaderComponent,
     FooterComponent,
     SubscribeComponent,
-    RecommendCardComponent,
     OnSaleComponent,
     ArticlesCardsComponent,
     BannerComponent,
@@ -38,7 +36,6 @@ import { CurrencyPipe } from 'src/app/pipe/currency.pipe';
     HeaderComponent,
     FooterComponent,
     SubscribeComponent,
-    RecommendCardComponent,
     OnSaleComponent,
     ArticlesCardsComponent,
     BannerComponent,

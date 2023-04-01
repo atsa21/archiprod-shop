@@ -49,20 +49,26 @@
                 }
             }
         }
-
-        .price {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--danger);
-        }
     }
 }
 
-.edit-box{
+.button-icon-box {
     display: flex;
     position: absolute;
     top: 16px;
     right: 16px;
+    gap: 4px;
+
+    .icon-sale {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 36px;
+        width: 36px;
+        border-radius: 18px;
+        background: var(--danger);
+        font-size: 12px;
+    }
 }
 
 @media only screen and (max-width: 1600px) {

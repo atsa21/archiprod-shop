@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { map, take } from 'rxjs';
 import { Category } from 'src/app/models/category';
@@ -14,7 +14,7 @@ import { AddEditProdListsComponent } from './add-edit-prod-lists/add-edit-prod-l
   templateUrl: './admin-products.component.html',
   styleUrls: ['./admin-products.component.scss']
 })
-export class AdminProductsComponent {
+export class AdminProductsComponent implements OnInit {
 
   public menuOpened = false;
 
@@ -63,7 +63,6 @@ export class AdminProductsComponent {
         this.products = data.prod;
         this.totalElements = data.totalElements;
       })
-
   }
 
   private getCategories(): void {
