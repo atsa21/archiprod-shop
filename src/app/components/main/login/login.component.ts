@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +14,7 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private auth : AuthService,
-
+    private auth : AuthService
   ) {}
 
   ngOnInit(): void {
@@ -38,9 +37,9 @@ export class LoginComponent {
   }
 
 
-  // login(){
-  //   if(typeof this.loginForm.value.email === 'string' && typeof this.loginForm.value.password === 'string'){
-  //     this.auth.login(this.loginForm.value.email, this.loginForm.value.password);
-  //   }
-  // }
+  login(){
+    if(typeof this.loginForm.valid){
+      
+    }
+  }
 }

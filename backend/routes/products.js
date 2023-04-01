@@ -42,7 +42,7 @@ router.post("", multer({ storage: storage }).single("image"), (req, res, next) =
         amount: req.body.amount,
         price: req.body.price,
         currency: req.body.currency,
-        isOnSale: false
+        isOnSale: req.body.inOnSale
     });
     product.save().then( createdProd => {
         res.status(201).json({
@@ -55,10 +55,24 @@ router.post("", multer({ storage: storage }).single("image"), (req, res, next) =
     });
 });
 
-router.put("/:id", (req, res, next) => {
-    const product = new product({
-        name: req.body.name,
-        type: req.body.type
+router.put("/:id", multer({ storage: storage }).single("image"), (req, res, next) => {
+    let imagePath = req.body.imagePath;
+    if(req.file) {
+        const url = req.protocol + "://" + req.get("host");
+        imagePath = url + "/images/" + req.file.filename;
+    }
+    const product = new Product({
+        _id: req.body.id,
+        category: req.body.category,
+        type: req.body.type,
+        material: req.body.material,
+        brand: req.body.brand,
+        imagePath: imagePath,
+        collectionName: req.body.collectionName,
+        amount: req.body.amount,
+        price: req.body.price,
+        currency: req.body.currency,
+        isOnSale: req.body.inOnSale
     });
     Product.updateOne({ _id: req.params.id }, product).then( result => {
         res.status(200).json({
@@ -68,6 +82,27 @@ router.put("/:id", (req, res, next) => {
 });
 
 router.get("",(req, res, next) => {
+    const pageSize = +req.query.size;
+    const currentPage = +req.query.page;
+    const postQuery = Product.find();
+    let fetchedProduct;
+    if(pageSize && currentPage) {
+        postQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
+    }
+    postQuery.then(documents => {
+        fetchedProduct = documents;
+        return Product.count();
+    })
+    .then(count => {
+        res.status(200).json({
+            message: "Product fetched succesfully!",
+            data: fetchedProduct,
+            totalElements: count
+        });
+    });
+});
+
+router.get("/:id",(req, res, next) => {
     Product.find().then(documents => {
         res.status(200).json({
             message: "Product fetched succesfully!",
@@ -78,7 +113,6 @@ router.get("",(req, res, next) => {
 
 router.delete("/:id",(req, res, next) => {
     Product.deleteOne({_id: req.params.id}).then(result => {
-        console.log(result);
         res.status(200).json({ message: "Product deleted!"})
     });
 });

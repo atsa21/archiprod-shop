@@ -5,6 +5,7 @@ export interface ProductCard {
     brand: string,
     collectionName: string,
     material: string,
+    amount: number,
     price: number,
     currency: string,
     imagePath: string,

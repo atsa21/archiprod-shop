@@ -7,6 +7,7 @@
 
     .products-container {
         width: 100%;
+        overflow-y: scroll;
 
         .products-header {
             display: flex;
@@ -22,13 +23,24 @@
             }
         }
 
-        .products-box {
+        .prod-section {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             margin: 24px;
-            padding: 24px 18px;
             border-radius: 6px;
             background-color: var(--white);
+
+            p {
+                display: flex;
+                margin: 24px;
+                margin-bottom: 0;
+            }
+
+            .products-box {
+                display: flex;
+                justify-content: space-between;
+                margin: 24px;
+            }
         }
     }
 }
@@ -44,6 +56,7 @@
     right: 38px;
     background: var(--black);
     border-radius: 6px;
+    z-index: 12;
 
     .list {
         display: flex;

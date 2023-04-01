@@ -7,7 +7,7 @@ const router = express.Router();
 router.post("", (req, res, next) => {
     const category = new Category({
         name: req.body.name,
-        type: req.body.type
+        type: [req.body.type]
     });
     category.save().then( crearedCategory => {
         res.status(201).json({
@@ -33,6 +33,15 @@ router.get("",(req, res, next) => {
     Category.find().then(documents => {
         res.status(200).json({
             message: "Category fetched succesfully!",
+            data: documents
+        })
+    });
+});
+
+router.get("/:id",(req, res, next) => {
+    Category.find().then(documents => {
+        res.status(200).json({
+            message: "Category getted by id succesfully!",
             data: documents
         })
     });
