@@ -4,6 +4,7 @@ import { ProductCard } from 'src/app/models/product-card';
 import { AddEditProdDialogComponent } from '../../admin/admin-products/add-edit-prod-dialog/add-edit-prod-dialog.component';
 import { ProductService } from 'src/app/services/product-service/product.service';
 import { take } from 'rxjs';
+import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
 
 @Component({
   selector: 'app-product-card',
@@ -17,7 +18,8 @@ export class ProductCardComponent {
 
   constructor(
     private dialog : MatDialog,
-    private productService: ProductService
+    private productService: ProductService,
+    private snackBarService: SnackBarService
   ) {}
 
   openEditProducts(): void {
@@ -32,7 +34,7 @@ export class ProductCardComponent {
   deleteProduct(id: string | undefined): void {
     if (id){
       this.productService.deleteProduct(id).pipe(take(1)).subscribe(() => {
-        console.log('You successfully deleted product'+ id)
+        this.snackBarService.openSnackBar('delete prod', 'success');
       })
     }
   }
