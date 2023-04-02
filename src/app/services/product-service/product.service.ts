@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProductPost } from 'src/app/models/product-post';
 
@@ -16,18 +16,20 @@ export class ProductService {
     return this.http.get<{ message: string, data: any , totalElements: number}>(`http://localhost:3000/api/products?size=${pageSize}&page=${page}`);
   }
 
-  postProduct(product: any, image: File) {
+  postProduct(product: ProductPost, image: File) {
     const body = new FormData();
     body.append('category', product.category);
     body.append('type', product.type);
     body.append('material', product.material);
+    body.append('shape', product.shape);
+    body.append('extras', product.extras);
     body.append('brand', product.brand);
-    body.append('image', image, product.name);
+    body.append('image', image, product.category);
     body.append('collectionName', product.collectionName);
-    body.append('amount', product.amount);
-    body.append('price', product.price);
+    body.append('amount', product.amount.toString());
+    body.append('price', product.price.toString());
     body.append('currency', product.currency);
-    body.append('isOnSale', product.isOnSale);
+    body.append('isOnSale', product.isOnSale.toString());
     return this.http.post<{message: string, products: ProductPost}>('http://localhost:3000/api/products', body);
   }
 
@@ -39,6 +41,8 @@ export class ProductService {
       body.append('category', product.category);
       body.append('type', product.type);
       body.append('material', product.material);
+      body.append('shape', product.shape);
+      body.append('extras', product.extras);
       body.append('brand', product.brand);
       body.append('image', product.image, product.name);
       body.append('collectionName', product.collectionName);
@@ -52,6 +56,8 @@ export class ProductService {
         category: product.category,
         type: product.type,
         material: product.material,
+        shape: product.shape,
+        extras: product.extras,
         brand: product.brand,
         imagePath: product.image,
         collectionName: product.collectionName,

@@ -3,6 +3,8 @@ export interface ProductPost {
     category: string,
     type: string,
     material: string,
+    shape: string,
+    extras: string,
     imagePath: string,
     brand: string,
     amount: number,

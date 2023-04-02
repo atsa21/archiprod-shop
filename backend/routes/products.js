@@ -33,17 +33,22 @@ const storage = multer.diskStorage({
 
 router.post("", checkAuth, multer({ storage: storage }).single("image"), (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");
+    const { category, type, material, shape, extras, brand, collectionName, amount, price, currency, inOnSale } = req.body;
+
     const product = new Product({
-        category: req.body.category,
-        type: req.body.type,
-        material: req.body.material,
-        brand: req.body.brand,
+        category: category,
+        type: type,
+        material: material,
+        shape: shape,
+        extras: extras,
+        brand: brand,
         imagePath: url + "/images/" + req.file.filename,
-        collectionName: req.body.collectionName,
-        amount: req.body.amount,
-        price: req.body.price,
-        currency: req.body.currency,
-        isOnSale: req.body.inOnSale,
+        collectionName: collectionName,
+        amount: amount,
+        price: price,
+        currency: currency,
+        isOnSale: inOnSale,
+        sale: req.body.sale,
         creator: req.userData.userId
     });
     product.save().then( createdProd => {
@@ -59,22 +64,27 @@ router.post("", checkAuth, multer({ storage: storage }).single("image"), (req, r
 
 router.put("/:id", checkAuth, multer({ storage: storage }).single("image"), (req, res, next) => {
     let imagePath = req.body.imagePath;
+    const { category, type, material, shape, extras, brand, collectionName, amount, price, currency, inOnSale } = req.body;
+
     if(req.file) {
         const url = req.protocol + "://" + req.get("host");
         imagePath = url + "/images/" + req.file.filename;
     }
     const product = new Product({
         _id: req.body.id,
-        category: req.body.category,
-        type: req.body.type,
-        material: req.body.material,
-        brand: req.body.brand,
+        category: category,
+        type: type,
+        material: material,
+        shape: shape,
+        extras: extras,
+        brand: brand,
         imagePath: imagePath,
-        collectionName: req.body.collectionName,
-        amount: req.body.amount,
-        price: req.body.price,
-        currency: req.body.currency,
-        isOnSale: req.body.inOnSale,
+        collectionName: collectionName,
+        amount: amount,
+        price: price,
+        currency: currency,
+        isOnSale: inOnSale,
+        sale: req.body.sale,
         creator: req.userData.userId
     });
     Product.updateOne({ _id: req.params.id }, product).then( result => {

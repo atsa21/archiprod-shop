@@ -16,8 +16,11 @@ export class AddEditProdListsComponent {
 
   categories: Category[] = [];
   categoryForm!: FormGroup;
-  brandForm!: FormGroup;
+
   item!: FormControl;
+  newMaterial!: FormControl;
+  newShape!: FormControl;
+  newExtras!: FormControl;
 
   dialogTitle: string = "";
   dialogName: string = "";
@@ -34,13 +37,16 @@ export class AddEditProdListsComponent {
 
   ngOnInit(): void {
     this.item = new FormControl('');
+    this.newMaterial = new FormControl('');
+    this.newShape = new FormControl('');
+    this.newExtras = new FormControl('');
     if(this.data) {
       this.dialogTitle = this.data.dialogTitle;
       this.dialogName = this.data.dialogName;
       this.categories = this.data.list;
       this.categories.forEach( item => item.isEditing = false);
       this.isEditing = this.data.isEditing;
-      this.dialogName === 'type' ? this.initCategoryForm() : this.initBrandForm();
+      this.initCategoryForm();
     }
   }
 
@@ -48,12 +54,16 @@ export class AddEditProdListsComponent {
     this.categoryForm = this.fb.group({
       name: new FormControl('', Validators.required),
       typeName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
-      materials: new FormControl(null, Validators.required),
-      shapes: new FormControl(null, Validators.required),
-      extras: new FormControl(null, Validators.required)
+      materials: new FormControl([], Validators.required),
+      shapes: new FormControl([], Validators.required),
+      extras: new FormControl([], Validators.required)
     });
 
-    this.getControl('name')?.valueChanges.subscribe( selected => {
+    // this.categoryForm?.valueChanges.subscribe( selected => {
+    //   console.log(selected);
+    // })
+
+    this.getControl('name').valueChanges.subscribe( selected => {
       const selectedCategory = this.categories.find( el => el.name === selected);
       if(selectedCategory?.id) {
         this.id = selectedCategory.id;
@@ -61,22 +71,19 @@ export class AddEditProdListsComponent {
     })
   }
 
-  public initBrandForm(): void {
-    this.brandForm = this.fb.group({
-      name: new FormControl('', Validators.required),
-      country: new FormControl('', Validators.required),
-      website: new FormControl('', Validators.required),
-      logo: new FormControl('', Validators.required)
-    });
+  public getControl(control: string): AbstractControl {
+    const formControl = this.categoryForm.get(control);
+    return formControl!;
   }
 
-  public getControl(control: string): AbstractControl | null {
-    return this.dialogName === 'type' ? this.categoryForm.get(control) : this.brandForm.get(control);
+  public addItem(item: string, control: FormControl): void {
+    if(control.value) {
+      const initValue = this.getControl(item).value;
+      const newList = [...initValue, control.value];
+      this.getControl(item).setValue(newList);
+      control.setValue('');
+    }
   }
-
-  // public addItem(item: string): void {
-  //   item ==='category' ? this.addCategory() : this.addCategory();
-  // }
 
   public editItem(item: string, id: string): void {
     // switch (item) {
@@ -91,29 +98,29 @@ export class AddEditProdListsComponent {
     // }
   }
 
-  public deleteCategory(id: string): void {
-    this.categoryService.deleteCategory(id).subscribe((res: any) => {
-      this.categories = this.categories.filter( el => el.id != id);
-    });
-  }
-  
   public addCategory(): void {
     if(this.item.valid) {
       this.categoryService.addCategory(this.item.value).subscribe(res => {
         const newItem = { id: res.categoryId, name: this.item.value, type: [] };
         this.categories = [...this.categories, newItem];
+        this.item.setValue('');
       });
     }
   }
 
+  public deleteCategory(id: string): void {
+    this.categoryService.deleteCategory(id).subscribe((res: any) => {
+      this.categories = this.categories.filter( el => el.id != id);
+    });
+  }
+
   public addCategoryType(): void {
-    console.log(this.categoryForm.value);
-    // if(this.categoryForm.valid) {
-    //   this.categoryService.addCategoryType(this.categoryForm.value, this.id).subscribe( res => {
-    //     console.log(res.message);
-    //     this.dialogRef.close();
-    //   });
-    // }
+    if(this.categoryForm.valid) {
+      this.categoryService.addCategoryType(this.categoryForm.value, this.id).subscribe((res: any) => {
+        console.log(res);
+        this.dialogRef.close();
+      });
+    }
   }
 
   // public editType(id: string): void {

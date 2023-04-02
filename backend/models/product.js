@@ -6,6 +6,8 @@ const productsSchema = mongoose.Schema({
     imagePath: { type: String, required: true },
     brand: { type: String, required: true },
     material: { type: String, required: true },
+    shape: { type: String, required: true },
+    extras: { type: String, required: true },
     amount: { type: Number, default: 0 },
     price: { type: Number, default: 0 },
     currency: { type: String, required: true },

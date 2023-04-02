@@ -12,7 +12,30 @@
         .add-container {
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 12px;
+
+            .add-form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 80%;
+                gap: 12px;
+
+                .input-container {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+
+                    .list-box {
+                        .list {
+                            display: flex;
+                            text-align: left;
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
 
             .add-input {
                 display: flex;
