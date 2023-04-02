@@ -1,12 +1,10 @@
-import { Component } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-@Component({
-  selector: 'app-snack-bar',
-  template: '',
-  styleUrls: ['./snack-bar.component.scss']
+@Injectable({
+  providedIn: 'root'
 })
-export class SnackBarComponent {
+export class SnackBarService {
   message: string = '';
   snackBarClass: string = '';
 
@@ -15,7 +13,6 @@ export class SnackBarComponent {
   openSnackBar(messageType: string, styleType: string): void {
     this.message = this.getMessage(messageType);
     const style = this.getTypeClass(styleType);
-    console.log(style);
     this.snackBar.open(this.message, 'x', {
       duration: 3000,
       verticalPosition: 'bottom',

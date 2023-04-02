@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { take } from 'rxjs';
 import { MatDialogRef } from '@angular/material/dialog';
-import { SnackBarComponent } from '../../shared/snack-bar/snack-bar.component';
+import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
 
 @Component({
   selector: 'app-login-sign-up-dialog',
@@ -20,7 +20,7 @@ export class LoginSignUpDialogComponent {
   constructor(
     private fb: FormBuilder,
     private auth : AuthService,
-    private snack: SnackBarComponent,
+    private snack: SnackBarService,
     private dialogRef: MatDialogRef<LoginSignUpDialogComponent>
   ) {}
 
