@@ -64,4 +64,8 @@ export class ProductService {
     }
     return this.http.put<{message: string, products: ProductPost}>('http://localhost:3000/api/products/' + id, body);
   }
+
+  deleteProduct(id: string) {
+    return this.http.delete(`http://localhost:3000/api/products/${id}`);
+  }
 }

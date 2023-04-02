@@ -2,7 +2,7 @@
     <button class="nav-icon">
         <i class="fa-solid fa-magnifying-glass"></i>
     </button>
-    <img class="logo" (click)="toHomepage()" src="/assets/img/logo.svg"/>
+    <img class="logo" (click)="goToPage('/homepage')" src="/assets/img/logo.svg"/>
     <div class="right-menu">
         <button class="nav-icon">
             <img class="icon-card" src="/assets/img/cart-shopping-line.svg" />
@@ -10,15 +10,22 @@
         <button class="nav-icon">
             <i class="fa-regular fa-heart"></i>
         </button>
-        <button class="nav-icon">
+        <button class="nav-icon" (click)="openCloseMenu('user-menu')">
             <i class="fa-regular fa-user"></i>
         </button>
+        <div class="menu-container" *ngIf="isUserMenuOpened">
+            <div class="list">
+                <button *ngIf="!isUserLogin" class="btn-list" (click)="openLoginDialog()">Login</button>
+                <button *ngIf="isUserLogin && isAdmin" class="btn-list" (click)="goToPage('/admin')">Admin page</button>
+                <button *ngIf="isUserLogin" class="btn-list" (click)="logOut()">Logout</button>
+            </div>
+        </div>
     </div>
-    <button class="nav-icon menu-icon" (click)="openMenu()">
+    <button class="nav-icon menu-icon" (click)="openCloseMenu('nav-menu')">
         <i class="fa-solid fa-bars"></i>
     </button>
 </div>
-<div class="container menu" *ngIf="menuOpened">
+<div class="container menu" *ngIf="isMenuOpened">
     <div class="list">
         <div *ngFor="let menu of menuList" class="list-item">
             <a [href]="menu.link" class="link-light">{{ menu.name }}</a>

@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="headings">
+        <button class="nav" [ngClass]="{selected : isLogin}" [disabled]="isLogin" (click)="isLogin = true">Login</button>
+        <button class="nav" [ngClass]="{selected : !isLogin}" [disabled]="!isLogin" (click)="isLogin = false">Sign Up</button>
+    </div>
+
+    <form [formGroup]="form" class="form">
+        <div class="email-input-box">
+            <input formControlName="email" class="input input-accent-lined width-100" [ngClass]="{'input-invalid' : isEmailInvalid()}" placeholder="Enter email" required/>
+            <span class="error-box">
+                <app-input-error *ngIf="isEmailInvalid()" [validator]="getControl('email')"></app-input-error>
+            </span>
+        </div>
+        
+        <div class="email-input-box">
+            <div class="input input-accent-lined-with-icon width-100" [ngClass]="{'input-invalid' : isPasswordInvalid()}">
+                <input formControlName="password" [type]="showPassword ? 'password' : 'text'" class="input-with-icon" placeholder="enter your password" required>
+                <button (click)="showPassword = !showPassword" class="input-btn">
+                    <i class="fa-regular" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+                </button>
+            </div>
+            <span class="error-box">
+                <app-input-error *ngIf="isPasswordInvalid()" [validator]="getControl('password')"></app-input-error>
+            </span>
+        </div>
+
+        <button [disabled]="form.invalid" class="btn btn-accent width-100" (click)="isLogin ? login() : signUp()">{{isLogin ? 'Login' : 'Sign up'}}</button>
+    </form>
+</div>

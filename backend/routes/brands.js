@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 
 const Brand = require("../models/brand");
+const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
 
@@ -30,7 +31,7 @@ const storage = multer.diskStorage({
     }
 });
 
-router.post("", multer({ storage: storage }).single("image"), (req, res, next) => {
+router.post("", checkAuth, multer({ storage: storage }).single("image"), (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");
     const brand = new Brand({
         name: req.body.name,
@@ -49,7 +50,7 @@ router.post("", multer({ storage: storage }).single("image"), (req, res, next) =
     });
 });
 
-router.put("/:id", multer({ storage: storage }).single("image"), (req, res, next) => {
+router.put("/:id", checkAuth, multer({ storage: storage }).single("image"), (req, res, next) => {
     let logo = req.body.logo;
     if(req.file) {
         const url = req.protocol + "://" + req.get("host");
@@ -77,7 +78,7 @@ router.get("",(req, res, next) => {
     });
 });
 
-router.delete("/:id",(req, res, next) => {
+router.delete("/:id", checkAuth, (req, res, next) => {
     Brand.deleteOne({_id: req.params.id}).then(result => {
         res.status(200).json({ message: "Brand deleted!"})
     });

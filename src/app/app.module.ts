@@ -3,22 +3,21 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from './components/main/main.component';
-import { LoginComponent } from './components/main/login/login.component';
-import { SignUpComponent } from './components/main/sign-up/sign-up.component';
+import { LoginSignUpDialogComponent } from './components/main/login-sign-up-dialog/login-sign-up-dialog.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminComponent } from './components/admin/admin.component';
 import { AngularMaterialsModule } from './components/shared/angular-materials.module';
 import { SharedModule } from './components/shared/shared.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './services/auth-service/auth-interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
-    LoginComponent,
-    SignUpComponent,
+    LoginSignUpDialogComponent,
     AdminComponent
   ],
   imports: [
@@ -29,7 +28,9 @@ import { HttpClientModule } from '@angular/common/http';
     SharedModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
