@@ -43,7 +43,8 @@ router.post("", checkAuth, multer({ storage: storage }).single("image"), (req, r
         amount: req.body.amount,
         price: req.body.price,
         currency: req.body.currency,
-        isOnSale: req.body.inOnSale
+        isOnSale: req.body.inOnSale,
+        creator: req.userData.userId
     });
     product.save().then( createdProd => {
         res.status(201).json({
@@ -73,7 +74,8 @@ router.put("/:id", checkAuth, multer({ storage: storage }).single("image"), (req
         amount: req.body.amount,
         price: req.body.price,
         currency: req.body.currency,
-        isOnSale: req.body.inOnSale
+        isOnSale: req.body.inOnSale,
+        creator: req.userData.userId
     });
     Product.updateOne({ _id: req.params.id }, product).then( result => {
         res.status(200).json({
@@ -113,7 +115,7 @@ router.get("/:id",(req, res, next) => {
 });
 
 router.delete("/:id", checkAuth, (req, res, next) => {
-    Product.deleteOne({_id: req.params.id}).then(result => {
+    Product.deleteOne({_id: req.params.id, creator: req.userData.userId}).then(result => {
         res.status(200).json({ message: "Product deleted!"})
     });
 });

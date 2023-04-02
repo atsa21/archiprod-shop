@@ -15,6 +15,7 @@ const productsSchema = mongoose.Schema({
     designer: { type: String, required: false },
     isOnSale: { type: Boolean, default: false },
     sale: { type: Number, required: false },
+    creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
 });
 
 module.exports = mongoose.model("Product", productsSchema);

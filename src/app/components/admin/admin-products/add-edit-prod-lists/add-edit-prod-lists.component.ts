@@ -5,6 +5,7 @@ import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category-service/category.service';
 import { take } from 'rxjs';
 import { DialogRef } from '@angular/cdk/dialog';
+import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
 
 @Component({
   selector: 'app-add-edit-prod-lists',
@@ -27,7 +28,8 @@ export class AddEditProdListsComponent {
     private categoryService: CategoryService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: DialogRef<AddEditProdListsComponent>,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private snack: SnackBarService
     ) { }
 
   ngOnInit(): void {
@@ -91,15 +93,15 @@ export class AddEditProdListsComponent {
 
   public deleteCategory(id: string): void {
     this.categoryService.deleteCategory(id).subscribe((res: any) => {
-      console.log("You deleted the category");
+      this.categories = this.categories.filter( el => el.id != id);
     });
   }
   
   public addCategory(): void {
     if(this.item.valid) {
-      this.categoryService.addCategory(this.item.value).subscribe( res => {
-        console.log("You added the category");
-        this.dialogRef.close();
+      this.categoryService.addCategory(this.item.value).subscribe(res => {
+        const newItem = { id: res.categoryId, name: this.item.value, type: [] };
+        this.categories = [...this.categories, newItem];
       });
     }
   }

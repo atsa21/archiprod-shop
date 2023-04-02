@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProductPost } from 'src/app/models/product-post';
 
@@ -6,7 +6,6 @@ import { ProductPost } from 'src/app/models/product-post';
   providedIn: 'root'
 })
 export class ProductService {
-
   constructor(private http: HttpClient) { }
 
   getAllProducts() {
