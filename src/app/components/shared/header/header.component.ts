@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit {
 
   openLoginDialog(): void {
     this.dialog.open(LoginSignUpDialogComponent, {
-      width: '420px'
+      width: '380px'
     });
     this.openCloseMenu('user-menu');
   }

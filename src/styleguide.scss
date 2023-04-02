@@ -178,7 +178,14 @@ p {
 
 // Inputs style
 
+input {
+    &:is(:-webkit-autofill, :-webkit-autofill:focus) {
+        transition: background-color 600000s 0s, color 600000s 0s;
+    }
+}
+
 .input {
+    position: relative;
     height: 44px;
     padding: 16px;
     border-radius: 6px;
@@ -194,6 +201,39 @@ p {
     }
 }
 
+.input-accent-lined-with-icon {
+    display: flex;
+    align-items: center;
+    padding-right: 4px;
+    justify-content: space-between;
+    border: 2px solid var(--accent);
+
+    &:focus-within {
+        border: 2px solid var(--black);
+    }
+
+    .input-with-icon {
+        height: 20px;
+        border: 0;
+        outline: 0;
+        background: none;
+    }
+
+    .input-btn {
+        height: 30px;
+        width: 30px;
+        border: 0;
+        outline: 0;
+        background: none;
+        cursor: pointer;
+        transition: color 0.4s ease-in-out;
+
+        &:hover {
+            color: var(--second);
+        }
+    }
+}
+
 .select-accent-lined {
     padding: 16px;
     border-radius: 6px;
@@ -202,6 +242,10 @@ p {
     &:focus {
         border: 2px solid var(--black);
     }
+}
+
+.input-invalid {
+    border: 2px solid var(--danger);
 }
 
 .link-light {

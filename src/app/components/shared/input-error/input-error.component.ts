@@ -8,7 +8,7 @@ import { errorType } from 'src/app/models/typeError.model';
   styleUrls: ['./input-error.component.scss']
 })
 export class InputErrorComponent implements OnInit {
-  @Input() validator!: AbstractControl | null;
+  @Input() validator!: AbstractControl;
 
   errorMessage: string = '';
 

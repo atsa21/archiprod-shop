@@ -39,13 +39,22 @@ export class LoginSignUpDialogComponent {
     })
   }
 
-  getControl(control: string): AbstractControl | null {
-    return this.isLogin ? this.loginForm.get(control) : this.signUpForm.get(control);
+  getControl(control: string): AbstractControl {
+    const formControl = this.isLogin ? this.loginForm.get(control) : this.signUpForm.get(control);
+    return formControl!;
+  }
+
+  isEmailInvalid(): boolean {
+    return (this.getControl('email').invalid && (this.getControl('email').touched || this.getControl('email').dirty));
+  }
+
+  isPasswordInvalid(): boolean {
+    return (this.getControl('password').invalid && (this.getControl('password').touched || this.getControl('password').dirty))
   }
 
   login(){
     if(this.loginForm.valid){
-      this.auth.login(this.getControl('email')?.value, this.getControl('password')?.value).pipe(take(1)).subscribe((res: any) => {
+      this.auth.login(this.getControl('email').value, this.getControl('password').value).pipe(take(1)).subscribe((res: any) => {
         this.auth.setAuthRes(res.token, res.expiresIn, res.role);
         this.snack.openSnackBar('login', 'success');
         this.dialogRef.close();
@@ -55,9 +64,9 @@ export class LoginSignUpDialogComponent {
 
   signUp(){
     if(this.signUpForm.valid){
-      this.auth.createUser(this.getControl('email')?.value, this.getControl('password')?.value).pipe(take(1)).subscribe(() => {
+      this.auth.createUser(this.getControl('email').value, this.getControl('password').value).pipe(take(1)).subscribe(() => {
         this.snack.openSnackBar('sign up', 'success');
-        this.auth.login(this.getControl('email')?.value, this.getControl('password')?.value).pipe(take(1)).subscribe((res: any) => {
+        this.auth.login(this.getControl('email').value, this.getControl('password').value).pipe(take(1)).subscribe((res: any) => {
           this.auth.setAuthRes(res.token, res.expiresIn, res.role);
           this.dialogRef.close();
         });
