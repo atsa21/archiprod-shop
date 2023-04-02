@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-@Injectable({
-  providedIn: 'root'
+@Component({
+  selector: 'app-snack-bar',
+  template: '',
+  styleUrls: ['./snack-bar.component.scss']
 })
-export class SnackBarService {
-
+export class SnackBarComponent {
   message: string = '';
   snackBarClass: string = '';
 
@@ -13,17 +14,20 @@ export class SnackBarService {
 
   openSnackBar(messageType: string, styleType: string): void {
     this.message = this.getMessage(messageType);
-    this.getTypeClass(styleType);
-    this.snackBar.open(this.message, 'close', {
+    const style = this.getTypeClass(styleType);
+    console.log(style);
+    this.snackBar.open(this.message, 'x', {
       duration: 3000,
       verticalPosition: 'bottom',
       horizontalPosition: 'center',
-      panelClass: [this.snackBarClass]
+      panelClass: [style]
     });
   }
 
   getMessage(messageType: string): string {
     switch (messageType) {
+      case 'login':
+        return 'You have been logged in!';
       case 'logout':
         return 'You have been logged out!';
       case 'sign up' :
@@ -37,16 +41,14 @@ export class SnackBarService {
     }
   }
 
-  getTypeClass(type: string): void {
+  getTypeClass(type: string): string {
     switch (type) {
       case 'error' :
-        this.snackBarClass = 'error-snackbar';
-        break
+        return 'error-snackbar';
       case 'attention' :
-        this.snackBarClass = 'attention-snackbar';
-        break;
+        return 'attention-snackbar';
       default :
-        this.snackBarClass = 'success-snackbar';
+        return 'success-snackbar';
     }
   }
 }

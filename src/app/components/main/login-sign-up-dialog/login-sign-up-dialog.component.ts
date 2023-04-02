@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { take } from 'rxjs';
-import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { SnackBarComponent } from '../../shared/snack-bar/snack-bar.component';
 
 @Component({
   selector: 'app-login-sign-up-dialog',
@@ -20,7 +20,7 @@ export class LoginSignUpDialogComponent {
   constructor(
     private fb: FormBuilder,
     private auth : AuthService,
-    private snack: SnackBarService,
+    private snack: SnackBarComponent,
     private dialogRef: MatDialogRef<LoginSignUpDialogComponent>
   ) {}
 
@@ -47,6 +47,7 @@ export class LoginSignUpDialogComponent {
     if(this.loginForm.valid){
       this.auth.login(this.getControl('email')?.value, this.getControl('password')?.value).pipe(take(1)).subscribe((res: any) => {
         this.auth.setAuthRes(res.token, res.expiresIn, res.role);
+        this.snack.openSnackBar('login', 'success');
         this.dialogRef.close();
       });
     }

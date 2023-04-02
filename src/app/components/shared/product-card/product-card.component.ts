@@ -4,7 +4,7 @@ import { ProductCard } from 'src/app/models/product-card';
 import { AddEditProdDialogComponent } from '../../admin/admin-products/add-edit-prod-dialog/add-edit-prod-dialog.component';
 import { ProductService } from 'src/app/services/product-service/product.service';
 import { take } from 'rxjs';
-import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
+import { SnackBarComponent } from '../snack-bar/snack-bar.component';
 
 @Component({
   selector: 'app-product-card',
@@ -19,7 +19,7 @@ export class ProductCardComponent {
   constructor(
     private dialog : MatDialog,
     private productService: ProductService,
-    private snack: SnackBarService
+    private snack: SnackBarComponent
   ) {}
 
   openEditProducts(): void {

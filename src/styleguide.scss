@@ -244,23 +244,3 @@ p {
         }
     }
 }
-
-// Snack Bar style
-
-.error-snackbar {
-    background-color: var(--danger);
-    color: var(--white);
-    border-radius: 6px;
-}
-
-.attention-snackbar {
-    background-color: var(--accent);
-    color: var(--black);
-    border-radius: 6px;
-}
-  
-.success-snackbar {
-    background-color: var(--success);
-    color: var(--black);
-    border-radius: 6px;
-}

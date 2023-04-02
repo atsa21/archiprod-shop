@@ -5,7 +5,7 @@ import { Navigation } from 'src/app/models/navigation';
 import { LoginSignUpDialogComponent } from '../../main/login-sign-up-dialog/login-sign-up-dialog.component';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { Subject, takeUntil } from 'rxjs';
-import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
+import { SnackBarComponent } from '../snack-bar/snack-bar.component';
 
 @Component({
   selector: 'app-header',
@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private dialog : MatDialog,
     private auth: AuthService,
-    private snack: SnackBarService
+    private snack: SnackBarComponent
   ) {}
 
   ngOnInit(): void {
