@@ -46,8 +46,7 @@ export class LoginSignUpDialogComponent {
   login(){
     if(this.loginForm.valid){
       this.auth.login(this.getControl('email')?.value, this.getControl('password')?.value).pipe(take(1)).subscribe((res: any) => {
-        this.auth.setAuthRes(res.token, res.expiresIn);
-        localStorage.setItem('role', res.role);
+        this.auth.setAuthRes(res.token, res.expiresIn, res.role);
         this.dialogRef.close();
       });
     }
@@ -58,8 +57,7 @@ export class LoginSignUpDialogComponent {
       this.auth.createUser(this.getControl('email')?.value, this.getControl('password')?.value).pipe(take(1)).subscribe(() => {
         this.snack.openSnackBar('sign up', 'success');
         this.auth.login(this.getControl('email')?.value, this.getControl('password')?.value).pipe(take(1)).subscribe((res: any) => {
-          this.auth.setAuthRes(res.token, res.expiresIn);
-          localStorage.setItem('role', res.role);
+          this.auth.setAuthRes(res.token, res.expiresIn, res.role);
           this.dialogRef.close();
         });
       });

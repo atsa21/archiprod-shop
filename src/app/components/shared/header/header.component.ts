@@ -37,18 +37,14 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isUserLogin = !!localStorage.getItem('role');
+    this.isUserLogin = this.auth.isLoggedIn();
     if(this.isUserLogin) {
-      this.checkUserRole();
+      this.isAdmin = this.auth.isAdmin();
     }
-    this.auth.getAuthStatusListener().pipe(takeUntil(this.destroy)).subscribe( isAuthenticated => {
-      this.isUserLogin = isAuthenticated;
-      this.checkUserRole();
+    this.auth.getAuthStatusListener().pipe(takeUntil(this.destroy)).subscribe((res) => {
+      this.isUserLogin = res;
+      this.isAdmin = this.auth.isAdmin();
     });
-  }
-
-  checkUserRole(): void {
-    this.isAdmin = localStorage.getItem('role') === 'ADMIN';
   }
 
   goToPage(name: string): void {
