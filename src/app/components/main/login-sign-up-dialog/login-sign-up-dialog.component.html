@@ -4,7 +4,7 @@
         <button class="nav" [ngClass]="{selected : !isLogin}" [disabled]="!isLogin" (click)="isLogin = false">Sign Up</button>
     </div>
 
-    <form [formGroup]="isLogin ? loginForm : signUpForm" class="form">
+    <form [formGroup]="form" class="form">
         <div class="email-input-box">
             <input formControlName="email" class="input input-accent-lined width-100" [ngClass]="{'input-invalid' : isEmailInvalid()}" placeholder="Enter email" required/>
             <span class="error-box">
@@ -24,6 +24,6 @@
             </span>
         </div>
 
-        <button [disabled]="isLogin ? loginForm.invalid : signUpForm.invalid" class="btn btn-accent width-100" (click)="isLogin ? login() : signUp()">{{isLogin ? 'Login' : 'Sign up'}}</button>
+        <button [disabled]="form.invalid" class="btn btn-accent width-100" (click)="isLogin ? login() : signUp()">{{isLogin ? 'Login' : 'Sign up'}}</button>
     </form>
 </div>

@@ -12,8 +12,7 @@ import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.se
 })
 export class LoginSignUpDialogComponent {
 
-  loginForm!: FormGroup;
-  signUpForm!: FormGroup;
+  form!: FormGroup;
   isLogin = true;
   showPassword = true;
 
@@ -29,18 +28,14 @@ export class LoginSignUpDialogComponent {
   }
 
   initForm(): void {
-    this.loginForm = this.fb.group({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password : new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(256)])
-    })
-    this.signUpForm = this.fb.group({
+    this.form = this.fb.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password : new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(256)])
     })
   }
 
   getControl(control: string): AbstractControl {
-    const formControl = this.isLogin ? this.loginForm.get(control) : this.signUpForm.get(control);
+    const formControl = this.form.get(control);
     return formControl!;
   }
 
@@ -53,7 +48,7 @@ export class LoginSignUpDialogComponent {
   }
 
   login(){
-    if(this.loginForm.valid){
+    if(this.form.valid){
       this.auth.login(this.getControl('email').value, this.getControl('password').value).pipe(take(1)).subscribe((res: any) => {
         this.auth.setAuthRes(res.token, res.expiresIn, res.role);
         this.snack.openSnackBar('login', 'success');
@@ -63,7 +58,7 @@ export class LoginSignUpDialogComponent {
   }
 
   signUp(){
-    if(this.signUpForm.valid){
+    if(this.form.valid){
       this.auth.createUser(this.getControl('email').value, this.getControl('password').value).pipe(take(1)).subscribe(() => {
         this.snack.openSnackBar('sign up', 'success');
         this.auth.login(this.getControl('email').value, this.getControl('password').value).pipe(take(1)).subscribe((res: any) => {
