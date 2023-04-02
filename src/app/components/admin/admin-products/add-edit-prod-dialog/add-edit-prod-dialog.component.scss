@@ -43,6 +43,13 @@ h2 {
     display: flex;
     flex-direction: column;
     gap: 12px;
+
+    .prod-description-box {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
 }
 
 .img-preview {

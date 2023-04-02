@@ -12,6 +12,7 @@ import { AngularMaterialsModule } from './components/shared/angular-materials.mo
 import { SharedModule } from './components/shared/shared.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth-service/auth-interceptor';
+import { ErrorInterceptor } from './services/error-interceptor/error-interceptor';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AuthInterceptor } from './services/auth-service/auth-interceptor';
     HttpClientModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

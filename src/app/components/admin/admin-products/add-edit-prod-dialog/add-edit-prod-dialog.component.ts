@@ -2,11 +2,12 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/services/product-service/product.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { Category } from 'src/app/models/category';
+import { Category, Type } from 'src/app/models/category';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { Brand } from 'src/app/models/brand.interface';
 import { take } from 'rxjs';
 import { CategoryService } from 'src/app/services/category-service/category.service';
+import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
 
 @Component({
   selector: 'app-add-edit-prod-dialog',
@@ -17,16 +18,16 @@ export class AddEditProdDialogComponent implements OnInit {
 
   prodForm!: FormGroup;
   categories!: Category[];
-  types: any[] = [];
+  types: Type[] = [];
 
   brands: Brand[] = [
     {id: '1', name: 'Flexform', country: 'Italy', website: 'http//:', logo: ''},
     {id: '2', name: 'Gaudi', country: 'Italy', website: 'http//:', logo: ''}
   ];
 
-  materials: any[] = [
-    {id: '1', name: 'Wood'}
-  ];
+  materials: string[] = [];
+  shapes: string[] = [];
+  extras: string[] = [];
 
   currencies: string[] = ['Euro', 'Dollar', 'Pound'];
 
@@ -43,7 +44,8 @@ export class AddEditProdDialogComponent implements OnInit {
     private prodService: ProductService,
     private categoryService: CategoryService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<AddEditProdDialogComponent>
+    private dialogRef: MatDialogRef<AddEditProdDialogComponent>,
+    private snack: SnackBarService
     ) {
   }
 
@@ -77,6 +79,8 @@ export class AddEditProdDialogComponent implements OnInit {
       brand: new FormControl('', Validators.required),
       collectionName: new FormControl('', Validators.required),
       material: new FormControl('', Validators.required),
+      shape: new FormControl('', Validators.required),
+      extras: new FormControl('', Validators.required),
       image: new FormControl(null, Validators.required),
       amount: new FormControl(null, Validators.required),
       price: new FormControl(null, Validators.required),
@@ -88,18 +92,22 @@ export class AddEditProdDialogComponent implements OnInit {
       sale: new FormControl(null)
     });
 
-    this.getControl('isOnSale')?.valueChanges.subscribe( value => {
+    this.getControl('isOnSale').valueChanges.subscribe( value => {
       if(value) {
         this.prodForm.get('sale')?.setValidators(Validators.required);
       }
     });
-    this.getControl('category')?.valueChanges.subscribe( selectedValue => {
+    this.getControl('category').valueChanges.subscribe( selectedValue => {
       this.getCategoryTypes(selectedValue);
+    });
+    this.getControl('type').valueChanges.subscribe( selectedValue => {
+      this.getArraysByType(selectedValue);
     })
   }
 
-  public getControl(control: string): AbstractControl | null {
-    return this.prodForm.get(control);
+  public getControl(control: string): AbstractControl {
+    const formControl = this.prodForm.get(control);
+    return formControl!;
   }
 
   private getCategoryTypes(category: string): void {
@@ -107,11 +115,16 @@ export class AddEditProdDialogComponent implements OnInit {
     const id = selected?.id;
     if(typeof id === 'string') {
       this.categoryService.getCategoryById(id).pipe(take(1)).subscribe( res => {
-        console.log(res);
-        // this.types = res.data.type;
+        this.types = res.data[0].type;
       })
     }
+  }
 
+  private getArraysByType(type: string): void {
+    const selectedType = this.types.filter((el: any) => el.typeName === type);
+    this.materials = selectedType[0].materials;
+    this.shapes = selectedType[0].shapes;
+    this.extras = selectedType[0].extras;
   }
 
   public onImagePicked(event: Event): void {
@@ -147,12 +160,14 @@ export class AddEditProdDialogComponent implements OnInit {
     const image: File = this.prodImage;
     this.prodService.postProduct(this.prodForm.value, image).subscribe((res) => {
       this.dialogRef.close();
+      this.snack.openSnackBar('Product was added!', 'success');
     })
   }
 
   updateProduct(): void {
     this.prodService.updateProduct(this.id, this.prodForm.value).subscribe((res) => {
-      console.log(res);
+      this.dialogRef.close();
+      this.snack.openSnackBar('Product was updated!', 'success');
     })
   }
 }

@@ -244,13 +244,33 @@ input {
     }
 }
 
+.link-light {
+    color: var(--white);
+    text-decoration-line: none;
+}
+
+// Disable style
+
+.disabled-select {
+    border: 2px solid var(--grey);
+    color: var(--grey);
+}
+
+// Errors style
+
 .input-invalid {
     border: 2px solid var(--danger);
 }
 
-.link-light {
-    color: var(--white);
-    text-decoration-line: none;
+.error-box {
+    height: 14px;
+    width: 100%;
+
+    app-input-error {
+        display: flex;
+        height: 14px;
+        width: 100%;
+    }
 }
 
 .red-text {
@@ -258,6 +278,8 @@ input {
     font-weight: 700;
     color: var(--danger);
 }
+
+// Global containers style
 
 .menu-container {
     position: absolute;
@@ -287,6 +309,10 @@ input {
             }
         }
     }
+}
+
+.width-100 {
+    width: 100%;
 }
 
 // SnackBar style

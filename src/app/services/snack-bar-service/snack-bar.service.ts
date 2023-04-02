@@ -23,12 +23,10 @@ export class SnackBarService {
 
   getMessage(messageType: string): string {
     switch (messageType) {
-      case 'login':
+      case 'auth':
         return 'You have been logged in!';
       case 'logout':
         return 'You have been logged out!';
-      case 'sign up' :
-        return 'User created!';
       case 'auth error' :
         return 'Auth failed';
       case 'delete prod':

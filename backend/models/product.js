@@ -6,6 +6,8 @@ const productsSchema = mongoose.Schema({
     imagePath: { type: String, required: true },
     brand: { type: String, required: true },
     material: { type: String, required: true },
+    shape: { type: String, required: true },
+    extras: { type: String, required: true },
     amount: { type: Number, default: 0 },
     price: { type: Number, default: 0 },
     currency: { type: String, required: true },
@@ -15,6 +17,7 @@ const productsSchema = mongoose.Schema({
     designer: { type: String, required: false },
     isOnSale: { type: Boolean, default: false },
     sale: { type: Number, required: false },
+    creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
 });
 
 module.exports = mongoose.model("Product", productsSchema);

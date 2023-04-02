@@ -64,21 +64,6 @@
     }
 }
 
-.error-box {
-    height: 14px;
-    width: 100%;
-
-    app-input-error {
-        display: flex;
-        height: 14px;
-        width: 100%;
-    }
-}
-
-.width-100 {
-    width: 100%;
-}
-
 @media (max-width: 600px) {
     .container {
         max-width: auto;

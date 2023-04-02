@@ -7,7 +7,60 @@
     </div>
     <div class="dialog-body">
         <div *ngIf="dialogName === 'category' || 'type'" class="add-container">
-            <div *ngIf="!isEditing">
+            <form [formGroup]="categoryForm" class="add-form">
+                <h3>Add category type</h3>
+                <div *ngIf="!isEditing" class="input-container">
+                    <input formControlName="name" class="input input-accent-lined width-100" [placeholder]="'Enter category'"/>
+                </div>
+                <select *ngIf="isEditing" formControlName="name" class="select select-accent-lined">
+                    <option value="" disabled hidden>Select category</option>
+                    <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
+                </select>
+                <div class="input-container">
+                    <input formControlName="typeName" class="input input-accent-lined width-100" [placeholder]="'Enter type name'"/>
+                    <span class="error-box">
+                        <app-input-error *ngIf="getControl('typeName').touched && getControl('typeName').invalid" [validator]="getControl('typeName')"></app-input-error>
+                    </span>
+                </div>
+                <div class="input-container">
+                    <p>Materials list</p>
+                    <div class="list-box">
+                        <p *ngFor="let material of getControl('materials').value" class="list">{{ material }}</p>
+                    </div>
+                    <div class="input input-accent-lined-with-icon width-100">
+                        <input [formControl]="newMaterial" class="input-with-icon" placeholder="Enter materials" required>
+                        <button (click)="addItem('materials', newMaterial)" class="input-btn">
+                            <i class="fa-solid fa-circle-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <p>Shapes list</p>
+                    <div class="list-box">
+                        <p *ngFor="let shape of getControl('shapes').value" class="list">{{ shape }}</p>
+                    </div>
+                    <div class="input input-accent-lined-with-icon width-100">
+                        <input [formControl]="newShape" class="input-with-icon" placeholder="Enter shapes" required>
+                        <button (click)="addItem('shapes', newShape)" class="input-btn">
+                            <i class="fa-solid fa-circle-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <p>Extras list</p>
+                    <div class="list-box">
+                        <p *ngFor="let extra of getControl('extras').value" class="list">{{ extra }}</p>
+                    </div>
+                    <div class="input input-accent-lined-with-icon width-100">
+                        <input [formControl]="newExtras" class="input-with-icon" placeholder="Enter extras" required>
+                        <button (click)="addItem('extras', newExtras)" class="input-btn">
+                            <i class="fa-solid fa-circle-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <button class="btn btn-accent width-100" [disabled]="this.categoryForm.invalid" (click)="addCategoryType()">Submit</button>
+            </form>
+            <!-- <div *ngIf="isEditing">
                 <div *ngFor="let item of categories" class="item-box">
                     <div *ngIf="!item.isEditing" class="item">
                         <p>{{ item.name }}</p>
@@ -37,19 +90,7 @@
                         <i class="fa-solid fa-plus"></i>
                     </button>
                 </div>
-            </div>
-            <form *ngIf="isEditing" [formGroup]="categoryForm" class="add-form">
-                <h3>Add category type</h3>
-                <select formControlName="name" class="select select-accent-lined">
-                    <option value="" disabled hidden>Select category</option>
-                    <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
-                </select>
-                <input formControlName="typeName" class="input input-accent-lined" [placeholder]="'Enter type name'"/>
-                <input formControlName="materials" class="input input-accent-lined" [placeholder]="'Enter materials'"/>
-                <input formControlName="shapes" class="input input-accent-lined" [placeholder]="'Enter shapes'"/>
-                <input formControlName="extras" class="input input-accent-lined" [placeholder]="'Enter extras'"/>
-                <button class="btn btn-accent" [disabled]="this.categoryForm.invalid" (click)="addCategoryType()">Submit</button>
-            </form>
+            </div> -->
         </div>
     </div>
 </div>

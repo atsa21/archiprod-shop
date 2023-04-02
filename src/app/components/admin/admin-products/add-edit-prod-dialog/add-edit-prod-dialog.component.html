@@ -29,13 +29,21 @@
                     <option value="" disabled selected hidden>Select category</option>
                     <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
                 </select>
-                <select formControlName="type" class="select select-accent-lined">
+                <select formControlName="type" class="select select-accent-lined" [ngClass]="{'disabled-select' : !types.length}">
                     <option value="" disabled selected hidden>Select type</option>
                     <option *ngFor="let type of types" [value]="type.typeName">{{ type.typeName }}</option>
                 </select>
-                <select formControlName="material" class="select select-accent-lined">
+                <select formControlName="material" class="select select-accent-lined" [ngClass]="{'disabled-select' : !materials.length}">
                     <option value="" disabled selected hidden>Select material</option>
-                    <option *ngFor="let material of materials" [value]="material.name">{{ material.name }}</option>
+                    <option *ngFor="let material of materials" [value]="material">{{ material }}</option>
+                </select>
+                <select formControlName="shape" class="select select-accent-lined" [ngClass]="{'disabled-select' : !shapes.length}">
+                    <option value="" disabled selected hidden>Select shape</option>
+                    <option *ngFor="let shape of shapes" [value]="shape">{{ shape }}</option>
+                </select>
+                <select formControlName="extras" class="select select-accent-lined" [ngClass]="{'disabled-select' : !extras.length}">
+                    <option value="" disabled selected hidden>Select extra</option>
+                    <option *ngFor="let extra of extras" [value]="extra">{{ extra }}</option>
                 </select>
                 <select formControlName="brand" class="select select-accent-lined">
                     <option value="" disabled selected hidden>Select brand</option>
@@ -64,7 +72,7 @@
                     <div *ngIf="getControl('isOnSale')?.value">
                         <div class="example-label-container">
                             <label id="example-name-label" class="example-name-label">Value</label>
-                            <label class="example-value-label">{{ getControl('sale')?.value }}</label>
+                            <label class="example-value-label">{{ getControl('sale').value }}</label>
                         </div>
                         <mat-slider
                             class="example-margin"

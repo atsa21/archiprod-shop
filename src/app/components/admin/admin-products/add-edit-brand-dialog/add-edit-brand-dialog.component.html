@@ -1,0 +1,37 @@
+<div class="dialog-container">
+    <div>
+        <h2>{{ dialogTitle }} Brand</h2>
+        <button mat-dialog-close class="btn-close">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+    <div class="dialog-body" mat-dialog-content>
+        <form [formGroup]="brandForm" class="form">
+            <div *ngIf="isEditing" class="img-preview">
+                <!-- <img [src]="editImage"/> -->
+            </div>
+            <div class="prod-image-box">
+            </div>
+            <div *ngIf="!isEditing" class="prod-description-box">
+                <!-- <button class="btn btn-accent" (click)="filePicker.click()">Select Image</button> -->
+                <!-- <input formControlName="image" type="file" #filePicker hidden (change)="onImagePicked($event)"/>
+                <image-cropper
+                    [imageChangedEvent]="imageChangedEvent"
+                    [maintainAspectRatio]="true"
+                    [aspectRatio]="1 / 1"
+                    format="png"
+                    [resizeToHeight]="980"
+                    [resizeToWidth]="980"
+                    (imageCropped)="imageCropped($event)"
+                    (loadImageFailed)="loadImageFailed()"
+                ></image-cropper> -->
+                <input formControlName="name" class="input input-accent-lined" placeholder="Enter name of brand"/>
+                <input formControlName="country" class="input input-accent-lined" placeholder="Enter brand country"/>
+                <input formControlName="website" class="input input-accent-lined" placeholder="Enter product amount"/>
+            </div>
+
+            <button [disabled]="brandForm.invalid" class="btn btn-accent" (click)="addBrand()">Add brand</button>
+        </form>
+    </div>
+</div>
+
