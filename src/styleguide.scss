@@ -245,20 +245,25 @@ p {
     }
 }
 
+// SnackBar style
+
 .error-snackbar {
-    background-color: var(--danger);
-    color: var(--white);
+    --mat-mdc-snack-bar-button-color: var(--white) !important;
+    --mdc-snackbar-container-color: var(--danger) !important;
+    --mdc-snackbar-supporting-text-color: var(--white);
     border-radius: 6px;
 }
-
+  
 .attention-snackbar {
-    background-color: var(--accent);
-    color: var(--black);
+    --mat-mdc-snack-bar-button-color: var(--white) !important;
+    --mdc-snackbar-container-color: var(--accent) !important;
+    --mdc-snackbar-supporting-text-color: var(--white);
     border-radius: 6px;
 }
   
 .success-snackbar {
-    background-color: var(--white);
-    color: var(--black);
+    --mat-mdc-snack-bar-button-color: var(--white) !important;
+    --mdc-snackbar-container-color: var(--second) !important;
+    --mdc-snackbar-supporting-text-color: var(--white);
     border-radius: 6px;
 }
