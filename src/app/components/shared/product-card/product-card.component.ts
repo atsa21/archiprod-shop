@@ -19,7 +19,7 @@ export class ProductCardComponent {
   constructor(
     private dialog : MatDialog,
     private productService: ProductService,
-    private snackBarService: SnackBarService
+    private snack: SnackBarService
   ) {}
 
   openEditProducts(): void {
@@ -34,7 +34,7 @@ export class ProductCardComponent {
   deleteProduct(id: string | undefined): void {
     if (id){
       this.productService.deleteProduct(id).pipe(take(1)).subscribe(() => {
-        this.snackBarService.openSnackBar('delete prod', 'success');
+        this.snack.openSnackBar('delete prod', 'success');
       })
     }
   }

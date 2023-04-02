@@ -2,7 +2,7 @@
     <button class="nav-icon">
         <i class="fa-solid fa-magnifying-glass"></i>
     </button>
-    <img class="logo" (click)="goToHomepage()" src="/assets/img/logo.svg"/>
+    <img class="logo" (click)="goToPage('/homepage')" src="/assets/img/logo.svg"/>
     <div class="right-menu">
         <button class="nav-icon">
             <img class="icon-card" src="/assets/img/cart-shopping-line.svg" />
@@ -16,7 +16,8 @@
         <div class="menu-container" *ngIf="isUserMenuOpened">
             <div class="list">
                 <button *ngIf="!isUserLogin" class="btn-list" (click)="openLoginDialog()">Login</button>
-                <button *ngIf="isUserLogin" class="btn-list" (click)="openLoginDialog()">Logout</button>
+                <button *ngIf="isUserLogin && isAdmin" class="btn-list" (click)="goToPage('/admin')">Admin page</button>
+                <button *ngIf="isUserLogin" class="btn-list" (click)="logOut()">Logout</button>
             </div>
         </div>
     </div>

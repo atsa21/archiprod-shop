@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { take } from 'rxjs';
+import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login-sign-up-dialog',
@@ -17,7 +19,9 @@ export class LoginSignUpDialogComponent {
 
   constructor(
     private fb: FormBuilder,
-    private auth : AuthService
+    private auth : AuthService,
+    private snack: SnackBarService,
+    private dialogRef: MatDialogRef<LoginSignUpDialogComponent>
   ) {}
 
   ngOnInit(): void {
@@ -41,14 +45,23 @@ export class LoginSignUpDialogComponent {
 
   login(){
     if(this.loginForm.valid){
-      this.auth.login(this.getControl('email')?.value, this.getControl('password')?.value);
+      this.auth.login(this.getControl('email')?.value, this.getControl('password')?.value).pipe(take(1)).subscribe((res: any) => {
+        this.auth.setAuthRes(res.token, res.expiresIn);
+        localStorage.setItem('role', res.role);
+        this.dialogRef.close();
+      });
     }
   }
 
   signUp(){
     if(this.signUpForm.valid){
       this.auth.createUser(this.getControl('email')?.value, this.getControl('password')?.value).pipe(take(1)).subscribe(() => {
-        console.log("User created :)");
+        this.snack.openSnackBar('sign up', 'success');
+        this.auth.login(this.getControl('email')?.value, this.getControl('password')?.value).pipe(take(1)).subscribe((res: any) => {
+          this.auth.setAuthRes(res.token, res.expiresIn);
+          localStorage.setItem('role', res.role);
+          this.dialogRef.close();
+        });
       });
     }
   }

@@ -11,7 +11,7 @@ export class CurrencyPipe implements PipeTransform {
         return '€';
       case 'Dollar':
         return '$';
-      case "Pound":
+      case 'Pound':
         return '£'
       default:
         return '$';

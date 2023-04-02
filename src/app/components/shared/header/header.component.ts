@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { Navigation } from 'src/app/models/navigation';
 import { LoginSignUpDialogComponent } from '../../main/login-sign-up-dialog/login-sign-up-dialog.component';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
+import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
 
 @Component({
   selector: 'app-header',
@@ -16,44 +17,55 @@ export class HeaderComponent implements OnInit {
   isMenuOpened = false;
   isUserMenuOpened = false;
   isUserLogin = false;
+  isAdmin = false;
 
   menuList: Navigation[] = [
     { name: 'Furniture', link: '/homepage/shop'},
     { name: 'Bathroom', link: '/homepage/shop'},
     { name: 'Kitchen', link: '/homepage/shop'},
     { name: 'Lighting', link: '/homepage/shop'},
-    { name: 'Decor', link: '/homepage/shop'},
-    { name: 'Admin', link: '/admin'}
+    { name: 'Decor', link: '/homepage/shop'}
   ];
 
-  private authListenerSubs!: Subscription;
   private destroy: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private router: Router,
     private dialog : MatDialog,
-    private auth: AuthService
+    private auth: AuthService,
+    private snack: SnackBarService
   ) {}
 
   ngOnInit(): void {
-    this.authListenerSubs = this.auth.getStatusListener().pipe(takeUntil(this.destroy)).subscribe( isAuthenticated => {
+    this.isUserLogin = !!localStorage.getItem('role');
+    if(this.isUserLogin) {
+      this.checkUserRole();
+    }
+    this.auth.getAuthStatusListener().pipe(takeUntil(this.destroy)).subscribe( isAuthenticated => {
       this.isUserLogin = isAuthenticated;
+      this.checkUserRole();
     });
   }
 
-  goToHomepage(): void {
-    this.router.navigate(['/homepage']);
+  checkUserRole(): void {
+    this.isAdmin = localStorage.getItem('role') === 'ADMIN';
+  }
+
+  goToPage(name: string): void {
+    this.router.navigate([name]);
   }
 
   openLoginDialog(): void {
-    const dialogRef = this.dialog.open(LoginSignUpDialogComponent, {
+    this.dialog.open(LoginSignUpDialogComponent, {
       width: '420px'
     });
     this.openCloseMenu('user-menu');
   }
 
   logOut(): void {
-
+    this.auth.logOut();
+    this.isUserMenuOpened = false;
+    this.snack.openSnackBar('logout', 'success');
   }
 
   openCloseMenu(menuName: string): void {
