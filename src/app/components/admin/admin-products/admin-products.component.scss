@@ -39,7 +39,9 @@
             .products-box {
                 display: flex;
                 justify-content: space-between;
+                flex-wrap: wrap;
                 margin: 24px;
+                gap: 24px;
             }
         }
     }
