@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ProductPost } from 'src/app/models/product-post';
 
 @Injectable({
@@ -12,11 +13,11 @@ export class ProductService {
     return this.http.get<{ message: string, data: any }>('http://localhost:3000/api/products');
   }
 
-  getProducts(page: number, pageSize: number) {
+  getProducts(page: number, pageSize: number): Observable<{ message: string, data: any , totalElements: number}> {
     return this.http.get<{ message: string, data: any , totalElements: number}>(`http://localhost:3000/api/products?size=${pageSize}&page=${page}`);
   }
 
-  postProduct(product: ProductPost, image: File) {
+  postProduct(product: ProductPost, image: File): Observable<{message: string, products: ProductPost}> {
     const body = new FormData();
     body.append('category', product.category);
     body.append('type', product.type);
@@ -33,7 +34,7 @@ export class ProductService {
     return this.http.post<{message: string, products: ProductPost}>('http://localhost:3000/api/products', body);
   }
 
-  updateProduct(id: string, product: any) {
+  updateProduct(id: string, product: any): Observable<{message: string, products: ProductPost}> {
     let body: ProductPost | FormData;
     if( typeof(product.image) === 'object') {
       body = new FormData();
@@ -70,7 +71,7 @@ export class ProductService {
     return this.http.put<{message: string, products: ProductPost}>('http://localhost:3000/api/products/' + id, body);
   }
 
-  deleteProduct(id: string) {
-    return this.http.delete(`http://localhost:3000/api/products/${id}`);
+  deleteProduct(id: string): Observable<any> {
+    return this.http.delete<any>(`http://localhost:3000/api/products/${id}`);
   }
 }

@@ -158,7 +158,7 @@ export class AddEditProdDialogComponent implements OnInit {
 
   addProduct(): void {
     const image: File = this.prodImage;
-    this.prodService.postProduct(this.prodForm.value, image).subscribe((res) => {
+    this.prodService.postProduct(this.prodForm.value, image).pipe().subscribe((res) => {
       this.dialogRef.close();
       this.snack.openSnackBar('Product was added!', 'success');
     })

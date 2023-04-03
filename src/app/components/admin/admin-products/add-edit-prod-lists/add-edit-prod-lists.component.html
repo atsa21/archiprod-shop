@@ -5,7 +5,7 @@
             <i class="fa-solid fa-xmark"></i>
         </button>
     </div>
-    <div class="dialog-body">
+    <div class="dialog-body" mat-dialog-content>
         <div *ngIf="dialogName === 'category' || 'type'" class="add-container">
             <form [formGroup]="categoryForm" class="add-form">
                 <h3>Add category type</h3>
@@ -58,7 +58,7 @@
                         </button>
                     </div>
                 </div>
-                <button class="btn btn-accent width-100" [disabled]="this.categoryForm.invalid" (click)="addCategoryType()">Submit</button>
+                <button class="btn btn-accent width-100" [disabled]="this.categoryForm.invalid" (click)="!isEditing ? addCategory() : addCategoryType()">Submit</button>
             </form>
             <!-- <div *ngIf="isEditing">
                 <div *ngFor="let item of categories" class="item-box">

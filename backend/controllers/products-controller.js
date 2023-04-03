@@ -4,20 +4,30 @@ exports.createProduct = (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");
     const { category, type, material, shape, extras, brand, collectionName, amount, price, currency, inOnSale } = req.body;
 
-    const product = new Product({
-        category: category,
-        type: type,
+    const prodPrice = {
+        amount: price,
+        currency: currency
+    };
+
+    const productAdditionals = {
         material: material,
         shape: shape,
         extras: extras,
-        brand: brand,
-        imagePath: url + "/images/" + req.file.filename,
+        year: req.body.year,
         collectionName: collectionName,
-        amount: amount,
-        price: price,
-        currency: currency,
+        designer: req.body.designer,
         isOnSale: inOnSale,
         sale: req.body.sale,
+    };
+
+    const product = new Product({
+        category: category,
+        type: type,
+        brand: brand,
+        imagePath: url + "/images/" + req.file.filename,
+        price: prodPrice,
+        additionalInfo: productAdditionals,
+        total: amount,
         creator: req.userData.userId
     });
     product.save().then( createdProd => {
@@ -87,25 +97,36 @@ exports.updateProduct = (req, res, next) => {
         const url = req.protocol + "://" + req.get("host");
         imagePath = url + "/images/" + req.file.filename;
     }
+    
+    const prodPrice = {
+        amount: price,
+        currency: currency
+    };
+
+    const productAdditionals = {
+        material: material,
+        shape: shape,
+        extras: extras,
+        year: req.body.year,
+        collectionName: collectionName,
+        designer: req.body.designer,
+        isOnSale: inOnSale,
+        sale: req.body.sale,
+    };
+
     const product = new Product({
         _id: req.body.id,
         category: category,
         type: type,
-        material: material,
-        shape: shape,
-        extras: extras,
         brand: brand,
         imagePath: imagePath,
-        collectionName: collectionName,
-        amount: amount,
-        price: price,
-        currency: currency,
-        isOnSale: inOnSale,
-        sale: req.body.sale,
+        price: prodPrice,
+        additionalInfo: productAdditionals,
+        total: amount,
         creator: req.userData.userId
     });
     Product.updateOne({ _id: req.params.id }, product).then(result => {
-        if (result.nModified > 0) {
+        if (result.n > 0) {
             res.status(200).json({
                 message:"Post succesfully updated!"
             });

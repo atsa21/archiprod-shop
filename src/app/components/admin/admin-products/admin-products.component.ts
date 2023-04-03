@@ -71,7 +71,8 @@ export class AdminProductsComponent implements OnInit {
         return data.data.map( (res: CategoryRes) => {
           return {
             id: res._id,
-            name: res.name
+            name: res.name,
+            type: res.type
           }
         })
       }))
@@ -81,16 +82,19 @@ export class AdminProductsComponent implements OnInit {
   }
 
   public openDialog( title: string, name: string, isEditing: boolean ): void {
-    const dialogRef = this.dialog.open(AddEditProdListsComponent, {
+    this.dialog.open(AddEditProdListsComponent, {
       width: '420px',
       data: { dialogTitle: title, dialogName: name, list: this.categories, isEditing: isEditing}
     });
     this.openCloseMenu();
-    dialogRef
-      .afterClosed()
-      .pipe(take(1))
-      .subscribe(() => {
-      });
+  }
+
+  public openBrandDialog(isEditing: boolean ): void {
+    const dialogRef = this.dialog.open(AddEditProdListsComponent, {
+      width: '420px',
+      data: { list: this.categories, isEditing: isEditing}
+    });
+    this.openCloseMenu();
   }
 
   public openAddProducts(): void {
@@ -101,11 +105,8 @@ export class AdminProductsComponent implements OnInit {
         categories: this.categories
       }
     });
-    dialogRef
-    .afterClosed()
-    .pipe(take(1))
-    .subscribe(() => {
-      this.getProducts();
+    dialogRef.afterClosed().pipe(take(1)).subscribe( () => {
+      this.productService.getProducts(1, this.pageSize);
     });
   }
 

@@ -21,13 +21,12 @@ export class CategoryService {
   addCategory(category: any): Observable<{ message: string, categoryId: string}> {
     const body = {
       name: category.name,
-      type: {
-        typeName: category.typeName,
-        materials: category.materials,
-        shapes: category.shapes,
-        extras: category.extras
-      },
+      typeName: category.typeName,
+      materials: category.materials,
+      shapes: category.shapes,
+      extras: category.extras,
     };
+    console.log(body);
     return this.http.post<{ message: string, categoryId: string}>('http://localhost:3000/api/categories', body);
   }
 

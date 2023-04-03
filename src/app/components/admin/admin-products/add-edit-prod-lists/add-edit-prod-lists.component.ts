@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category-service/category.service';
-import { take } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { DialogRef } from '@angular/cdk/dialog';
 import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
 
@@ -26,6 +26,8 @@ export class AddEditProdListsComponent {
   dialogName: string = "";
   isEditing = false;
   id: string = '';
+
+  private destroy: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private categoryService: CategoryService,
@@ -99,11 +101,19 @@ export class AddEditProdListsComponent {
   }
 
   public addCategory(): void {
-    if(this.item.valid) {
-      this.categoryService.addCategory(this.item.value).subscribe(res => {
-        const newItem = { id: res.categoryId, name: this.item.value, type: [] };
-        this.categories = [...this.categories, newItem];
-        this.item.setValue('');
+    if(this.categoryForm.valid) {
+      this.categoryService.addCategory(this.categoryForm.value).pipe(takeUntil(this.destroy)).subscribe(res => {
+        this.snack.openSnackBar('You added new category!', 'success');
+        this.dialogRef.close();
+      });
+    }
+  }
+
+  public addCategoryType(): void {
+    if(this.categoryForm.valid) {
+      this.categoryService.addCategoryType(this.categoryForm.value, this.id).pipe(takeUntil(this.destroy)).subscribe((res: any) => {
+        console.log(res);
+        this.dialogRef.close();
       });
     }
   }
@@ -112,15 +122,6 @@ export class AddEditProdListsComponent {
     this.categoryService.deleteCategory(id).subscribe((res: any) => {
       this.categories = this.categories.filter( el => el.id != id);
     });
-  }
-
-  public addCategoryType(): void {
-    if(this.categoryForm.valid) {
-      this.categoryService.addCategoryType(this.categoryForm.value, this.id).subscribe((res: any) => {
-        console.log(res);
-        this.dialogRef.close();
-      });
-    }
   }
 
   // public editType(id: string): void {
