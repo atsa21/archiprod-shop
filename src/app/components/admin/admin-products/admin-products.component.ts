@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject, map, take, takeUntil } from 'rxjs';
-import { Category } from 'src/app/models/category';
-import { CategoryRes } from 'src/app/models/category-res';
-import { ProductCard } from 'src/app/models/product-card';
+import { Category } from 'src/app/models/products/category.interface';
+import { CategoryRes } from 'src/app/models/products/category-res.interface';
+import { ProductCard, ProductRes } from 'src/app/models/products/product-card.interface';
 import { CategoryService } from 'src/app/services/category-service/category.service';
 import { ProductService } from 'src/app/services/product-service/product.service';
 import { AddEditProdDialogComponent } from './add-edit-prod-dialog/add-edit-prod-dialog.component';
@@ -41,29 +41,11 @@ export class AdminProductsComponent implements OnInit {
 
   private getProducts(): void {
     this.productService.getProducts(1, this.pageSize)
-      .pipe(map((res) => {
-        return {
-          prod: res.data.map((res: any) => {
-            return {
-              id: res._id,
-              category: res.category,
-              type: res.type,
-              brand: res.brand,
-              collectionName: res.collectionName,
-              material: res.material,
-              imagePath: res.imagePath,
-              amount: res.amount,
-              price: res.price,
-              currency: res.currency,
-              isOnSale: res.isOnSale
-            };
-          }),
-          totalElements: res.totalElements
-        }
-      }), takeUntil(this.destroy$))
-      .subscribe( data => {
-        this.products = data.prod;
-        this.totalElements = data.totalElements;
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res: ProductRes) => {
+        const prodList = res.data.map(el => ({ ...el, id: el._id })).map(({ _id, ...rest }) => rest);
+        this.products = prodList;
+        this.totalElements = res.totalElements;
       })
   }
 

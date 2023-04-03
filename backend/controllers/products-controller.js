@@ -2,7 +2,7 @@ const Product = require("../models/product");
 
 exports.createProduct = (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");
-    const { category, type, material, shape, extras, brand, collectionName, amount, price, currency, inOnSale } = req.body;
+    const { category, type, materials, shape, extras, brand, collectionName, amount, price, currency, inOnSale } = req.body;
 
     const prodPrice = {
         amount: price,
@@ -10,7 +10,7 @@ exports.createProduct = (req, res, next) => {
     };
 
     const productAdditionals = {
-        material: material,
+        materials: materials,
         shape: shape,
         extras: extras,
         year: req.body.year,
@@ -91,7 +91,7 @@ exports.getProductById = (req, res, next) => {
 
 exports.updateProduct = (req, res, next) => {
     let imagePath = req.body.imagePath;
-    const { category, type, material, shape, extras, brand, collectionName, amount, price, currency, inOnSale } = req.body;
+    const { category, type, materials, shape, extras, brand, collectionName, amount, price, currency, inOnSale } = req.body;
 
     if(req.file) {
         const url = req.protocol + "://" + req.get("host");
@@ -104,7 +104,7 @@ exports.updateProduct = (req, res, next) => {
     };
 
     const productAdditionals = {
-        material: material,
+        materials: materials,
         shape: shape,
         extras: extras,
         year: req.body.year,

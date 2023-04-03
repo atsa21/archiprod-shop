@@ -10,6 +10,8 @@ import { userRole } from 'src/app/models/userRole.model';
 })
 export class AuthService {
 
+  private mainUrl = 'http://localhost:3000/api/user';
+
   private tokenTimer: any;
   private authStatusListener = new Subject<boolean>();
 
@@ -29,12 +31,12 @@ export class AuthService {
 
   createUser(email: string, password: string) {
     const body: AuthData = { email: email, password: password };
-    return this.http.post('http://localhost:3000/api/user/signup', body);
+    return this.http.post(this.mainUrl + '/signup', body);
   }
 
   login(email: string, password: string): Observable<{ token: string; expiresIn: number; role: string }> {
     const body: AuthData = { email: email, password: password };
-    return this.http.post<{ token: string; expiresIn: number; role: string; userId: string }>('http://localhost:3000/api/user/login', body);
+    return this.http.post<{ token: string; expiresIn: number; role: string; userId: string }>(this.mainUrl + '/login', body);
   }
 
   setAuthRes(token: string, expiresIn: number, role: string, userId: string) {

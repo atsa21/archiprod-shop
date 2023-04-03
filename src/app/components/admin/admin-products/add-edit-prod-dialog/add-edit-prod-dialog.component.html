@@ -36,7 +36,7 @@
                     </mat-select>
                 </div>
                 <div class="input input-accent-lined-with-icon width-100" [ngClass]="{'disabled-select' : !materials.length}">
-                    <mat-select formControlName="material" multiple placeholder="Select materials" [disabled]="!materials.length">
+                    <mat-select formControlName="materials" multiple placeholder="Select materials" [disabled]="!materials.length">
                         <mat-option *ngFor="let material of materials" [value]="material">{{material}}</mat-option>
                     </mat-select>
                 </div>

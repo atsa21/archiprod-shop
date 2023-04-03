@@ -1,11 +1,11 @@
-export interface ProductPost {
+export interface ProductForm {
     id?: string,
     category: string,
     type: string,
-    material: string,
+    materials: string[],
     shape: string,
-    extras: string,
-    imagePath: string,
+    extras: string[],
+    image: string,
     brand: string,
     amount: number,
     price: number,

@@ -1,21 +1,23 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Category } from 'src/app/models/category';
+import { Category } from 'src/app/models/products/category.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
 
+  private mainUrl = 'http://localhost:3000/api/categories';
+
   constructor(private http: HttpClient) { }
 
   getAllCategories(): Observable<{ message: string, data: any }> {
-    return this.http.get<{ message: string, data: any }>('http://localhost:3000/api/categories');
+    return this.http.get<{ message: string, data: any }>(this.mainUrl);
   }
 
   getCategoryById(id: string): Observable<{ message: string, data: any }> {
-    return this.http.get<{ message: string, data: any }>(`http://localhost:3000/api/categories/${id}`);
+    return this.http.get<{ message: string, data: any }>(`${this.mainUrl}/${id}`);
   }
 
   addCategory(category: any): Observable<{ message: string, categoryId: string}> {
@@ -27,7 +29,7 @@ export class CategoryService {
       extras: category.extras,
     };
     console.log(body);
-    return this.http.post<{ message: string, categoryId: string}>('http://localhost:3000/api/categories', body);
+    return this.http.post<{ message: string, categoryId: string}>(this.mainUrl, body);
   }
 
   addCategoryType(category: any, id: string): Observable<{ message: string, res: any}> {
@@ -38,10 +40,10 @@ export class CategoryService {
       extras: category.extras
     };
     console.log(body);
-    return this.http.put<{ message: string, res: any}>(`http://localhost:3000/api/categories/${id}`, body);
+    return this.http.put<{ message: string, res: any}>(`${this.mainUrl}/${id}`, body);
   }
 
   deleteCategory(id: string): Observable<{message: string, data: any}> {
-    return this.http.delete<{message: string, data: any}>(`http://localhost:3000/api/categories/${id}`);
+    return this.http.delete<{message: string, data: any}>(`${this.mainUrl}/${id}`);
   }
 }

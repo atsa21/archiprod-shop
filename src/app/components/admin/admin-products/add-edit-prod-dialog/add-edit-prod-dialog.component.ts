@@ -2,9 +2,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/services/product-service/product.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { Category, Type } from 'src/app/models/category';
+import { Category, Type } from 'src/app/models/products/category.interface';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
-import { Brand } from 'src/app/models/brand.interface';
+import { Brand } from 'src/app/models/products/brand.interface';
 import { take } from 'rxjs';
 import { CategoryService } from 'src/app/services/category-service/category.service';
 import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
@@ -78,7 +78,7 @@ export class AddEditProdDialogComponent implements OnInit {
       type: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
       brand: new FormControl('', Validators.required),
       collectionName: new FormControl('', Validators.required),
-      material: new FormControl([], Validators.required),
+      materials: new FormControl([], Validators.required),
       shape: new FormControl('', Validators.required),
       extras: new FormControl([], Validators.required),
       image: new FormControl(null, Validators.required),

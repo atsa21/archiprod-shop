@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
-import { ProductCard } from 'src/app/models/product-card';
+import { ProductCard } from 'src/app/models/products/product-card.interface';
 import { ProductService } from 'src/app/services/product-service/product.service';
 
 @Component({
@@ -50,7 +50,7 @@ export class HomePageComponent implements OnInit {
         }
       }))
       .subscribe( data => {
-        this.products = data.prod;
+        // this.products = data.data;
       })
   }
 }

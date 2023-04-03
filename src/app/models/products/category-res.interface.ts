@@ -1,4 +1,4 @@
-import { Type } from "./category";
+import { Type } from "./category.interface";
 
 export interface CategoryRes {
     _id: string,

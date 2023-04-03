@@ -6,7 +6,7 @@ const priceSchema = mongoose.Schema({
 });
 
 const additionalSchema = mongoose.Schema({
-    material: [{ type: String, required: true }],
+    materials: [{ type: String, required: true }],
     shape: { type: String, required: true },
     extras: [{ type: String, required: true }],
     year: { type: Number, required: false },

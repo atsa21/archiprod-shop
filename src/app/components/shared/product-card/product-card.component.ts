@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ProductCard } from 'src/app/models/product-card';
+import { ProductCard } from 'src/app/models/products/product-card.interface';
 import { AddEditProdDialogComponent } from '../../admin/admin-products/add-edit-prod-dialog/add-edit-prod-dialog.component';
 import { ProductService } from 'src/app/services/product-service/product.service';
 import { take } from 'rxjs';

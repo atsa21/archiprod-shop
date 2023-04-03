@@ -1,15 +1,18 @@
+export interface ProductRes {
+    data: ProductCard[],
+    message: string,
+    totalElements: number
+}
+
 export interface ProductCard {
     id?: string,
-    _id: string,
+    _id?: string,
     category: string,
     type: string,
-    brand: string,
-    collectionName: string,
-    material: string,
-    price: ProductPrice,
-    currency: string,
     imagePath: string,
-    isOnSale: boolean,
+    brand: string,
+    productCode?: string;
+    price: ProductPrice,
     additionalInfo: ProdAdditionalInfo,
     total: number
 }
@@ -20,6 +23,12 @@ export interface ProductPrice {
 }
 
 export interface ProdAdditionalInfo {
+    materials: string[],
+    shape: string,
+    extras: string[],
+    year?: number,
+    collectionName: string,
+    designer?: string;
     isOnSale: boolean,
     sale?: number
 }

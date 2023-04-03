@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Category } from 'src/app/models/category';
+import { Category } from 'src/app/models/products/category.interface';
 import { CategoryService } from 'src/app/services/category-service/category.service';
 import { Subject, takeUntil } from 'rxjs';
 import { DialogRef } from '@angular/cdk/dialog';
