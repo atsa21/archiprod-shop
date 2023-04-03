@@ -59,6 +59,11 @@ router.post("", checkAuth, multer({ storage: storage }).single("image"), (req, r
                 id: createdProd._id,
             }
         });
+    })
+    .catch(error => {
+        res.status(500).json({
+            message: "Creating a product failed"
+        })
     });
 });
 
@@ -87,10 +92,21 @@ router.put("/:id", checkAuth, multer({ storage: storage }).single("image"), (req
         sale: req.body.sale,
         creator: req.userData.userId
     });
-    Product.updateOne({ _id: req.params.id }, product).then( result => {
-        res.status(200).json({
-            message:"Update succesfully"
-        });
+    Product.updateOne({ _id: req.params.id }, product).then(result => {
+        if (result.nModified > 0) {
+            res.status(200).json({
+                message:"Post succesfully updated!"
+            });
+        } else {
+            res.status(401).json({
+                message: "Not authorized"
+            })
+        }
+    })
+    .catch(error => {
+        res.status(500).json({
+            message: "Updating product failed"
+        })
     });
 });
 
@@ -112,21 +128,45 @@ router.get("",(req, res, next) => {
             data: fetchedProduct,
             totalElements: count
         });
+    })
+    .catch(error => {
+        res.status(500).json({
+            message: "Fetching products failed"
+        })
     });
 });
 
 router.get("/:id",(req, res, next) => {
-    Product.find().then(documents => {
-        res.status(200).json({
-            message: "Product fetched succesfully!",
-            data: documents
+    Product.find().then(product => {
+        if (product) {
+            res.status(200).json(product);
+        } else {
+            res.status(404).json({
+                message: "Product not found"
+            });
+        }
+    })
+    .catch(error => {
+        res.status(500).json({
+            message: "Get product by id failed"
         })
     });
 });
 
 router.delete("/:id", checkAuth, (req, res, next) => {
     Product.deleteOne({_id: req.params.id, creator: req.userData.userId}).then(result => {
-        res.status(200).json({ message: "Product deleted!"})
+        if (result.n > 0) {
+            res.status(200).json({ message: "Deleting product successful!"});
+        } else {
+            res.status(401).json({
+                message: "Not authorized"
+            })
+        }
+    })
+    .catch(error => {
+        res.status(500).json({
+            message: "Deleting post failed"
+        })
     });
 });
 
