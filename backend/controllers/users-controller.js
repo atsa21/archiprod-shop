@@ -45,12 +45,12 @@ exports.userLogin = (req, res, next) => {
             const token = jwt.sign(
             { email: fetchedUser.email, userId: fetchedUser._id },
             "secret_this_should_be_longer",
-            { expiresIn: "1h" }
+            { expiresIn: "6h" }
             );
             
             res.status(200).json({
             token: token,
-            expiresIn: 3600,
+            expiresIn: 3600 * 6,
             role: fetchedUser.role,
             userId: fetchedUser._id
             });

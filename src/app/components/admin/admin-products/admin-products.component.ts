@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { map, take } from 'rxjs';
+import { Subject, map, take, takeUntil } from 'rxjs';
 import { Category } from 'src/app/models/category';
 import { CategoryRes } from 'src/app/models/category-res';
 import { ProductCard } from 'src/app/models/product-card';
 import { CategoryService } from 'src/app/services/category-service/category.service';
 import { ProductService } from 'src/app/services/product-service/product.service';
 import { AddEditProdDialogComponent } from './add-edit-prod-dialog/add-edit-prod-dialog.component';
-import { AddEditProdListsComponent } from './add-edit-prod-lists/add-edit-prod-lists.component';
+import { AddProdCategoryComponent } from './add-prod-category/add-prod-category.component';
+import { AddEditBrandDialogComponent } from './add-edit-brand-dialog/add-edit-brand-dialog.component';
 
 @Component({
   selector: 'app-admin-products',
@@ -16,15 +17,16 @@ import { AddEditProdListsComponent } from './add-edit-prod-lists/add-edit-prod-l
 })
 export class AdminProductsComponent implements OnInit {
 
-  public menuOpened = false;
-
   products: ProductCard[] = [];
-  // categories: string[] = ['Furniture', 'Bathroom', 'Kitchen', 'Lighting', 'Decor'];
   categories: Category[] = [];
+
+  menuOpened = false;
 
   prodDescriptionData: any;
   totalElements = 0;
   pageSize = 8;
+
+  private destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private dialog : MatDialog,
@@ -58,7 +60,7 @@ export class AdminProductsComponent implements OnInit {
           }),
           totalElements: res.totalElements
         }
-      }))
+      }), takeUntil(this.destroy$))
       .subscribe( data => {
         this.products = data.prod;
         this.totalElements = data.totalElements;
@@ -75,22 +77,25 @@ export class AdminProductsComponent implements OnInit {
             type: res.type
           }
         })
-      }))
+      }), takeUntil(this.destroy$))
       .subscribe(data => {
         this.categories = data;
     })
   }
 
   public openDialog( title: string, name: string, isEditing: boolean ): void {
-    this.dialog.open(AddEditProdListsComponent, {
+    const dialogRef = this.dialog.open(AddProdCategoryComponent, {
       width: '420px',
       data: { dialogTitle: title, dialogName: name, list: this.categories, isEditing: isEditing}
     });
     this.openCloseMenu();
+    dialogRef.afterClosed().pipe(take(1)).subscribe(() => {
+      this.getCategories();
+    });
   }
 
   public openBrandDialog(isEditing: boolean ): void {
-    const dialogRef = this.dialog.open(AddEditProdListsComponent, {
+    const dialogRef = this.dialog.open(AddEditBrandDialogComponent, {
       width: '420px',
       data: { list: this.categories, isEditing: isEditing}
     });
@@ -105,7 +110,7 @@ export class AdminProductsComponent implements OnInit {
         categories: this.categories
       }
     });
-    dialogRef.afterClosed().pipe(take(1)).subscribe( () => {
+    dialogRef.afterClosed().pipe(take(1)).subscribe(() => {
       this.productService.getProducts(1, this.pageSize);
     });
   }

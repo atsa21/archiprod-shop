@@ -8,11 +8,11 @@ import { DialogRef } from '@angular/cdk/dialog';
 import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
 
 @Component({
-  selector: 'app-add-edit-prod-lists',
-  templateUrl: './add-edit-prod-lists.component.html',
-  styleUrls: ['./add-edit-prod-lists.component.scss']
+  selector: 'app-add-prod-category',
+  templateUrl: './add-prod-category.component.html',
+  styleUrls: ['./add-prod-category.component.scss']
 })
-export class AddEditProdListsComponent {
+export class AddProdCategoryComponent {
 
   categories: Category[] = [];
   categoryForm!: FormGroup;
@@ -27,12 +27,12 @@ export class AddEditProdListsComponent {
   isEditing = false;
   id: string = '';
 
-  private destroy: Subject<boolean> = new Subject<boolean>();
+  private destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private categoryService: CategoryService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: DialogRef<AddEditProdListsComponent>,
+    private dialogRef: DialogRef<AddProdCategoryComponent>,
     private fb: FormBuilder,
     private snack: SnackBarService
     ) { }
@@ -87,22 +87,9 @@ export class AddEditProdListsComponent {
     }
   }
 
-  public editItem(item: string, id: string): void {
-    // switch (item) {
-    //   case 'category':
-    //     this.editCategory(id);
-    //     break;
-    //   case 'type':
-    //     this.editCategory(id);
-    //     break;
-    //   default:
-    //     this.editCategory(id);
-    // }
-  }
-
   public addCategory(): void {
     if(this.categoryForm.valid) {
-      this.categoryService.addCategory(this.categoryForm.value).pipe(takeUntil(this.destroy)).subscribe(res => {
+      this.categoryService.addCategory(this.categoryForm.value).pipe(takeUntil(this.destroy$)).subscribe(res => {
         this.snack.openSnackBar('You added new category!', 'success');
         this.dialogRef.close();
       });
@@ -111,7 +98,7 @@ export class AddEditProdListsComponent {
 
   public addCategoryType(): void {
     if(this.categoryForm.valid) {
-      this.categoryService.addCategoryType(this.categoryForm.value, this.id).pipe(takeUntil(this.destroy)).subscribe((res: any) => {
+      this.categoryService.addCategoryType(this.categoryForm.value, this.id).pipe(takeUntil(this.destroy$)).subscribe((res: any) => {
         console.log(res);
         this.dialogRef.close();
       });

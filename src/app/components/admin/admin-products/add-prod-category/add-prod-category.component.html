@@ -60,37 +60,6 @@
                 </div>
                 <button class="btn btn-accent width-100" [disabled]="this.categoryForm.invalid" (click)="!isEditing ? addCategory() : addCategoryType()">Submit</button>
             </form>
-            <!-- <div *ngIf="isEditing">
-                <div *ngFor="let item of categories" class="item-box">
-                    <div *ngIf="!item.isEditing" class="item">
-                        <p>{{ item.name }}</p>
-                        <div class="buttons-box">
-                            <button class="btn-icon btn-icon-white" (click)="item.isEditing = !item.isEditing">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </button>
-                            <button class="btn-icon btn-icon-white btn-delete" (click)="deleteCategory(item.id)">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div *ngIf="item.isEditing" class="edit-input">
-                        <input class="input" [value]="item.name" [placeholder]="'Enter ' + dialogName + ' name'"/>
-                        <button class="btn-icon btn-icon-white save" (click)="editItem(dialogName, item.id)">
-                            <i class="fa-regular fa-floppy-disk"></i>
-                        </button>
-                        <button class="btn-icon btn-icon-white cancel" type="button" (click)="item.isEditing = !item.isEditing">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </div> 
-                </div>
-                <h3>Add {{ dialogName }}</h3>
-                <div class="add-input">
-                    <input [formControl]="item" class="input input-accent-lined" [placeholder]="'Enter ' + dialogName + ' name'"/>
-                    <button class="btn btn-accent" [disabled]="!item.value" (click)="addCategory()">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
-                </div>
-            </div> -->
         </div>
     </div>
 </div>
