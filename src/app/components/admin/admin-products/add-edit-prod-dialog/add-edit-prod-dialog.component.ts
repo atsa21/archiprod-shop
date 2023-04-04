@@ -71,7 +71,6 @@ export class AddEditProdDialogComponent implements OnInit {
         this.getControl('designer')?.setValue(this.data.product.additionalInfo.designer);
         this.getControl('isOnSale')?.setValue(this.data.product.additionalInfo.isOnSale);
         this.getControl('sale')?.setValue(this.data.product.additionalInfo.sale);
-        this.editImage = this.data.product.imagePath;
         this.id = this.data.product.id;
       }
     }

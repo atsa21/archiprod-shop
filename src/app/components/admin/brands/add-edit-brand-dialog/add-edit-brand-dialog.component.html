@@ -8,29 +8,38 @@
     <div class="dialog-body" mat-dialog-content>
         <form [formGroup]="brandForm" class="form">
             <div *ngIf="isEditing" class="img-preview">
-                <!-- <img [src]="editImage"/> -->
+                <img [src]="this.getControl('logo').value"/>
             </div>
             <div class="prod-image-box">
             </div>
-            <div *ngIf="!isEditing" class="prod-description-box">
-                <button class="btn btn-accent" (click)="filePicker.click()">Select Image</button>
-                <input formControlName="logo" type="file" #filePicker hidden (change)="onImagePicked($event)"/>
+            <div class="prod-description-box">
                 <image-cropper
-                    [imageChangedEvent]="imageChangedEvent"
-                    [maintainAspectRatio]="true"
-                    [aspectRatio]="1 / 1"
-                    format="png"
-                    [resizeToHeight]="300"
-                    [resizeToWidth]="300"
-                    (imageCropped)="imageCropped($event)"
-                    (loadImageFailed)="loadImageFailed()"
+                [imageChangedEvent]="imageChangedEvent"
+                [maintainAspectRatio]="true"
+                [aspectRatio]="1 / 1"
+                format="png"
+                [resizeToHeight]="300"
+                [resizeToWidth]="300"
+                (imageCropped)="imageCropped($event)"
+                (loadImageFailed)="loadImageFailed()"
                 ></image-cropper>
-                <input formControlName="name" class="input input-accent-lined w-100" placeholder="Enter name of brand"/>
-                <input formControlName="country" class="input input-accent-lined w-100" placeholder="Enter brand country"/>
-                <input formControlName="website" class="input input-accent-lined w-100" placeholder="Enter product amount"/>
+                <button class="btn btn-line" (click)="filePicker.click()">Select Image</button>
+                <input formControlName="logo" type="file" #filePicker hidden (change)="onImagePicked($event)"/>
+                <div>
+                    <label class="label">Brand name</label>
+                    <input formControlName="name" class="input input-accent-lined width-100" placeholder="Enter name of brand"/>
+                </div>
+                <div>
+                    <label class="label">Country</label>
+                    <input formControlName="country" class="input input-accent-lined width-100" placeholder="Enter brand country"/>
+                </div>
+                <div>
+                    <label class="label">Website</label>
+                    <input formControlName="website" class="input input-accent-lined width-100" placeholder="Enter product amount"/>
+                </div>
             </div>
 
-            <button [disabled]="brandForm.invalid" class="btn btn-accent w-100" (click)="addBrand()">Add brand</button>
+            <button [disabled]="brandForm.invalid" class="btn btn-accent width-100" (click)="addBrand()">Add brand</button>
         </form>
     </div>
 </div>

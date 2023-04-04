@@ -8,21 +8,21 @@
     <div class="dialog-body" mat-dialog-content>
         <form [formGroup]="prodForm" class="form">
             <div *ngIf="isEditing" class="img-preview">
-                <img [src]="editImage"/>
+                <img [src]="this.getControl('image').value"/>
             </div>
-            <div class="prod-image-box">
-                <button class="btn btn-accent" (click)="filePicker.click()">Select Image</button>
-                <input formControlName="image" type="file" #filePicker hidden (change)="onImagePicked($event)"/>
+            <div class="prod-image-box width-100">
                 <image-cropper
-                    [imageChangedEvent]="imageChangedEvent"
-                    [maintainAspectRatio]="true"
-                    [aspectRatio]="1 / 1"
-                    format="png"
-                    [resizeToHeight]="980"
-                    [resizeToWidth]="980"
-                    (imageCropped)="imageCropped($event)"
-                    (loadImageFailed)="loadImageFailed()"
+                [imageChangedEvent]="imageChangedEvent"
+                [maintainAspectRatio]="true"
+                [aspectRatio]="1 / 1"
+                format="png"
+                [resizeToHeight]="980"
+                [resizeToWidth]="980"
+                (imageCropped)="imageCropped($event)"
+                (loadImageFailed)="loadImageFailed()"
                 ></image-cropper>
+                <button class="btn btn-line width-100" (click)="filePicker.click()">Select Image</button>
+                <input formControlName="image" type="file" #filePicker hidden (change)="onImagePicked($event)"/>
             </div>
             <div class="prod-description-box">
                 <div>

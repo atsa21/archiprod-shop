@@ -36,7 +36,7 @@ export class BrandsComponent implements OnInit {
   public openBrandDialog(isEditing: boolean ): void {
     const dialogRef = this.dialog.open(AddEditBrandDialogComponent, {
       width: '420px',
-      data: { list: [], isEditing: isEditing }
+      data: { isEditing: isEditing }
     });
   }
 

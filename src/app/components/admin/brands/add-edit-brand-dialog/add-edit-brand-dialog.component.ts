@@ -30,6 +30,14 @@ export class AddEditBrandDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    if(this.data.isEditing) {
+      this.isEditing = this.data.isEditing;
+      this.dialogTitle = 'Edit';
+      this.getControl('name').setValue(this.data.brand.name);
+      this.getControl('country').setValue(this.data.brand.country);
+      this.getControl('website').setValue(this.data.brand.website);
+      this.getControl('logo').setValue(this.data.brand.logo);
+    }
   }
 
   public initForm(): void {
@@ -80,7 +88,7 @@ export class AddEditBrandDialogComponent implements OnInit {
     const image: File = this.logo;
     this.brandService.postBrand(this.brandForm.value, image).pipe().subscribe((res) => {
       this.dialogRef.close();
-      this.snack.openSnackBar('Product was added!', 'success');
+      this.snack.openSnackBar('Brand was added!', 'success');
     });
   }
 }
