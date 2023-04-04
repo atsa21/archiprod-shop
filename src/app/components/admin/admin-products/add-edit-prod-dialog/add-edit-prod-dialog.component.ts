@@ -163,13 +163,13 @@ export class AddEditProdDialogComponent implements OnInit {
     this.prodService.postProduct(this.prodForm.value, image).pipe().subscribe((res) => {
       this.dialogRef.close();
       this.snack.openSnackBar('Product was added!', 'success');
-    })
+    });
   }
 
   updateProduct(): void {
     this.prodService.updateProduct(this.id, this.prodForm.value).subscribe((res) => {
       this.dialogRef.close();
       this.snack.openSnackBar('Product was updated!', 'success');
-    })
+    });
   }
 }

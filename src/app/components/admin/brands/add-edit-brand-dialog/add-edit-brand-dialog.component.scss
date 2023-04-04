@@ -1,0 +1,51 @@
+.dialog-container {
+    display: flex;
+    flex-direction: column;
+    padding: 36px;
+    gap: 24px;
+
+    .dialog-body {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        .add-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+    }
+}
+
+.btn-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 42px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .prod-description-box {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+}
+
+.img-preview {
+    height: 300px;
+    width: 300px;
+
+    img {
+        width: 100%;
+    }
+}

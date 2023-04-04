@@ -1,4 +1,5 @@
 export interface Navigation {
     name: string,
-    link: string
+    link: string,
+    icon?: string
 }

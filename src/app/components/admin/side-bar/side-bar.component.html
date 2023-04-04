@@ -4,11 +4,8 @@
             <button class="nav-icon" (click)="openSideBar()">
                 <i [class]="arrowClass"></i>
             </button>
-            <button class="nav-icon" (click)="navigate('/admin')">
-                <i class="fa-regular fa-pen-to-square"></i>
-            </button>
-            <button class="nav-icon" (click)="navigate('/admin/users')">
-                <i class="fa-regular fa-user"></i>
+            <button *ngFor="let nav of navList" class="nav-icon" (click)="navigate(nav.link)">
+                <i [class]="nav.icon"></i>
             </button>
         </div>
         <div *ngIf="sideBarOpened" class="nav-opened">
@@ -16,9 +13,9 @@
                 <p>Close Sidebar</p>
             </div>
             <div *ngFor="let nav of navList">
-                <div class="">
+                <button class="side-bar-buttons" (click)="navigate(nav.link)">
                     <p>{{ nav.name }}</p>
-                </div>
+                </button>
             </div>
         </div>
     </div>
