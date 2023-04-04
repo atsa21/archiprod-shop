@@ -61,10 +61,6 @@ export class AddProdCategoryComponent {
       extras: new FormControl([], Validators.required)
     });
 
-    // this.categoryForm?.valueChanges.subscribe( selected => {
-    //   console.log(selected);
-    // })
-
     this.getControl('name').valueChanges.subscribe( selected => {
       const selectedCategory = this.categories.find( el => el.name === selected);
       if(selectedCategory?.id) {

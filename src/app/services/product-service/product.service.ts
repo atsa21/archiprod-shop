@@ -1,27 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductCard, ProductRes } from 'src/app/models/products/product-card.interface';
+import { ProductCard, ProductListRes, ProductRes } from 'src/app/models/products/product-card.interface';
 import { ProductForm } from 'src/app/models/products/product-form.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  private mainUrl = 'http://localhost:3000/api/products';
+  private mainUrl = environment.apiUrl + '/products';
 
   constructor(private http: HttpClient) { }
 
-  getAllProducts() {
-    return this.http.get<{ message: string, data: any }>(this.mainUrl);
+  getProducts(page: number, pageSize: number): Observable<ProductListRes> {
+    return this.http.get<ProductListRes>(`${this.mainUrl}?size=${pageSize}&page=${page}`);
   }
 
-  getProducts(page: number, pageSize: number): Observable<ProductRes> {
-    return this.http.get<ProductRes>(`${this.mainUrl}?size=${pageSize}&page=${page}`);
-  }
-
-  postProduct(product: ProductForm, image: File): Observable<{message: string, products: ProductCard}> {
+  postProduct(product: ProductForm, image: File): Observable<ProductRes> {
     const body = new FormData();
     body.append('category', product.category);
     body.append('type', product.type);
@@ -35,14 +32,23 @@ export class ProductService {
     body.append('brand', product.brand);
     body.append('image', image, product.category);
     body.append('collectionName', product.collectionName);
-    body.append('productCode', product.productCode ? product.productCode : '');
-    body.append('year', product.year ? product.year.toString() : '');
+    if(product.designer) {
+      body.append('designer', product.designer)
+    }
+    if(product.productCode) {
+      body.append('productCode', product.productCode)
+    }
+    if(product.year) {
+      body.append('year', product.year.toString())
+    }
     body.append('amount', product.amount.toString());
     body.append('price', product.price.toString());
     body.append('currency', product.currency);
     body.append('isOnSale', product.isOnSale.toString());
-    body.append('sale', (product.sale ? product.sale.toString() : ''));
-    return this.http.post<{message: string, products: ProductCard}>(this.mainUrl, body);
+    if(product.sale) {
+      body.append('sale', product.sale.toString())
+    }
+    return this.http.post<ProductRes>(this.mainUrl, body);
   }
 
   updateProduct(id: string, product: ProductForm): Observable<{message: string, products: ProductCard}> {
@@ -62,13 +68,22 @@ export class ProductService {
       body.append('brand', product.brand);
       body.append('image', product.image, product.category);
       body.append('collectionName', product.collectionName);
-      body.append('productCode', product.productCode ? product.productCode : '');
-      body.append('year', product.year ? product.year.toString() : '');
+      if(product.designer) {
+        body.append('designer', product.designer)
+      }
+      if(product.productCode) {
+        body.append('productCode', product.productCode)
+      }
+      if(product.year) {
+        body.append('year', product.year.toString())
+      }
       body.append('amount', product.amount.toString());
       body.append('price', product.price.toString());
       body.append('currency', product.currency);
       body.append('isOnSale', product.isOnSale.toString());
-      body.append('sale', (product.sale ? product.sale.toString() : ''));
+      if(product.sale) {
+        body.append('sale', product.sale.toString())
+      }
     } else {
       body = {
         id: id,
@@ -80,6 +95,7 @@ export class ProductService {
         brand: product.brand,
         imagePath: product.image,
         collectionName: product.collectionName,
+        designer: product.designer,
         productCode: product.productCode,
         year: product.year,
         amount: product.amount,
@@ -92,7 +108,7 @@ export class ProductService {
     return this.http.put<{message: string, products: ProductCard}>(`${this.mainUrl}/${id}`, body);
   }
 
-  deleteProduct(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.mainUrl}/${id}`);
+  deleteProduct(id: string): Observable<{message: string}> {
+    return this.http.delete<{message: string}>(`${this.mainUrl}/${id}`);
   }
 }

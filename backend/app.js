@@ -10,10 +10,8 @@ const usersRoutes = require("./routes/users");
 
 const app = express();
 
-const password = "8gI5bWUPYIB8XIAH";
-
 mongoose.set("strictQuery", false);
-mongoose.connect("mongodb+srv://ts21ann:" + password + "@skillhub.qr25lpk.mongodb.net/archiprod")
+mongoose.connect("mongodb+srv://ts21ann:" + process.env.MONGO_ATLAS_PW + "@skillhub.qr25lpk.mongodb.net/archiprod")
 .then(() => {
     console.log("Connected database!");
 })

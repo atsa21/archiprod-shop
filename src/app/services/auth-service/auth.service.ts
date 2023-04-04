@@ -4,13 +4,14 @@ import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { AuthData } from 'src/app/models/auth-data.interface';
 import { userRole } from 'src/app/models/userRole.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private mainUrl = 'http://localhost:3000/api/user';
+  private mainUrl = environment.apiUrl + '/user';
 
   private tokenTimer: any;
   private authStatusListener = new Subject<boolean>();

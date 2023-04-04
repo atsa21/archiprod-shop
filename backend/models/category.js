@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 
-const uniqueValidator = require("mongoose-unique-validator");
-
 const typeSchema = mongoose.Schema({
     typeName: { type: String, required: true },
     materials: [{ type: String, required: true }],
@@ -10,11 +8,9 @@ const typeSchema = mongoose.Schema({
 });
 
 const categorySchema = mongoose.Schema({
-    name: { type: String, required: true, unique: true },
+    name: { type: String, required: true },
     type: [typeSchema],
     creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
 });
-
-categorySchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model("Category", categorySchema);

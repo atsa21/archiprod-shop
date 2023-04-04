@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Category } from 'src/app/models/products/category.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
 
-  private mainUrl = 'http://localhost:3000/api/categories';
+  private mainUrl = environment.apiUrl + '/categories';
 
   constructor(private http: HttpClient) { }
 
@@ -28,7 +28,6 @@ export class CategoryService {
       shapes: category.shapes,
       extras: category.extras,
     };
-    console.log(body);
     return this.http.post<{ message: string, categoryId: string}>(this.mainUrl, body);
   }
 
@@ -39,7 +38,6 @@ export class CategoryService {
       shapes: category.shapes,
       extras: category.extras
     };
-    console.log(body);
     return this.http.put<{ message: string, res: any}>(`${this.mainUrl}/${id}`, body);
   }
 

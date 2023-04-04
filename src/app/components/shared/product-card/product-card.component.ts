@@ -31,10 +31,10 @@ export class ProductCardComponent {
     });
   }
 
-  deleteProduct(id: string | undefined): void {
-    if (id){
-      this.productService.deleteProduct(id).pipe(take(1)).subscribe(() => {
-        this.snack.openSnackBar('delete prod', 'success');
+  deleteProduct(): void {
+    if (this.product.id){
+      this.productService.deleteProduct(this.product.id).pipe(take(1)).subscribe((res) => {
+        this.snack.openSnackBar(res.message, 'success');
       })
     }
   }

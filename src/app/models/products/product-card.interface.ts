@@ -1,7 +1,12 @@
-export interface ProductRes {
+export interface ProductListRes {
     data: ProductCard[],
     message: string,
     totalElements: number
+}
+
+export interface ProductRes {
+    data: ProductCard,
+    message: string
 }
 
 export interface ProductCard {

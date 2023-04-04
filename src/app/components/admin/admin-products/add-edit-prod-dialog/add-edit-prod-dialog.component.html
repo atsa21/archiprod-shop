@@ -31,17 +31,17 @@
                     </mat-select>
                 </div>
                 <div class="input input-accent-lined-with-icon width-100" [ngClass]="{'disabled-select' : !types.length}">
-                    <mat-select formControlName="type" placeholder="Select type" [disabled]="!types.length">
+                    <mat-select formControlName="type" placeholder="Select type">
                         <mat-option *ngFor="let type of types" [value]="type.typeName">{{ type.typeName }}</mat-option>
                     </mat-select>
                 </div>
                 <div class="input input-accent-lined-with-icon width-100" [ngClass]="{'disabled-select' : !materials.length}">
-                    <mat-select formControlName="materials" multiple placeholder="Select materials" [disabled]="!materials.length">
+                    <mat-select formControlName="materials" multiple placeholder="Select materials">
                         <mat-option *ngFor="let material of materials" [value]="material">{{material}}</mat-option>
                     </mat-select>
                 </div>
                 <div class="input input-accent-lined-with-icon width-100" [ngClass]="{'disabled-select' : !extras.length}">
-                    <mat-select formControlName="extras" multiple placeholder="Select extras" [disabled]="!extras.length">
+                    <mat-select formControlName="extras" multiple placeholder="Select extras">
                         <mat-option *ngFor="let extra of extras" [value]="extra">{{extra}}</mat-option>
                     </mat-select>
                 </div>
@@ -73,10 +73,10 @@
                         class="example-radio-group"
                         formControlName="isOnSale"
                     >
-                        <mat-radio-button class="example-radio-button" [value]="true">Yes</mat-radio-button>
-                        <mat-radio-button class="example-radio-button" [value]="false">No</mat-radio-button>
+                        <mat-radio-button [value]="true">Yes</mat-radio-button>
+                        <mat-radio-button [value]="false">No</mat-radio-button>
                     </mat-radio-group>
-                    <div *ngIf="getControl('isOnSale')?.value">
+                    <div *ngIf="getControl('isOnSale').value">
                         <div class="example-label-container">
                             <label id="example-name-label" class="example-name-label">Value</label>
                             <label class="example-value-label">{{ getControl('sale').value }}</label>

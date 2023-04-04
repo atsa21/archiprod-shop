@@ -13,11 +13,12 @@ exports.createProduct = (req, res, next) => {
         materials: materials,
         shape: shape,
         extras: extras,
-        year: req.body.year,
+        productCode: req.body.productCode ? req.body.productCode : null,
+        year: req.body.year ? req.body.year : null,
         collectionName: collectionName,
-        designer: req.body.designer,
+        designer: req.body.designer ? req.body.designer : null,
         isOnSale: inOnSale,
-        sale: req.body.sale,
+        sale: req.body.sale ? req.body.sale : null
     };
 
     const product = new Product({
@@ -41,7 +42,7 @@ exports.createProduct = (req, res, next) => {
     })
     .catch(error => {
         res.status(500).json({
-            message: "Creating a product failed"
+            message: error
         })
     });
 }

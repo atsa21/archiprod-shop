@@ -8,6 +8,7 @@ import { Brand } from 'src/app/models/products/brand.interface';
 import { take } from 'rxjs';
 import { CategoryService } from 'src/app/services/category-service/category.service';
 import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
+import { ProductCard } from 'src/app/models/products/product-card.interface';
 
 @Component({
   selector: 'app-add-edit-prod-dialog',
@@ -75,12 +76,12 @@ export class AddEditProdDialogComponent implements OnInit {
   public initForm(): void {
     this.prodForm = this.fb.group({
       category: new FormControl('', Validators.required),
-      type: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
+      type: new FormControl({value:'', disabled: true}, [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
       brand: new FormControl('', Validators.required),
       collectionName: new FormControl('', Validators.required),
-      materials: new FormControl([], Validators.required),
-      shape: new FormControl('', Validators.required),
-      extras: new FormControl([], Validators.required),
+      materials: new FormControl({value:[], disabled: true}, Validators.required),
+      shape: new FormControl({value:'', disabled: true}, Validators.required),
+      extras: new FormControl({value:[], disabled: true}, Validators.required),
       image: new FormControl(null, Validators.required),
       amount: new FormControl(null, Validators.required),
       price: new FormControl(null, Validators.required),
@@ -88,15 +89,10 @@ export class AddEditProdDialogComponent implements OnInit {
       productCode: new FormControl(''),
       year: new FormControl(''),
       designer: new FormControl(''),
-      isOnSale: new FormControl(false, Validators.required),
+      isOnSale: new FormControl(false),
       sale: new FormControl(null)
     });
 
-    this.getControl('isOnSale').valueChanges.subscribe( value => {
-      if(value) {
-        this.prodForm.get('sale')?.setValidators(Validators.required);
-      }
-    });
     this.getControl('category').valueChanges.subscribe( selectedValue => {
       this.getCategoryTypes(selectedValue);
     });
@@ -116,15 +112,21 @@ export class AddEditProdDialogComponent implements OnInit {
     if(typeof id === 'string') {
       this.categoryService.getCategoryById(id).pipe(take(1)).subscribe( res => {
         this.types = res.data[0].type;
+        this.getControl('type').enable();
       })
     }
   }
 
   private getArraysByType(type: string): void {
     const selectedType = this.types.filter((el: any) => el.typeName === type);
-    this.materials = selectedType[0].materials;
-    this.shapes = selectedType[0].shapes;
-    this.extras = selectedType[0].extras;
+    if(selectedType[0]) {
+      this.materials = selectedType[0].materials;
+      this.shapes = selectedType[0].shapes;
+      this.extras = selectedType[0].extras;
+      this.getControl('materials').enable();
+      this.getControl('shape').enable();
+      this.getControl('extras').enable();
+    }
   }
 
   public onImagePicked(event: Event): void {
