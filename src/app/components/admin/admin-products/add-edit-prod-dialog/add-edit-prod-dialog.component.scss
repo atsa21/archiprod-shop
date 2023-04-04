@@ -48,7 +48,23 @@ h2 {
         display: flex;
         flex-direction: column;
         width: 100%;
-        gap: 12px;
+        gap: 16px;
+
+        .price-box {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            gap: 12px;
+
+            .price-amount {
+                max-width: 220px;
+            }
+
+            .currency-box {
+                max-width: 120px;
+                width: 120px;
+            }
+        }
     }
 }
 
