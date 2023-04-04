@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Brand } from 'src/app/models/products/brand.interface';
+import { Brand, BrandListRes } from 'src/app/models/products/brand.interface';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -13,8 +13,8 @@ export class BrandService {
 
   constructor(private http: HttpClient) { }
 
-  getAllBrands(): Observable<{ message: string, data: any }> {
-    return this.http.get<{ message: string, data: any }>(this.mainUrl);
+  getAllBrands(page: number, pageSize: number): Observable<BrandListRes> {
+    return this.http.get<BrandListRes>(`${this.mainUrl}?size=${pageSize}&page=${page}`);
   }
 
   getBrandById(): Observable<{ message: string, data: any }> {
@@ -26,7 +26,7 @@ export class BrandService {
     body.append('name', brand.name);
     body.append('country', brand.country);
     body.append('website', brand.website);
-    body.append('image', image, brand.logo);
+    body.append('image', image, brand.name);
     return this.http.post<any>(this.mainUrl, body);
   }
 }

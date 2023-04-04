@@ -10,6 +10,7 @@ import { AddEditProdDialogComponent } from './add-edit-prod-dialog/add-edit-prod
 import { AddProdCategoryComponent } from './add-prod-category/add-prod-category.component';
 import { AddEditBrandDialogComponent } from '../brands/add-edit-brand-dialog/add-edit-brand-dialog.component';
 import { BrandService } from 'src/app/services/brands-service/brand.service';
+import { BrandListRes } from 'src/app/models/products/brand.interface';
 
 @Component({
   selector: 'app-admin-products',
@@ -40,6 +41,7 @@ export class AdminProductsComponent implements OnInit {
   ngOnInit(): void {
     this.getProducts();
     this.getCategories();
+    this.getBrands();
   }
 
   private getProducts(): void {
@@ -69,10 +71,9 @@ export class AdminProductsComponent implements OnInit {
   }
 
   private getBrands(): void {
-    this.categoryService.getAllCategories()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(data => {
-        this.brands = data;
+    this.brandService.getAllBrands(1, this.pageSize).pipe(takeUntil(this.destroy$)).subscribe((res: BrandListRes) => {
+      const brandList = res.data.map(el => ({ ...el, id: el._id })).map(({ _id, ...rest }) => rest);
+      this.brands = brandList;
     })
   }
 

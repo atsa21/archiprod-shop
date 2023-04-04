@@ -26,40 +26,40 @@
             </div>
             <div class="prod-description-box">
                 <div class="input input-accent-lined-with-icon width-100">
-                    <mat-select formControlName="category" placeholder="Select category">
+                    <mat-select formControlName="category" placeholder="Select category*">
                         <mat-option *ngFor="let category of categories" [value]="category.name">{{category.name}}</mat-option>
                     </mat-select>
                 </div>
                 <div class="input input-accent-lined-with-icon width-100" [ngClass]="{'disabled-select' : !types.length}">
-                    <mat-select formControlName="type" placeholder="Select type">
+                    <mat-select formControlName="type" placeholder="Select type*">
                         <mat-option *ngFor="let type of types" [value]="type.typeName">{{ type.typeName }}</mat-option>
                     </mat-select>
                 </div>
                 <div class="input input-accent-lined-with-icon width-100" [ngClass]="{'disabled-select' : !materials.length}">
-                    <mat-select formControlName="materials" multiple placeholder="Select materials">
+                    <mat-select formControlName="materials" multiple placeholder="Select materials*">
                         <mat-option *ngFor="let material of materials" [value]="material">{{material}}</mat-option>
                     </mat-select>
                 </div>
                 <div class="input input-accent-lined-with-icon width-100" [ngClass]="{'disabled-select' : !extras.length}">
-                    <mat-select formControlName="extras" multiple placeholder="Select extras">
+                    <mat-select formControlName="extras" multiple placeholder="Select extras*">
                         <mat-option *ngFor="let extra of extras" [value]="extra">{{extra}}</mat-option>
                     </mat-select>
                 </div>
                 <div class="input input-accent-lined-with-icon width-100">
-                    <mat-select formControlName="shape" placeholder="Select shape">
+                    <mat-select formControlName="shape" placeholder="Select shape*">
                         <mat-option *ngFor="let shape of shapes" [value]="shape">{{shape}}</mat-option>
                     </mat-select>
                 </div>
                 <div class="input input-accent-lined-with-icon width-100">
-                    <mat-select formControlName="brand" placeholder="Select brand">
+                    <mat-select formControlName="brand" placeholder="Select brand*">
                         <mat-option *ngFor="let brand of brands" [value]="brand.name">{{brand.name}}</mat-option>
                     </mat-select>
                 </div>
-                <input formControlName="collectionName" class="input input-accent-lined" placeholder="Enter collection name"/>
-                <input formControlName="amount" type="number" class="input input-accent-lined" placeholder="Enter product amount"/>
-                <input formControlName="price" type="number" class="input input-accent-lined" placeholder="Enter product price"/>
+                <input formControlName="collectionName" class="input input-accent-lined" placeholder="Enter collection name*"/>
+                <input formControlName="amount" type="number" class="input input-accent-lined" placeholder="Enter product amount*"/>
+                <input formControlName="price" type="number" class="input input-accent-lined" placeholder="Enter product price*"/>
                 <div class="input input-accent-lined-with-icon width-100">
-                    <mat-select formControlName="currency" placeholder="Select currency">
+                    <mat-select formControlName="currency" placeholder="Select currency*">
                         <mat-option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</mat-option>
                     </mat-select>
                 </div>

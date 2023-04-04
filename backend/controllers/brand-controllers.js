@@ -6,7 +6,8 @@ exports.createBrand = (req, res, next) => {
         name: req.body.name,
         country: req.body.country,
         website: req.body.website,
-        logo: url + "/images/logo/" + req.file.filename,
+        logo: url + "/images/" + req.file.filename,
+        creator: req.userData.userId
     });
     brand.save().then( createdBrand => {
         res.status(201).json({
@@ -16,14 +17,36 @@ exports.createBrand = (req, res, next) => {
                 id: createdBrand._id,
             }
         });
+    })
+    .catch(error => {
+        res.status(500).json({
+            message: error
+        })
     });
 }
 
 exports.getBrands = (req, res, next) => {
-    Brand.find().then(documents => {
+    const pageSize = +req.query.size;
+    const currentPage = +req.query.page;
+    const postQuery = Brand.find();
+    let fetchedBrand;
+    if(pageSize && currentPage) {
+        postQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
+    }
+    postQuery.then(documents => {
+        fetchedBrand = documents;
+        return Brand.count();
+    })
+    .then(count => {
         res.status(200).json({
-            message: "Brands getted succesfully!",
-            data: documents
+            message: "Brands fetched succesfully!",
+            data: fetchedBrand,
+            totalElements: count
+        });
+    })
+    .catch(error => {
+        res.status(500).json({
+            message: "Fetching products failed"
         })
     });
 }
@@ -56,7 +79,8 @@ exports.updateBrand = (req, res, next) => {
         name: req.body.name,
         country: req.body.country,
         website: req.body.website,
-        logo: logo
+        logo: logo,
+        creator: req.userData.userId
     });
     Brand.updateOne({ _id: req.params.id }, brand).then( result => {
         res.status(200).json({
@@ -66,7 +90,7 @@ exports.updateBrand = (req, res, next) => {
 }
 
 exports.deleteBrandById = (req, res, next) => {
-    Brand.deleteOne({_id: req.params.id}).then(result => {
+    Brand.deleteOne({_id: req.params.id, creator: req.userData.userId}).then(result => {
         res.status(200).json({ message: "Brand deleted!"})
     });
 }

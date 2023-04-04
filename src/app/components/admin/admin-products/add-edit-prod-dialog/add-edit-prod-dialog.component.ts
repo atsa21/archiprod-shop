@@ -55,18 +55,19 @@ export class AddEditProdDialogComponent implements OnInit {
     if(this.data) {
       this.isEditing = this.data.isEditing;
       this.categories = this.data.categories;
+      this.brands = this.data.brands;
       if(this.isEditing){
         this.dialogTitle = 'Edit';
-        this.prodForm.get('category')?.setValue(this.data.product.category);
-        this.prodForm.get('type')?.setValue(this.data.product.type);
-        this.prodForm.get('brand')?.setValue(this.data.product.brand);
-        this.prodForm.get('collectionName')?.setValue(this.data.product.collectionName);
-        this.prodForm.get('material')?.setValue(this.data.product.material);
-        this.prodForm.get('image')?.setValue(this.data.product.image);
-        this.prodForm.get('amount')?.setValue(this.data.product.amount);
-        this.prodForm.get('price')?.setValue(this.data.product.price);
-        this.prodForm.get('currency')?.setValue(this.data.product.currency);
-        this.prodForm.get('isOnSale')?.setValue(this.data.product.isOnSale);
+        this.getControl('category')?.setValue(this.data.product.category);
+        this.getControl('type')?.setValue(this.data.product.type);
+        this.getControl('brand')?.setValue(this.data.product.brand);
+        this.getControl('collectionName')?.setValue(this.data.product.collectionName);
+        this.getControl('materials')?.setValue(this.data.product.material);
+        this.getControl('image')?.setValue(this.data.product.image);
+        this.getControl('amount')?.setValue(this.data.product.amount);
+        this.getControl('price')?.setValue(this.data.product.price);
+        this.getControl('currency')?.setValue(this.data.product.currency);
+        this.getControl('isOnSale')?.setValue(this.data.product.isOnSale);
         this.editImage = this.data.product.imagePath;
         this.id = this.data.product.id;
       }

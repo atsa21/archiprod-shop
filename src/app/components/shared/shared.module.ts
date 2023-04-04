@@ -14,6 +14,7 @@ import { ProductCardComponent } from './product-card/product-card.component';
 import { CurrencyPipe } from 'src/app/pipe/currency.pipe';
 import { InputErrorComponent } from './input-error/input-error.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrandCardComponent } from './brand-card/brand-card.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     BannerComponent,
     ProductCardComponent,
     CurrencyPipe,
-    InputErrorComponent
+    InputErrorComponent,
+    BrandCardComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -46,7 +48,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ImageCropperModule,
     ProductCardComponent,
     CurrencyPipe,
-    InputErrorComponent
+    InputErrorComponent,
+    BrandCardComponent
   ]
 })
 export class SharedModule { }
