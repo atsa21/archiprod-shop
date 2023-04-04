@@ -5,6 +5,7 @@ import { AddEditProdDialogComponent } from '../../admin/admin-products/add-edit-
 import { ProductService } from 'src/app/services/product-service/product.service';
 import { take } from 'rxjs';
 import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
+import { Brand } from 'src/app/models/products/brand.interface';
 
 @Component({
   selector: 'app-product-card',
@@ -14,6 +15,8 @@ import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.se
 export class ProductCardComponent {
 
   @Input() product!: ProductCard;
+  @Input() categories!: any;
+  @Input() brands!: Brand;
   @Input() canEdit = false;
 
   constructor(
@@ -26,7 +29,9 @@ export class ProductCardComponent {
     this.dialog.open(AddEditProdDialogComponent, {
       width: '480px',
       data: { 
-        product: this.product, 
+        product: this.product,
+        categories: this.categories,
+        brands: this.brands,
         isEditing: true }
     });
   }

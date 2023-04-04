@@ -10,7 +10,8 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { AddEditProdDialogComponent } from './admin-products/add-edit-prod-dialog/add-edit-prod-dialog.component';
 import { AddProdCategoryComponent } from './admin-products/add-prod-category/add-prod-category.component';
-import { AddEditBrandDialogComponent } from './admin-products/add-edit-brand-dialog/add-edit-brand-dialog.component';
+import { AddEditBrandDialogComponent } from './brands/add-edit-brand-dialog/add-edit-brand-dialog.component';
+import { BrandsComponent } from './brands/brands.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AddEditBrandDialogComponent } from './admin-products/add-edit-brand-dia
     SideBarComponent,
     AddEditProdDialogComponent,
     AddProdCategoryComponent,
-    AddEditBrandDialogComponent
+    AddEditBrandDialogComponent,
+    BrandsComponent
   ],
   imports: [
     CommonModule,

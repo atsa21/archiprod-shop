@@ -8,7 +8,9 @@ import { CategoryService } from 'src/app/services/category-service/category.serv
 import { ProductService } from 'src/app/services/product-service/product.service';
 import { AddEditProdDialogComponent } from './add-edit-prod-dialog/add-edit-prod-dialog.component';
 import { AddProdCategoryComponent } from './add-prod-category/add-prod-category.component';
-import { AddEditBrandDialogComponent } from './add-edit-brand-dialog/add-edit-brand-dialog.component';
+import { AddEditBrandDialogComponent } from '../brands/add-edit-brand-dialog/add-edit-brand-dialog.component';
+import { BrandService } from 'src/app/services/brands-service/brand.service';
+import { BrandListRes } from 'src/app/models/products/brand.interface';
 
 @Component({
   selector: 'app-admin-products',
@@ -19,6 +21,7 @@ export class AdminProductsComponent implements OnInit {
 
   products: ProductCard[] = [];
   categories: Category[] = [];
+  brands: any;
 
   menuOpened = false;
 
@@ -31,12 +34,14 @@ export class AdminProductsComponent implements OnInit {
   constructor(
     private dialog : MatDialog,
     private categoryService: CategoryService,
-    private productService: ProductService
+    private productService: ProductService,
+    private brandService: BrandService
   ){}
 
   ngOnInit(): void {
     this.getProducts();
     this.getCategories();
+    this.getBrands();
   }
 
   private getProducts(): void {
@@ -65,10 +70,22 @@ export class AdminProductsComponent implements OnInit {
     })
   }
 
+  private getBrands(): void {
+    this.brandService.getAllBrands(1, this.pageSize).pipe(takeUntil(this.destroy$)).subscribe((res: BrandListRes) => {
+      const brandList = res.data.map(el => ({ ...el, id: el._id })).map(({ _id, ...rest }) => rest);
+      this.brands = brandList;
+    })
+  }
+
   public openDialog( title: string, name: string, isEditing: boolean ): void {
     const dialogRef = this.dialog.open(AddProdCategoryComponent, {
       width: '420px',
-      data: { dialogTitle: title, dialogName: name, list: this.categories, isEditing: isEditing}
+      data: { 
+        dialogTitle: title, 
+        dialogName: name, 
+        list: this.categories, 
+        isEditing: isEditing
+      }
     });
     this.openCloseMenu();
     dialogRef.afterClosed().pipe(take(1)).subscribe(() => {
@@ -76,20 +93,12 @@ export class AdminProductsComponent implements OnInit {
     });
   }
 
-  public openBrandDialog(isEditing: boolean ): void {
-    const dialogRef = this.dialog.open(AddEditBrandDialogComponent, {
-      width: '420px',
-      data: { list: this.categories, isEditing: isEditing}
-    });
-    this.openCloseMenu();
-  }
-
   public openAddProducts(): void {
     const dialogRef = this.dialog.open(AddEditProdDialogComponent, {
       width: '480px',
       data: {
-        isEditing: false,
-        categories: this.categories
+        categories: this.categories,
+        brands: this.brands
       }
     });
     dialogRef.afterClosed().pipe(take(1)).subscribe(() => {

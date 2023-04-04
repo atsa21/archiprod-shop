@@ -1,25 +1,16 @@
-<div class="side-bar-container" [ngClass]="sideBarOpened ? 'big-box' : 'small-box'">
+<div class="side-bar-container" [ngClass]="{'big-box' : sideBarOpened}">
     <div class="side-bar-box">
-        <div class="small-nav">
-            <button class="nav-icon" (click)="openSideBar()">
-                <i [class]="arrowClass"></i>
-            </button>
-            <button class="nav-icon" (click)="navigate('/admin')">
-                <i class="fa-regular fa-pen-to-square"></i>
-            </button>
-            <button class="nav-icon" (click)="navigate('/admin/users')">
-                <i class="fa-regular fa-user"></i>
+        <div class="nav-box">
+            <button class="nav-btn" [ngClass]="{'nav-opened' : sideBarOpened}" (click)="openSideBar()">
+                <i class="nav-icon" [class]="arrowClass"></i>
+                <p *ngIf="sideBarOpened">Close Sidebar</p>
             </button>
         </div>
-        <div *ngIf="sideBarOpened" class="nav-opened">
-            <div>
-                <p>Close Sidebar</p>
-            </div>
-            <div *ngFor="let nav of navList">
-                <div class="">
-                    <p>{{ nav.name }}</p>
-                </div>
-            </div>
+        <div *ngFor="let nav of navList" class="nav-box">
+            <button class="nav-btn" [ngClass]="{'nav-opened' : sideBarOpened}" (click)="navigate(nav.link)">
+                <i class="nav-icon" [class]="nav.icon"></i>
+                <p *ngIf="sideBarOpened">{{ nav.name }}</p>
+            </button>
         </div>
     </div>
 </div>

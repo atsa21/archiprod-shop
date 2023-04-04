@@ -1,8 +1,8 @@
 @use '@angular/material' as mat;
 @include mat.core();
 
-$archiprod-primary: mat.define-palette(mat.$indigo-palette);
-$archiprod-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$archiprod-primary: mat.define-palette(mat.$deep-orange-palette);
+$archiprod-accent: mat.define-palette(mat.$orange-palette, A200, A100, A400);
 
 $archiprod-warn: mat.define-palette(mat.$red-palette);
 
@@ -19,6 +19,7 @@ $archiprod-theme: mat.define-light-theme((
     --black: rgb(31, 31, 31);
     --dark-grey: rgb(58, 58, 58);
     --grey: #979797;
+    --ternary-grey: #c9c9c9;
     --med-grey: #e2e2e2;
     --light-grey: #EEEEEE;
     --white: rgb(255, 255, 255);
@@ -69,6 +70,12 @@ h3 {
 p {
     font-size: 18px;
     text-align: center;
+}
+
+.label {
+    font-size: 12px;
+    color: var(--black);
+    padding-bottom: 8px;
 }
 
 // Buttons style
@@ -194,10 +201,32 @@ input {
 }
 
 .input-accent-lined {
-    border: 2px solid var(--accent);
+    display: flex;
+    align-items: center;
+    color: var(--black);
+    border: 2px solid var(--grey);
+    font-size: 14px;
+
+    &::placeholder {
+        color: var(--ternary-grey);
+    }
 
     &:focus {
         border: 2px solid var(--black);
+    }
+
+    &:focus-within {
+        border: 2px solid var(--black);
+    }
+
+    .mat-mdc-select-min-line {
+        letter-spacing: normal;
+        color: var(--black);
+    }
+
+    .mat-mdc-select-placeholder {
+        letter-spacing: normal;
+        color: var(--ternary-grey);
     }
 }
 
@@ -206,7 +235,7 @@ input {
     align-items: center;
     padding-right: 4px;
     justify-content: space-between;
-    border: 2px solid var(--accent);
+    border: 2px solid var(--grey);
 
     &:focus-within {
         border: 2px solid var(--black);
@@ -237,7 +266,8 @@ input {
 .select-accent-lined {
     padding: 16px;
     border-radius: 6px;
-    border: 2px solid var(--accent);
+    border: 2px solid var(--grey);
+    color: var(--black);
 
     &:focus {
         border: 2px solid var(--black);
@@ -252,8 +282,12 @@ input {
 // Disable style
 
 .disabled-select {
-    border: 2px solid var(--grey);
-    color: var(--grey);
+    border: 2px solid var(--med-grey);
+    color: var(--med-grey);
+
+    .mat-mdc-select-min-line {
+        color: var(--med-grey);
+    }
 }
 
 // Errors style

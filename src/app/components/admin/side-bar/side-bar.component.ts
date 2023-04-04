@@ -13,8 +13,9 @@ export class SideBarComponent {
   public arrowClass: string = 'fa-solid fa-chevron-right';
 
   public navList: Navigation[] = [
-    { name: 'Products', link: '/admin'},
-    { name: 'Users', link: '/admin/users'}
+    { name: 'Products', link: '/admin', icon: 'fa-solid fa-chair' },
+    { name: 'Brands', link: '/admin/brands', icon: 'fa-solid fa-book-atlas' },
+    { name: 'Users', link: '/admin/users', icon: 'fa-solid fa-user-pen' }
   ];
 
   constructor(
