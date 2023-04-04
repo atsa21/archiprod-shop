@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ProductCard } from 'src/app/models/product-card';
+import { ProductCard } from 'src/app/models/products/product-card.interface';
 import { AddEditProdDialogComponent } from '../../admin/admin-products/add-edit-prod-dialog/add-edit-prod-dialog.component';
 import { ProductService } from 'src/app/services/product-service/product.service';
 import { take } from 'rxjs';
@@ -31,10 +31,10 @@ export class ProductCardComponent {
     });
   }
 
-  deleteProduct(id: string | undefined): void {
-    if (id){
-      this.productService.deleteProduct(id).pipe(take(1)).subscribe(() => {
-        this.snack.openSnackBar('delete prod', 'success');
+  deleteProduct(): void {
+    if (this.product.id){
+      this.productService.deleteProduct(this.product.id).pipe(take(1)).subscribe((res) => {
+        this.snack.openSnackBar(res.message, 'success');
       })
     }
   }

@@ -2,22 +2,33 @@ const Product = require("../models/product");
 
 exports.createProduct = (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");
-    const { category, type, material, shape, extras, brand, collectionName, amount, price, currency, inOnSale } = req.body;
+    const { category, type, materials, shape, extras, brand, collectionName, amount, price, currency, inOnSale } = req.body;
+
+    const prodPrice = {
+        amount: price,
+        currency: currency
+    };
+
+    const productAdditionals = {
+        materials: materials,
+        shape: shape,
+        extras: extras,
+        productCode: req.body.productCode ? req.body.productCode : null,
+        year: req.body.year ? req.body.year : null,
+        collectionName: collectionName,
+        designer: req.body.designer ? req.body.designer : null,
+        isOnSale: inOnSale,
+        sale: req.body.sale ? req.body.sale : null
+    };
 
     const product = new Product({
         category: category,
         type: type,
-        material: material,
-        shape: shape,
-        extras: extras,
         brand: brand,
         imagePath: url + "/images/" + req.file.filename,
-        collectionName: collectionName,
-        amount: amount,
-        price: price,
-        currency: currency,
-        isOnSale: inOnSale,
-        sale: req.body.sale,
+        price: prodPrice,
+        additionalInfo: productAdditionals,
+        total: amount,
         creator: req.userData.userId
     });
     product.save().then( createdProd => {
@@ -31,7 +42,7 @@ exports.createProduct = (req, res, next) => {
     })
     .catch(error => {
         res.status(500).json({
-            message: "Creating a product failed"
+            message: error
         })
     });
 }
@@ -81,31 +92,42 @@ exports.getProductById = (req, res, next) => {
 
 exports.updateProduct = (req, res, next) => {
     let imagePath = req.body.imagePath;
-    const { category, type, material, shape, extras, brand, collectionName, amount, price, currency, inOnSale } = req.body;
+    const { category, type, materials, shape, extras, brand, collectionName, amount, price, currency, inOnSale } = req.body;
 
     if(req.file) {
         const url = req.protocol + "://" + req.get("host");
         imagePath = url + "/images/" + req.file.filename;
     }
+    
+    const prodPrice = {
+        amount: price,
+        currency: currency
+    };
+
+    const productAdditionals = {
+        materials: materials,
+        shape: shape,
+        extras: extras,
+        year: req.body.year,
+        collectionName: collectionName,
+        designer: req.body.designer,
+        isOnSale: inOnSale,
+        sale: req.body.sale,
+    };
+
     const product = new Product({
         _id: req.body.id,
         category: category,
         type: type,
-        material: material,
-        shape: shape,
-        extras: extras,
         brand: brand,
         imagePath: imagePath,
-        collectionName: collectionName,
-        amount: amount,
-        price: price,
-        currency: currency,
-        isOnSale: inOnSale,
-        sale: req.body.sale,
+        price: prodPrice,
+        additionalInfo: productAdditionals,
+        total: amount,
         creator: req.userData.userId
     });
     Product.updateOne({ _id: req.params.id }, product).then(result => {
-        if (result.nModified > 0) {
+        if (result.n > 0) {
             res.status(200).json({
                 message:"Post succesfully updated!"
             });

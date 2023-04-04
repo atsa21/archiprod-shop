@@ -1,17 +1,16 @@
 const Category = require("../models/category");
 
 exports.createCategory = (req, res, next) => {
-    const { name, type } = req.body;
 
     const categoryType = {
-        typeName: type.typeName,
-        materials: type.materials,
-        shapes: type.shapes,
-        extras: type.extras
+        typeName: req.body.typeName,
+        materials: req.body.materials,
+        shapes: req.body.shapes,
+        extras: req.body.extras
     };
 
     const category = new Category({
-        name: name,
+        name: req.body.name,
         type: [categoryType],
         creator: req.userData.userId
     });

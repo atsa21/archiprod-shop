@@ -4,20 +4,20 @@
             <button class="btn-icon btn-icon-white" (click)="openEditProducts()">
                 <i class="fa-regular fa-pen-to-square"></i>
             </button>
-            <button class="btn-icon btn-icon-danger" (click)="deleteProduct(product.id)">
+            <button class="btn-icon btn-icon-danger" (click)="deleteProduct()">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
-        <div *ngIf="!canEdit" class="button-icon-box">
-            <div class="icon-sale">- 90%</div>
+        <div *ngIf="!canEdit && product.additionalInfo.isOnSale" class="button-icon-box">
+            <div class="icon-sale">- {{product.additionalInfo.sale}}%</div>
         </div>
-        <img class="img" [src]="product.imagePath" [alt]="product.brand + product.material + product.type"/>
+        <img class="img" [src]="product.imagePath" [alt]="product.brand + product.additionalInfo.materials[0] + product.type"/>
     </div>
     <div class="card-box">
         <div class="card-text">
             <h4 class="brand">{{ product.brand }}</h4>
-            <p class="name"><span>{{ product.collectionName }}</span> - {{ product.material }} {{ product.type }}</p>
+            <p class="name"><span class="uppercase-text">{{ product.additionalInfo.collectionName }}</span> - <span *ngFor="let material of product.additionalInfo.materials">{{ material }} </span> {{ product.type }}</p>
         </div>
-        <p class="red-text">{{ product.currency | currency }} {{ product.price }},00</p>
+        <p class="red-text">{{ product.price.currency | currency }} {{ product.price.amount }},00</p>
     </div>
 </div>

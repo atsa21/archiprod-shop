@@ -1,18 +1,18 @@
 import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Category } from 'src/app/models/category';
+import { Category } from 'src/app/models/products/category.interface';
 import { CategoryService } from 'src/app/services/category-service/category.service';
-import { take } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { DialogRef } from '@angular/cdk/dialog';
 import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
 
 @Component({
-  selector: 'app-add-edit-prod-lists',
-  templateUrl: './add-edit-prod-lists.component.html',
-  styleUrls: ['./add-edit-prod-lists.component.scss']
+  selector: 'app-add-prod-category',
+  templateUrl: './add-prod-category.component.html',
+  styleUrls: ['./add-prod-category.component.scss']
 })
-export class AddEditProdListsComponent {
+export class AddProdCategoryComponent {
 
   categories: Category[] = [];
   categoryForm!: FormGroup;
@@ -27,10 +27,12 @@ export class AddEditProdListsComponent {
   isEditing = false;
   id: string = '';
 
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+
   constructor(
     private categoryService: CategoryService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: DialogRef<AddEditProdListsComponent>,
+    private dialogRef: DialogRef<AddProdCategoryComponent>,
     private fb: FormBuilder,
     private snack: SnackBarService
     ) { }
@@ -59,10 +61,6 @@ export class AddEditProdListsComponent {
       extras: new FormControl([], Validators.required)
     });
 
-    // this.categoryForm?.valueChanges.subscribe( selected => {
-    //   console.log(selected);
-    // })
-
     this.getControl('name').valueChanges.subscribe( selected => {
       const selectedCategory = this.categories.find( el => el.name === selected);
       if(selectedCategory?.id) {
@@ -85,25 +83,20 @@ export class AddEditProdListsComponent {
     }
   }
 
-  public editItem(item: string, id: string): void {
-    // switch (item) {
-    //   case 'category':
-    //     this.editCategory(id);
-    //     break;
-    //   case 'type':
-    //     this.editCategory(id);
-    //     break;
-    //   default:
-    //     this.editCategory(id);
-    // }
+  public addCategory(): void {
+    if(this.categoryForm.valid) {
+      this.categoryService.addCategory(this.categoryForm.value).pipe(takeUntil(this.destroy$)).subscribe(res => {
+        this.snack.openSnackBar('You added new category!', 'success');
+        this.dialogRef.close();
+      });
+    }
   }
 
-  public addCategory(): void {
-    if(this.item.valid) {
-      this.categoryService.addCategory(this.item.value).subscribe(res => {
-        const newItem = { id: res.categoryId, name: this.item.value, type: [] };
-        this.categories = [...this.categories, newItem];
-        this.item.setValue('');
+  public addCategoryType(): void {
+    if(this.categoryForm.valid) {
+      this.categoryService.addCategoryType(this.categoryForm.value, this.id).pipe(takeUntil(this.destroy$)).subscribe((res: any) => {
+        console.log(res);
+        this.dialogRef.close();
       });
     }
   }
@@ -112,15 +105,6 @@ export class AddEditProdListsComponent {
     this.categoryService.deleteCategory(id).subscribe((res: any) => {
       this.categories = this.categories.filter( el => el.id != id);
     });
-  }
-
-  public addCategoryType(): void {
-    if(this.categoryForm.valid) {
-      this.categoryService.addCategoryType(this.categoryForm.value, this.id).subscribe((res: any) => {
-        console.log(res);
-        this.dialogRef.close();
-      });
-    }
   }
 
   // public editType(id: string): void {

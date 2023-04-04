@@ -25,37 +25,44 @@
                 ></image-cropper>
             </div>
             <div class="prod-description-box">
-                <select formControlName="category" class="select select-accent-lined">
-                    <option value="" disabled selected hidden>Select category</option>
-                    <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
-                </select>
-                <select formControlName="type" class="select select-accent-lined" [ngClass]="{'disabled-select' : !types.length}">
-                    <option value="" disabled selected hidden>Select type</option>
-                    <option *ngFor="let type of types" [value]="type.typeName">{{ type.typeName }}</option>
-                </select>
-                <select formControlName="material" class="select select-accent-lined" [ngClass]="{'disabled-select' : !materials.length}">
-                    <option value="" disabled selected hidden>Select material</option>
-                    <option *ngFor="let material of materials" [value]="material">{{ material }}</option>
-                </select>
-                <select formControlName="shape" class="select select-accent-lined" [ngClass]="{'disabled-select' : !shapes.length}">
-                    <option value="" disabled selected hidden>Select shape</option>
-                    <option *ngFor="let shape of shapes" [value]="shape">{{ shape }}</option>
-                </select>
-                <select formControlName="extras" class="select select-accent-lined" [ngClass]="{'disabled-select' : !extras.length}">
-                    <option value="" disabled selected hidden>Select extra</option>
-                    <option *ngFor="let extra of extras" [value]="extra">{{ extra }}</option>
-                </select>
-                <select formControlName="brand" class="select select-accent-lined">
-                    <option value="" disabled selected hidden>Select brand</option>
-                    <option *ngFor="let brand of brands" [value]="brand.name">{{ brand.name }}</option>
-                </select>
+                <div class="input input-accent-lined-with-icon width-100">
+                    <mat-select formControlName="category" placeholder="Select category">
+                        <mat-option *ngFor="let category of categories" [value]="category.name">{{category.name}}</mat-option>
+                    </mat-select>
+                </div>
+                <div class="input input-accent-lined-with-icon width-100" [ngClass]="{'disabled-select' : !types.length}">
+                    <mat-select formControlName="type" placeholder="Select type">
+                        <mat-option *ngFor="let type of types" [value]="type.typeName">{{ type.typeName }}</mat-option>
+                    </mat-select>
+                </div>
+                <div class="input input-accent-lined-with-icon width-100" [ngClass]="{'disabled-select' : !materials.length}">
+                    <mat-select formControlName="materials" multiple placeholder="Select materials">
+                        <mat-option *ngFor="let material of materials" [value]="material">{{material}}</mat-option>
+                    </mat-select>
+                </div>
+                <div class="input input-accent-lined-with-icon width-100" [ngClass]="{'disabled-select' : !extras.length}">
+                    <mat-select formControlName="extras" multiple placeholder="Select extras">
+                        <mat-option *ngFor="let extra of extras" [value]="extra">{{extra}}</mat-option>
+                    </mat-select>
+                </div>
+                <div class="input input-accent-lined-with-icon width-100">
+                    <mat-select formControlName="shape" placeholder="Select shape">
+                        <mat-option *ngFor="let shape of shapes" [value]="shape">{{shape}}</mat-option>
+                    </mat-select>
+                </div>
+                <div class="input input-accent-lined-with-icon width-100">
+                    <mat-select formControlName="brand" placeholder="Select brand">
+                        <mat-option *ngFor="let brand of brands" [value]="brand.name">{{brand.name}}</mat-option>
+                    </mat-select>
+                </div>
                 <input formControlName="collectionName" class="input input-accent-lined" placeholder="Enter collection name"/>
                 <input formControlName="amount" type="number" class="input input-accent-lined" placeholder="Enter product amount"/>
                 <input formControlName="price" type="number" class="input input-accent-lined" placeholder="Enter product price"/>
-                <select formControlName="currency" class="select select-accent-lined">
-                    <option value="" disabled selected hidden>Select currency</option>
-                    <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
-                </select>
+                <div class="input input-accent-lined-with-icon width-100">
+                    <mat-select formControlName="currency" placeholder="Select currency">
+                        <mat-option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</mat-option>
+                    </mat-select>
+                </div>
                 <input formControlName="productCode" class="input input-accent-lined" placeholder="Enter product code"/>
                 <input formControlName="year" type="number" class="input input-accent-lined" placeholder="Enter year"/>
                 <input formControlName="designer" class="input input-accent-lined" placeholder="Enter designer name"/>
@@ -66,16 +73,15 @@
                         class="example-radio-group"
                         formControlName="isOnSale"
                     >
-                        <mat-radio-button class="example-radio-button" [value]="true">Yes</mat-radio-button>
-                        <mat-radio-button class="example-radio-button" [value]="false">No</mat-radio-button>
+                        <mat-radio-button [value]="true">Yes</mat-radio-button>
+                        <mat-radio-button [value]="false">No</mat-radio-button>
                     </mat-radio-group>
-                    <div *ngIf="getControl('isOnSale')?.value">
+                    <div *ngIf="getControl('isOnSale').value">
                         <div class="example-label-container">
                             <label id="example-name-label" class="example-name-label">Value</label>
                             <label class="example-value-label">{{ getControl('sale').value }}</label>
                         </div>
                         <mat-slider
-                            class="example-margin"
                             [max]="95"
                             [min]="5"
                             [step]="5"

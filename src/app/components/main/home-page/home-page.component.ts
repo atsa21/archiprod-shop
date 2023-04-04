@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
-import { ProductCard } from 'src/app/models/product-card';
+import { ProductCard, ProductListRes } from 'src/app/models/products/product-card.interface';
 import { ProductService } from 'src/app/services/product-service/product.service';
 
 @Component({
@@ -29,28 +29,10 @@ export class HomePageComponent implements OnInit {
 
   private getProducts(): void {
     this.productService.getProducts(1, 4)
-      .pipe(map((res) => {
-        return {
-          prod: res.data.map((res: any) => {
-            return {
-              id: res._id,
-              category: res.category,
-              type: res.type,
-              brand: res.brand,
-              collectionName: res.collectionName,
-              material: res.material,
-              imagePath: res.imagePath,
-              amount: res.amount,
-              price: res.price,
-              currency: res.currency,
-              isOnSale: res.isOnSale
-            };
-          }),
-          totalElements: res.totalElements
-        }
-      }))
-      .subscribe( data => {
-        this.products = data.prod;
+      .pipe()
+      .subscribe((res: ProductListRes) => {
+        const prodList = res.data.map(el => ({ ...el, id: el._id })).map(({ _id, ...rest }) => rest);
+        this.products = prodList;
       })
   }
 }
