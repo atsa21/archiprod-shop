@@ -50,7 +50,9 @@ exports.getCategories = (req, res, next) => {
 }
 
 exports.getCategoryById = (req, res, next) => {
-    Category.find().then(documents => {
+    const categoryId = req.params.id;
+    
+    Category.findById(categoryId).then(documents => {
         res.status(200).json({
             message: "Category getted by id succesfully!",
             data: documents

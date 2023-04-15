@@ -34,7 +34,7 @@ export class ProductService {
       body.append('extras', val);
     });
     body.append('brand', product.brand);
-    body.append('image', image, product.category);
+    body.append('image', image, product.type);
     body.append('collectionName', product.collectionName);
     if(product.designer) {
       body.append('designer', product.designer)
@@ -70,7 +70,7 @@ export class ProductService {
         body.append('extras', val);
       });
       body.append('brand', product.brand);
-      body.append('image', product.image, product.category);
+      body.append('image', product.image, product.type);
       body.append('collectionName', product.collectionName);
       if(product.designer) {
         body.append('designer', product.designer)

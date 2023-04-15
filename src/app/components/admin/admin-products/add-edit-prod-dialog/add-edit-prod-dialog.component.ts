@@ -118,7 +118,7 @@ export class AddEditProdDialogComponent implements OnInit {
     const id = selected?.id;
     if(typeof id === 'string') {
       this.categoryService.getCategoryById(id).pipe(take(1)).subscribe( res => {
-        this.types = res.data[0].type;
+        this.types = res.data.type;
         this.getControl('type').enable();
       })
     }

@@ -135,7 +135,7 @@
                 </div>
             </div>
 
-            <button [disabled]="!prodForm.valid" class="btn btn-accent" (click)="addProduct()">Add product</button>
+            <button [disabled]="!prodForm.valid" class="btn btn-accent" (click)="isEditing ? updateProduct() : addProduct()">{{isEditing ? "Edit" : "Add"}} product</button>
         </form>
     </div>
 </div>
