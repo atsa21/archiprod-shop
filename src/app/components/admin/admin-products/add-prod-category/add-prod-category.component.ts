@@ -74,12 +74,20 @@ export class AddProdCategoryComponent {
     return formControl!;
   }
 
-  public addItem(item: string, control: FormControl): void {
+  addItem(item: string, control: FormControl): void {
     if(control.value) {
       const initValue = this.getControl(item).value;
       const newList = [...initValue, control.value];
       this.getControl(item).setValue(newList);
       control.setValue('');
+    }
+  }
+
+  removeItem(item: string, control: AbstractControl): void {
+    if(control.value) {
+      const controlValue = control.value;
+      const newList = controlValue.filter((el: any) => el !== item);
+      control.setValue(newList);
     }
   }
 

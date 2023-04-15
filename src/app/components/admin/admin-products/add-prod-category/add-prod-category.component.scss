@@ -19,18 +19,36 @@
                 flex-direction: column;
                 align-items: center;
                 width: 80%;
-                gap: 12px;
+                gap: 8px;
 
                 .input-container {
                     display: flex;
                     flex-direction: column;
                     width: 100%;
 
+                    p {
+                        margin: 2px 0 6px;
+                    }
+
                     .list-box {
+                        display: flex;
+                        gap: 6px;
+
                         .list {
                             display: flex;
-                            text-align: left;
+                            align-items: center;
+                            padding: 4px 8px;
+                            margin-bottom: 4px;
+                            border-radius: 12px;
+                            background-color: var(--accent);
                             font-size: 12px;
+                            gap: 4px;
+                            cursor: pointer;
+                            transition: background-color 0.4s ease-in-out;
+
+                            &:hover {
+                                background-color: var(--accent-click);
+                            }
                         }
                     }
                 }
@@ -58,7 +76,7 @@
     }
 
     .save {
-        transition: background-color 0.4s ;
+        transition: background-color 0.4s ease-in-out;
         &:hover {
             background-color: var(--accent);
         }
