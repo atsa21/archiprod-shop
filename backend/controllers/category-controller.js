@@ -59,10 +59,3 @@ exports.getCategoryById = (req, res, next) => {
         })
     });
 }
-
-exports.deleteCategoryById = (req, res, next) => {
-    Category.deleteOne({_id: req.params.id, creator: req.userData.userId}).then(result => {
-        res.status(200).json({ message: "Category deleted!" })
-    });
-}
-

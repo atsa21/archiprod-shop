@@ -119,18 +119,6 @@ export class AddProdCategoryComponent {
     });
   }
 
-  // public editType(id: string): void {
-  //   this.categoryService.deleteCategory(id).subscribe((res: any) => {
-  //     console.log("You deleted the category");
-  //   });
-  // }
-
-  // public deleteType(id: string): void {
-  //   this.categoryService.deleteCategory(id).subscribe((res: any) => {
-  //     console.log("You deleted the category");
-  //   });
-  // }
-
   public addBrand(): void {
     
   }
