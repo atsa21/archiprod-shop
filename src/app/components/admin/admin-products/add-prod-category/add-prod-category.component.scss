@@ -32,7 +32,8 @@
 
                     .list-box {
                         display: flex;
-                        gap: 6px;
+                        flex-wrap: wrap;
+                        column-gap: 6px;
 
                         .list {
                             display: flex;

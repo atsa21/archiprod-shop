@@ -27,15 +27,19 @@
                 <input formControlName="logo" type="file" #filePicker hidden (change)="onImagePicked($event)"/>
                 <div>
                     <label class="label">Brand name</label>
-                    <input formControlName="name" class="input input-accent-lined width-100" placeholder="Enter name of brand"/>
+                    <input formControlName="name" class="input input-accent-lined width-100" placeholder="Enter name of brand" required/>
+                </div>
+                <div>
+                    <label class="label">Year of foundation</label>
+                    <input formControlName="year" type="number" class="input input-accent-lined width-100" placeholder="Enter year of foundation" required/>
                 </div>
                 <div>
                     <label class="label">Country</label>
-                    <input formControlName="country" class="input input-accent-lined width-100" placeholder="Enter brand country"/>
+                    <input formControlName="country" class="input input-accent-lined width-100" placeholder="Enter brand country" required/>
                 </div>
                 <div>
                     <label class="label">Website</label>
-                    <input formControlName="website" class="input input-accent-lined width-100" placeholder="Enter link to brand website"/>
+                    <input formControlName="website" class="input input-accent-lined width-100" placeholder="Enter link to brand website" required/>
                 </div>
             </div>
 

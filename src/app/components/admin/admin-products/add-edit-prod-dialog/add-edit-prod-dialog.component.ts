@@ -92,7 +92,7 @@ export class AddEditProdDialogComponent implements OnInit {
       productCode: new FormControl(''),
       year: new FormControl(''),
       designer: new FormControl(''),
-      isOnSale: new FormControl(false),
+      isOnSale: new FormControl(false, Validators.required),
       sale: new FormControl(null)
     });
 

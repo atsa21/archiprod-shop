@@ -243,6 +243,7 @@ input {
 
     .input-with-icon {
         height: 20px;
+        width: 100%;
         border: 0;
         outline: 0;
         background: none;
@@ -258,7 +259,7 @@ input {
         transition: color 0.4s ease-in-out;
 
         &:hover {
-            color: var(--second);
+            color: var(--accent);
         }
     }
 }
@@ -277,6 +278,12 @@ input {
 .link-light {
     color: var(--white);
     text-decoration-line: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 // Disable style

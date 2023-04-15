@@ -2,7 +2,7 @@ const Product = require("../models/product");
 
 exports.createProduct = (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");
-    const { category, type, materials, shape, extras, brand, collectionName, amount, price, currency, inOnSale } = req.body;
+    const { category, type, materials, shape, extras, brand, collectionName, amount, price, currency, isOnSale } = req.body;
 
     const prodPrice = {
         amount: price,
@@ -17,7 +17,7 @@ exports.createProduct = (req, res, next) => {
         year: req.body.year ? req.body.year : null,
         collectionName: collectionName,
         designer: req.body.designer ? req.body.designer : null,
-        isOnSale: inOnSale,
+        isOnSale: isOnSale ? isOnSale : false,
         sale: req.body.sale ? req.body.sale : null
     };
 

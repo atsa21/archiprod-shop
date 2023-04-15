@@ -49,6 +49,19 @@
     }
 }
 
+.brand-year {
+    display: flex;
+    position: absolute;
+    top: 16px;
+
+    p {
+        font-size: 14px;
+        padding: 10px;
+        background-color: var(--light-grey);
+        border-radius: 0 16px 16px 0;
+    }
+}
+
 .button-icon-box {
     display: flex;
     position: absolute;

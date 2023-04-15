@@ -4,6 +4,7 @@ exports.createBrand = (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");
     const brand = new Brand({
         name: req.body.name,
+        year: req.body.year,
         country: req.body.country,
         website: req.body.website,
         logo: url + "/images/" + req.file.filename,
@@ -77,6 +78,7 @@ exports.updateBrand = (req, res, next) => {
     const brand = new Brand({
         _id: req.body.id,
         name: req.body.name,
+        year: req.body.year,
         country: req.body.country,
         website: req.body.website,
         logo: logo,

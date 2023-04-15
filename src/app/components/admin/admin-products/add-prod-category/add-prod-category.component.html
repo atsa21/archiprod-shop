@@ -21,13 +21,13 @@
                         <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
                     </select>
                     <span class="error-box">
-                        <app-input-error *ngIf="getControl('name').touched && getControl('name').invalid" [validator]="getControl('name')"></app-input-error>
+                        <app-input-error *ngIf="getControlInvalid('name')" [validator]="getControl('name')"></app-input-error>
                     </span>
                 </div>
                 <div class="input-container">
                     <input formControlName="typeName" class="input input-accent-lined width-100" [placeholder]="'Enter type name*'"/>
                     <span class="error-box">
-                        <app-input-error *ngIf="getControl('typeName').touched && getControl('typeName').invalid" [validator]="getControl('typeName')"></app-input-error>
+                        <app-input-error *ngIf="getControlInvalid('typeName')" [validator]="getControl('typeName')"></app-input-error>
                     </span>
                 </div>
                 <div class="input-container">
@@ -47,7 +47,9 @@
                 <div class="input-container">
                     <p>Shapes list</p>
                     <ul class="list-box">
-                        <li *ngFor="let shape of getControl('shapes').value" class="list">{{ shape }}</li>
+                        <li *ngFor="let shape of getControl('shapes').value" class="list">
+                            <span>{{ shape }}</span><i class="fa-solid fa-xmark"></i>
+                        </li>
                     </ul>
                     <div class="input input-accent-lined-with-icon width-100">
                         <input [formControl]="newShape" class="input-with-icon" placeholder="Enter shapes*" required>
@@ -59,7 +61,9 @@
                 <div class="input-container">
                     <p>Extras list</p>
                     <ul class="list-box">
-                        <li *ngFor="let extra of getControl('extras').value" class="list">{{ extra }}</li>
+                        <li *ngFor="let extra of getControl('extras').value" class="list">
+                            <span>{{ extra }}</span><i class="fa-solid fa-xmark"></i>
+                        </li>
                     </ul>
                     <div class="input input-accent-lined-with-icon width-100">
                         <input [formControl]="newExtras" class="input-with-icon" placeholder="Enter extras*" required>
