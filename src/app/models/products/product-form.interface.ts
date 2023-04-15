@@ -1,19 +1,36 @@
+export interface Dimensions {
+    height: number,
+    width?: number,
+    depth?: number,
+    diameter?: number,
+    measurementUnits: string,
+};
+
+export interface Price {
+    fullPrice: number,
+    currency: string,
+    isOnSale: boolean,
+    discount?: number
+    discountedPrice?: number,
+}
+
+export interface Details {
+    collectionName: string,
+    shape: string,
+    materials: string[],
+    extras: string[],
+    productCode?: string,
+    year?: number,
+}
+
 export interface ProductForm {
     id?: string,
     category: string,
     type: string,
-    materials: string[],
-    shape: string,
-    extras: string[],
     image: string,
     brand: string,
-    amount: number,
-    price: number,
-    currency: string,
-    productCode?: string,
-    year?: number,
-    collectionName: string,
-    designer?: string,
-    isOnSale: boolean,
-    sale?: number
+    dimensions: Dimensions,
+    price: Price,
+    details: Details,
+    total: number
 }

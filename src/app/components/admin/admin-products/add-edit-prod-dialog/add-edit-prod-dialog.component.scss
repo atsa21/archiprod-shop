@@ -28,6 +28,18 @@
     }
 }
 
+.price-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.discount-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
 .btn-close {
     position: absolute;
     top: 16px;

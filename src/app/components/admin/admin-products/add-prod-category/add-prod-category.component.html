@@ -1,14 +1,14 @@
 <div class="dialog-container">
     <div>
-        <h2 class="dialog-title">{{ dialogTitle }} List</h2>
+        <h2>{{ dialogTitle }} List</h2>
         <button mat-dialog-close class="btn-close" type="button">
             <i class="fa-solid fa-xmark"></i>
         </button>
     </div>
     <div class="dialog-body" mat-dialog-content>
-        <div *ngIf="dialogName === 'category' || 'type'" class="add-container">
+        <div class="add-container">
             <form [formGroup]="categoryForm" class="add-form">
-                <h3>Add category type</h3>
+                <h3>Add category {{dialogName === 'category' ? '' : 'type'}}</h3>
                 <div *ngIf="!isEditing" class="input-container">
                     <input formControlName="name" class="input input-accent-lined width-100" [placeholder]="'Enter category*'"/>
                     <span class="error-box">

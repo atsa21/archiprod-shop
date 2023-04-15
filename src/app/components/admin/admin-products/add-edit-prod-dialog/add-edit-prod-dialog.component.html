@@ -26,15 +26,15 @@
             </div>
             <div class="prod-description-box">
                 <div>
-                    <label class="label">Category</label>
+                    <label class="label">Category<span class="error-color">*</span></label>
                     <div class="input input-accent-lined width-100">
                         <mat-select formControlName="category" placeholder="Select category*">
-                            <mat-option *ngFor="let category of categories" [value]="category.name">{{category.name}}</mat-option>
+                            <mat-option *ngFor="let category of categories" [value]="category.name" (onSelectionChange)="getCategoryTypes(category.name)">{{category.name}}</mat-option>
                         </mat-select>
                     </div>
                 </div>
                 <div>
-                    <label class="label">Type</label>
+                    <label class="label">Type<span class="error-color">*</span></label>
                     <div class="input input-accent-lined width-100" [ngClass]="{'disabled-select' : !types.length}">
                         <mat-select formControlName="type" placeholder="Select type*">
                             <mat-option *ngFor="let type of types" [value]="type.typeName">{{ type.typeName }}</mat-option>
@@ -42,96 +42,137 @@
                     </div>
                 </div>
                 <div>
-                    <label class="label">Materials</label>
-                    <div class="input input-accent-lined width-100" [ngClass]="{'disabled-select' : !materials.length}">
-                        <mat-select formControlName="materials" multiple placeholder="Select materials*">
-                            <mat-option *ngFor="let material of materials" [value]="material">{{material}}</mat-option>
-                        </mat-select>
-                    </div>
-                </div>
-                <div>
-                    <label class="label">Extras</label>
-                    <div class="input input-accent-lined width-100" [ngClass]="{'disabled-select' : !extras.length}">
-                        <mat-select formControlName="extras" multiple placeholder="Select extras*">
-                            <mat-option *ngFor="let extra of extras" [value]="extra">{{extra}}</mat-option>
-                        </mat-select>
-                    </div>
-                </div>
-                <div>
-                    <label class="label">Shape</label>
-                    <div class="input input-accent-lined width-100">
-                        <mat-select formControlName="shape" placeholder="Select shape*">
-                            <mat-option *ngFor="let shape of shapes" [value]="shape">{{shape}}</mat-option>
-                        </mat-select>
-                    </div>
-                </div>
-                <div>
-                    <label class="label">Brand</label>
+                    <label class="label">Brand<span class="error-color">*</span></label>
                     <div class="input input-accent-lined width-100">
                         <mat-select formControlName="brand" placeholder="Select brand*">
                             <mat-option *ngFor="let brand of brands" [value]="brand.name">{{brand.name}}</mat-option>
                         </mat-select>
                     </div>
                 </div>
-                <div>
-                    <label class="label">Collection name</label>
-                    <input formControlName="collectionName" class="input input-accent-lined width-100" placeholder="Enter collection name*"/>
-                </div>
-                <div>
-                    <label class="label">Product amount</label>
-                    <input formControlName="amount" type="number" class="input input-accent-lined width-100" placeholder="Enter product amount*"/>
-                </div>
-                <div class="price-box">
-                    <div class="price-amount">
-                        <label class="label">Price</label>
-                        <input formControlName="price" type="number" class="input input-accent-lined" placeholder="Enter product price*"/>
+
+                <div formGroupName="dimensions" class="width-100">
+                    <h3>Dimensions</h3>
+                    <div>
+                        <label class="label">Height<span class="error-color">*</span></label>
+                        <input formControlName="height" type="number" class="input input-accent-lined width-100" placeholder="Enter height*"/>
                     </div>
-                    <div class="currency-box">
-                        <label class="label">Currency</label>
+                    <div>
+                        <label class="label">Width</label>
+                        <input formControlName="width" type="number" class="input input-accent-lined width-100" placeholder="Enter width"/>
+                    </div>
+                    <div>
+                        <label class="label">Depth</label>
+                        <input formControlName="depth" type="number" class="input input-accent-lined width-100" placeholder="Enter depth"/>
+                    </div>
+                    <div>
+                        <label class="label">Diameter</label>
+                        <input formControlName="diameter" type="number" class="input input-accent-lined width-100" placeholder="Enter diameter"/>
+                    </div>
+                    <div>
+                        <label class="label">Units</label>
                         <div class="input input-accent-lined">
-                            <mat-select formControlName="currency" placeholder="Select currency*">
-                                <mat-option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</mat-option>
+                            <mat-select formControlName="measurementUnits" placeholder="Select currency*">
+                                <mat-option *ngFor="let unit of units" [value]="unit">{{ unit }}</mat-option>
                             </mat-select>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <label class="label">Product code</label>
-                    <input formControlName="productCode" class="input input-accent-lined width-100" placeholder="Enter product code"/>
-                </div>
-                <div>
-                    <label class="label">Design year</label>
-                    <input formControlName="year" type="number" class="input input-accent-lined width-100" placeholder="Enter year"/>
-                </div>
-                <div>
-                    <label class="label">Designer</label>
-                    <input formControlName="designer" class="input input-accent-lined width-100" placeholder="Enter designer name"/>
-                </div>
-                <div>
-                    <h3>Product is on sale?</h3>
-                    <mat-radio-group
-                        aria-labelledby="example-radio-group-label"
-                        class="example-radio-group"
-                        formControlName="isOnSale"
-                    >
-                        <mat-radio-button [value]="true">Yes</mat-radio-button>
-                        <mat-radio-button [value]="false">No</mat-radio-button>
-                    </mat-radio-group>
-                    <div *ngIf="getControl('isOnSale').value">
-                        <div class="example-label-container">
-                            <label id="example-name-label" class="example-name-label">Value</label>
-                            <label class="example-value-label">{{ getControl('sale').value }}</label>
+
+                <div formGroupName="price" class="price-container width-100">
+                    <div>
+                        <h3>Price</h3>
+                        <div class="price-box">
+                            <div class="price-amount">
+                                <label class="label">Full price</label>
+                                <input formControlName="fullPrice" type="number" class="input input-accent-lined" placeholder="Enter product full price*"/>
+                            </div>
+                            <div class="currency-box">
+                                <label class="label">Currency</label>
+                                <div class="input input-accent-lined">
+                                    <mat-select formControlName="currency" placeholder="Select currency*">
+                                        <mat-option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</mat-option>
+                                    </mat-select>
+                                </div>
+                            </div>
                         </div>
-                        <mat-slider
-                            color="accent"
-                            [max]="95"
-                            [min]="5"
-                            [step]="5"
-                            [discrete]="false"
-                            [showTickMarks]="true">
-                        <input matSliderThumb formControlName="sale">
-                        </mat-slider>
                     </div>
+                    <div>
+                        <h3>Is it on sale?</h3>
+                        <mat-radio-group
+                            aria-labelledby="example-radio-group-label"
+                            class="example-radio-group"
+                            formControlName="isOnSale"
+                        >
+                            <mat-radio-button [value]="true">Yes</mat-radio-button>
+                            <mat-radio-button [value]="false">No</mat-radio-button>
+                        </mat-radio-group>
+                        <div *ngIf="getControl('price.isOnSale').value">
+                            <mat-slider
+                                color="accent"
+                                [max]="95"
+                                [min]="5"
+                                [step]="5"
+                                [discrete]="false"
+                                [showTickMarks]="true">
+                            <input matSliderThumb formControlName="discount">
+                            </mat-slider>
+                            <div *ngIf="getControl('price.discount').value" class="discount-box">
+                                <div>
+                                    <label class="label">Discounted: </label>
+                                    <span class="error-color">{{ getControl('price.discount').value }}%</span>
+                                </div>
+                                <div>
+                                    <label class="label">Final price: </label>
+                                    <span class="error-color">{{getDescountedPrice(getControl('price.discount').value)}} {{getControl('price.currency').value}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div formGroupName="details" class="width-100">
+                    <h3>Product details</h3>
+                    <div>
+                        <label class="label">Collection name</label>
+                        <input formControlName="collectionName" class="input input-accent-lined width-100" placeholder="Enter collection name*"/>
+                    </div>
+                    <div>
+                        <label class="label">Materials</label>
+                        <div class="input input-accent-lined width-100" [ngClass]="{'disabled-select' : !materials.length}">
+                            <mat-select formControlName="materials" multiple placeholder="Select materials*">
+                                <mat-option *ngFor="let material of materials" [value]="material">{{material}}</mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="label">Shape</label>
+                        <div class="input input-accent-lined width-100">
+                            <mat-select formControlName="shape" placeholder="Select shape*">
+                                <mat-option *ngFor="let shape of shapes" [value]="shape">{{shape}}</mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="label">Extras</label>
+                        <div class="input input-accent-lined width-100" [ngClass]="{'disabled-select' : !extras.length}">
+                            <mat-select formControlName="extras" multiple placeholder="Select extras*">
+                                <mat-option *ngFor="let extra of extras" [value]="extra">{{extra}}</mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="label">Product code</label>
+                        <input formControlName="productCode" class="input input-accent-lined width-100" placeholder="Enter product code"/>
+                    </div>
+                    <div>
+                        <label class="label">Manufacture year</label>
+                        <input formControlName="year" type="number" class="input input-accent-lined width-100" placeholder="Enter manufacture year"/>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="label">Total products amount</label>
+                    <input formControlName="total" type="number" class="input input-accent-lined width-100" placeholder="Enter product amount*"/>
                 </div>
             </div>
 

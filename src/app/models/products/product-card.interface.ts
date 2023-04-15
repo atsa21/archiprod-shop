@@ -1,3 +1,5 @@
+import { Details, Dimensions, Price } from "./product-form.interface"
+
 export interface ProductListRes {
     data: ProductCard[],
     message: string,
@@ -16,24 +18,8 @@ export interface ProductCard {
     type: string,
     imagePath: string,
     brand: string,
-    productCode?: string;
-    price: ProductPrice,
-    additionalInfo: ProdAdditionalInfo,
+    dimensions: Dimensions,
+    price: Price,
+    details: Details,
     total: number
-}
-
-export interface ProductPrice {
-    amount: number,
-    currency: string
-}
-
-export interface ProdAdditionalInfo {
-    materials: string[],
-    shape: string,
-    extras: string[],
-    year?: number,
-    collectionName: string,
-    designer?: string;
-    isOnSale: boolean,
-    sale?: number
 }
