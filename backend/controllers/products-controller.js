@@ -73,6 +73,33 @@ exports.getProducts = (req, res, next) => {
     });
 }
 
+exports.getProductsOnSale = (req, res, next) => {
+    const pageSize = +req.query.size;
+    const currentPage = +req.query.page;
+    const isOnSale = req.query.isOnSale;
+    const postQuery = Product.find({ 'additionalInfo.isOnSale': isOnSale });
+    let fetchedProduct;
+    if(pageSize && currentPage) {
+        postQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
+    }
+    postQuery.then(documents => {
+        fetchedProduct = documents;
+        return Product.count();
+    })
+    .then(count => {
+        res.status(200).json({
+            message: "Product fetched succesfully!",
+            data: fetchedProduct,
+            totalElements: count
+        });
+    })
+    .catch(error => {
+        res.status(500).json({
+            message: "Fetching products failed"
+        })
+    });
+}
+
 exports.getProductById = (req, res, next) => {
     Product.find().then(product => {
         if (product) {

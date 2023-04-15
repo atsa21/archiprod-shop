@@ -12,7 +12,7 @@
                 <div *ngIf="!isEditing" class="input-container">
                     <input formControlName="name" class="input input-accent-lined width-100" [placeholder]="'Enter category'"/>
                 </div>
-                <select *ngIf="isEditing" formControlName="name" class="select select-accent-lined">
+                <select *ngIf="isEditing" formControlName="name" class="select select-accent-lined width-100">
                     <option value="" disabled hidden>Select category</option>
                     <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
                 </select>

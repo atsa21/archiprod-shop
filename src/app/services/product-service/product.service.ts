@@ -18,6 +18,10 @@ export class ProductService {
     return this.http.get<ProductListRes>(`${this.mainUrl}?size=${pageSize}&page=${page}`);
   }
 
+  getProductsOnSale(page: number, pageSize: number, isOnSale: boolean): Observable<ProductListRes> {
+    return this.http.get<ProductListRes>(`${this.mainUrl}/isOnSale?size=${pageSize}&page=${page}&isOnSale=${isOnSale}`);
+  }
+
   postProduct(product: ProductForm, image: File): Observable<ProductRes> {
     const body = new FormData();
     body.append('category', product.category);
