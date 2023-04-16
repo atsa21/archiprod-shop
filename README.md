@@ -1,10 +1,16 @@
 # Archiprod
 
-This project was created to online shopping.
+Archiprod is an online shopping platform for home products. It offers a variety of products including furniture, bathroom essentials, kitchen appliances, lighting and decor items. The platform is built on **Angular 15.2.1** for the frontend and **NodeJS version 16.13.0** for the backend.
 
-It was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.1. Node version 16.13.0.
+## Installation
 
-## How to install
+1. Clone the repository from [GitHub](https://github.com/atsa21/archiprod-shop).
+2. Install the required dependencies using `npm install`.
+3. Start the backend server using `npm run start-server`.
+4. Start the frontend server using `ng serve`.
+5. Navigate to http://localhost:4200/ in your web browser to use the application.
+
+## Check version
 
 Run `ng version` and `npm -v` to see your versions of Angular and Node. 
 You need versions:
@@ -26,13 +32,36 @@ If you have other installed Angular version you need to unistall it:
 2. Run `npm cache clean --force`.
 3. To install needed Angular version run `npm install -g @angular/cli@15.2.1`.
 
-## Development server
+## Project Structure
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+The project consists of two main parts: the website for shopping and the admin page for management. The frontend code is located in the `src` folder, while the backend code is located in the `backend` folder.
 
-## Backend server
+### Frontend
+The frontend code is structured as follows:
 
-Run `npm run start-server` for a backend server. Navigate to `http://localhost:3000/`.
+* `src/app/components/admin` - contains the components for the admin page.
+* `src/app/components/main` - contains the components for the main shopping website.
+* `src/app/components/shared` - contains the components that are shared between the admin and main pages.
+
+### Backend
+The backend code is structured as follows:
+
+* `backend/controllers` - contains the controllers for the API endpoints.
+* `backend/image` - contains all images for shopping platform.
+* `backend/middleware` - contains the middleware functions used by the routes.
+* `backend/models` - contains the database models.
+* `backend/routes` - contains the API routes.
+
+## Features
+
+* Admins can manage products, categories, brands and orders through the admin page.
+* Authentication and authorization is implemented for the admin page.
+
+## Inprogress
+
+- [ ] Users can browse products by category and add them to their cart.
+- [ ] Users can checkout their cart and pay for their order using a payment gateway.
+- [ ] Admins can view and update the status of orders.
 
 ## Code scaffolding
 
