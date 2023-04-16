@@ -85,14 +85,27 @@ exports.updateBrand = (req, res, next) => {
         creator: req.userData.userId
     });
     Brand.updateOne({ _id: req.params.id }, brand).then( result => {
-        res.status(200).json({
-            message:"Brand updated succesfully"
-        });
+        if (result.matchedCount) {
+            res.status(200).json({
+                message:"Brand updated succesfully"
+            });
+        } else {
+            res.status(401).json({
+                message: "Not authorized"
+            }) 
+        }
     });
 }
 
 exports.deleteBrandById = (req, res, next) => {
     Brand.deleteOne({_id: req.params.id, creator: req.userData.userId}).then(result => {
-        res.status(200).json({ message: "Brand deleted!"})
+        if (result.deletedCount) {
+            res.status(200).json({ message: "Brand deleted!"})
+        } else {
+            res.status(401).json({
+                message: "Not authorized"
+            })
+        }
+        
     });
 }

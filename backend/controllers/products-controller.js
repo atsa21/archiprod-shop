@@ -173,15 +173,14 @@ exports.updateProduct = (req, res, next) => {
         creator: req.userData.userId
     });
     Product.updateOne({ _id: req.params.id }, product).then(result => {
-        if (result._id === req.params.id) {
+        if (result.matchedCount) {
             res.status(200).json({
                 message:"Post succesfully updated!"
             });
         } else {
             res.status(401).json({
-                message: "Not authorized!"
-            })
-            console.log(result);
+                message: "The post has not been found"
+            }) 
         }
     })
     .catch(error => {
@@ -193,7 +192,7 @@ exports.updateProduct = (req, res, next) => {
 
 exports.deleteProductById = (req, res, next) => {
     Product.deleteOne({_id: req.params.id, creator: req.userData.userId}).then(result => {
-        if (result._id === req.params.id) {
+        if (result.deletedCount) {
             res.status(200).json({ message: "Deleting product successful!"});
         } else {
             res.status(401).json({

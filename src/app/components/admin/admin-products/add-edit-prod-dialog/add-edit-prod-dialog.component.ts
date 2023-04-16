@@ -100,7 +100,7 @@ export class AddEditProdDialogComponent implements OnInit {
         width: new FormControl(null),
         depth: new FormControl(null),
         diameter: new FormControl(null),
-        measurementUnits: new FormControl('', Validators.required),
+        measurementUnits: new FormControl('mm', Validators.required),
       }),
       price: this.fb.group({
         fullPrice: new FormControl(null, Validators.required),
@@ -136,10 +136,6 @@ export class AddEditProdDialogComponent implements OnInit {
   getControl(control: string): AbstractControl {
     const formControl = this.prodForm.get(control);
     return formControl!;
-  }
-
-  inputValid(control: string): string {
-    return this.getControl(control).value ? 'select-with-value' : '';
   }
 
   resetDetails(): void {
@@ -186,6 +182,7 @@ export class AddEditProdDialogComponent implements OnInit {
 
   onImagePicked(event: Event): void {
     this.imageChangedEvent = event;
+    this.getControl('image').setValue(this.imageChangedEvent);
   }
 
   imageCropped(event: ImageCroppedEvent) {
@@ -210,7 +207,7 @@ export class AddEditProdDialogComponent implements OnInit {
   }
 
   public loadImageFailed() {
-    console.log('Load image is filed');
+    this.snack.openSnackBar('Load image is filed', 'error');
   }
 
   addProduct(): void {

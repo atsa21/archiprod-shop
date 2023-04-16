@@ -212,7 +212,7 @@ input {
         color: var(--ternary-grey);
     }
 
-    &:focus {
+    &:focus:active {
         border: 2px solid var(--black);
     }
 
@@ -295,6 +295,11 @@ input::-webkit-inner-spin-button {
 
     .mat-mdc-select-min-line {
         color: var(--med-grey);
+    }
+
+    &:focus,
+    &:focus-within {
+        border: 2px solid var(--med-grey);
     }
 }
 

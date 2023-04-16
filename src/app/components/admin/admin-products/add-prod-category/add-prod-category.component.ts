@@ -107,7 +107,6 @@ export class AddProdCategoryComponent {
   addCategoryType(): void {
     if(this.categoryForm.valid) {
       this.categoryService.addCategoryType(this.categoryForm.value, this.id).pipe(takeUntil(this.destroy$)).subscribe((res: any) => {
-        console.log(res);
         this.dialogRef.close();
       });
     }
@@ -117,9 +116,5 @@ export class AddProdCategoryComponent {
     this.categoryService.deleteCategory(id).subscribe((res: any) => {
       this.categories = this.categories.filter( el => el.id != id);
     });
-  }
-
-  public addBrand(): void {
-    
   }
 }

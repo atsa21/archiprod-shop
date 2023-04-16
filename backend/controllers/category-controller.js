@@ -30,11 +30,17 @@ exports.addCategoryTypeById = (req, res, next) => {
         extras: req.body.extras
     };
 
-    Category.findOneAndUpdate({ _id: req.params.id }, { $push: { type: categoryType } }).then( result => {
-        res.status(200).json({
-            message:"Category update succesfully",
-            result: result
-        });
+    Category.updateOne({ _id: req.params.id }, { $push: { type: categoryType } }).then( result => {
+        if (result.matchedCount) {
+            res.status(200).json({
+                message:"Category update succesfully",
+                result: result
+            });
+        } else {
+            res.status(401).json({
+                message: "Not authorized"
+            }) 
+        }
     }).catch(error => {
         res.status(500).json({ message: "Couldn't update category" });
     });
