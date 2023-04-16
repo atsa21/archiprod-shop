@@ -59,8 +59,8 @@ export class AddEditProdDialogComponent implements OnInit {
         this.dialogTitle = 'Edit';
         const product: ProductCard = this.data.product;
         this.getControl('category').setValue(product.category);
-        this.getControl('type').setValue(product.type);
-        this.getControl('image')?.setValue(this.data.product.imagePath);
+        this.getControl('type').setValue(this.data.product.type);
+        this.getControl('image').setValue(this.data.product.imagePath);
         this.getControl('brand').setValue(product.brand);
 
         this.getControl('dimensions.height').setValue(product.dimensions.height);
@@ -73,12 +73,11 @@ export class AddEditProdDialogComponent implements OnInit {
         this.getControl('price.currency').setValue(product.price.currency);
         this.getControl('price.isOnSale').setValue(product.price.isOnSale);
         this.getControl('price.discount').setValue(product.price.discount);
-        this.getControl('price.discountedPrice').setValue(product.price.discountedPrice);
 
         this.getControl('details.collectionName').setValue(product.details.collectionName);
-        this.getControl('details.shape').setValue(product.details.shape);
-        this.getControl('details.materials').setValue(product.details.materials);
-        this.getControl('details.extras').setValue(product.details.extras);
+        this.getControl('details.shape').setValue(this.data.product.details.shape);
+        this.getControl('details.materials').setValue(this.data.product.details.materials);
+        this.getControl('details.extras').setValue(this.data.product.details.extras);
         this.getControl('details.productCode').setValue(product.details.productCode);
         if(product.details.year) {
           this.getControl('details.year').setValue(product.details.year);
@@ -121,12 +120,17 @@ export class AddEditProdDialogComponent implements OnInit {
       total: new FormControl(null, Validators.required)
     });
 
-    // this.getControl('category').valueChanges.subscribe( selectedValue => {
-    //   this.getCategoryTypes(selectedValue);
-    // });
-    // this.getControl('type').valueChanges.subscribe( selectedValue => {
-    //   this.getArraysByType(selectedValue);
-    // })
+    this.getControl('category').valueChanges.subscribe( selectedValue => {
+      if(selectedValue) {
+        this.getCategoryTypes(selectedValue);
+        this.resetDetails();
+      }
+    });
+    this.getControl('type').valueChanges.subscribe( selectedValue => {
+      if(selectedValue) {
+        this.getArraysByType(selectedValue);
+      }
+    })
   }
 
   getControl(control: string): AbstractControl {
@@ -138,6 +142,16 @@ export class AddEditProdDialogComponent implements OnInit {
     return this.getControl(control).value ? 'select-with-value' : '';
   }
 
+  resetDetails(): void {
+    this.getControl('details.shape').setValue('');
+    this.getControl('details.materials').setValue([]);
+    this.getControl('details.extras').setValue([]);
+
+    this.getControl('details.shape').disable();
+    this.getControl('details.materials').disable();
+    this.getControl('details.extras').disable();
+  }
+
   getCategoryTypes(category: string): void {
     const selected = this.categories.find( el => el.name === category );
     const id = selected?.id;
@@ -145,6 +159,7 @@ export class AddEditProdDialogComponent implements OnInit {
       this.categoryService.getCategoryById(id).pipe(take(1)).subscribe( res => {
         this.types = res.data.type;
         this.getControl('type').enable();
+
       })
     }
   }
@@ -207,6 +222,9 @@ export class AddEditProdDialogComponent implements OnInit {
   }
 
   updateProduct(): void {
+    if(this.prodImage) {
+      this.getControl('image').setValue(this.prodImage);
+    }
     this.prodService.updateProduct(this.id, this.prodForm.value).subscribe((res) => {
       this.dialogRef.close();
       this.snack.openSnackBar('Product was updated!', 'success');
