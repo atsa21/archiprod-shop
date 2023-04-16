@@ -26,19 +26,19 @@
                 <button class="btn btn-line" (click)="filePicker.click()">Select Image</button>
                 <input formControlName="logo" type="file" #filePicker hidden (change)="onImagePicked($event)"/>
                 <div>
-                    <label class="label">Brand name</label>
+                    <label class="label">Brand name<span class="error-color">*</span></label>
                     <input formControlName="name" class="input input-accent-lined width-100" placeholder="Enter name of brand" required/>
                 </div>
                 <div>
-                    <label class="label">Year of foundation</label>
+                    <label class="label">Year of foundation<span class="error-color">*</span></label>
                     <input formControlName="year" type="number" class="input input-accent-lined width-100" placeholder="Enter year of foundation" required/>
                 </div>
                 <div>
-                    <label class="label">Country</label>
+                    <label class="label">Country<span class="error-color">*</span></label>
                     <input formControlName="country" class="input input-accent-lined width-100" placeholder="Enter brand country" required/>
                 </div>
                 <div>
-                    <label class="label">Website</label>
+                    <label class="label">Website<span class="error-color">*</span></label>
                     <input formControlName="website" class="input input-accent-lined width-100" placeholder="Enter link to brand website" required/>
                 </div>
             </div>
