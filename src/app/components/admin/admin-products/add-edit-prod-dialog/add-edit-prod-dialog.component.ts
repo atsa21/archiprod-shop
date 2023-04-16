@@ -9,6 +9,7 @@ import { take } from 'rxjs';
 import { CategoryService } from 'src/app/services/category-service/category.service';
 import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
 import { ProductCard } from 'src/app/models/products/product-card.interface';
+import { ProductForm } from 'src/app/models/products/product-form.interface';
 
 @Component({
   selector: 'app-add-edit-prod-dialog',
@@ -28,6 +29,7 @@ export class AddEditProdDialogComponent implements OnInit {
   extras: string[] = [];
 
   currencies: string[] = ['Euro', 'Dollar', 'Pound'];
+  units: string[] = ['mm', 'cm'];
 
   imageChangedEvent: any = '';
   prodImage: any;
@@ -55,23 +57,34 @@ export class AddEditProdDialogComponent implements OnInit {
       this.brands = this.data.brands;
       if(this.isEditing){
         this.dialogTitle = 'Edit';
-        this.getControl('category').setValue(this.data.product.category);
-        this.getControl('type')?.setValue(this.data.product.type);
-        this.getControl('brand')?.setValue(this.data.product.brand);
-        this.getControl('collectionName')?.setValue(this.data.product.additionalInfo.collectionName);
-        this.getControl('materials')?.setValue(this.data.product.additionalInfo.materials);
-        this.getControl('shape')?.setValue(this.data.product.additionalInfo.shape);
-        this.getControl('extras')?.setValue(this.data.product.additionalInfo.extras);
-        this.getControl('image')?.setValue(this.data.product.imagePath);
-        this.getControl('amount')?.setValue(this.data.product.total);
-        this.getControl('price')?.setValue(this.data.product.price.amount);
-        this.getControl('currency')?.setValue(this.data.product.price.currency);
-        this.getControl('productCode')?.setValue(this.data.product.additionalInfo.productCode);
-        this.getControl('year')?.setValue(this.data.product.additionalInfo.year);
-        this.getControl('designer')?.setValue(this.data.product.additionalInfo.designer);
-        this.getControl('isOnSale')?.setValue(this.data.product.additionalInfo.isOnSale);
-        this.getControl('sale')?.setValue(this.data.product.additionalInfo.sale);
-        this.id = this.data.product.id;
+        const product: ProductCard = this.data.product;
+        this.getControl('category').setValue(product.category);
+        this.getControl('type').setValue(this.data.product.type);
+        this.getControl('image').setValue(this.data.product.imagePath);
+        this.getControl('brand').setValue(product.brand);
+
+        this.getControl('dimensions.height').setValue(product.dimensions.height);
+        this.getControl('dimensions.width').setValue(product.dimensions.width);
+        this.getControl('dimensions.depth').setValue(product.dimensions.depth);
+        this.getControl('dimensions.diameter').setValue(product.dimensions.diameter);
+        this.getControl('dimensions.measurementUnits').setValue(product.dimensions.measurementUnits);
+
+        this.getControl('price.fullPrice').setValue(product.price.fullPrice);
+        this.getControl('price.currency').setValue(product.price.currency);
+        this.getControl('price.isOnSale').setValue(product.price.isOnSale);
+        this.getControl('price.discount').setValue(product.price.discount);
+
+        this.getControl('details.collectionName').setValue(product.details.collectionName);
+        this.getControl('details.shape').setValue(this.data.product.details.shape);
+        this.getControl('details.materials').setValue(this.data.product.details.materials);
+        this.getControl('details.extras').setValue(this.data.product.details.extras);
+        this.getControl('details.productCode').setValue(product.details.productCode);
+        if(product.details.year) {
+          this.getControl('details.year').setValue(product.details.year);
+        }
+
+        this.getControl('total').setValue(product.total);
+        this.id = product.id as string;
       }
     }
   }
@@ -80,46 +93,69 @@ export class AddEditProdDialogComponent implements OnInit {
     this.prodForm = this.fb.group({
       category: new FormControl('', Validators.required),
       type: new FormControl({value:'', disabled: true}, [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
-      brand: new FormControl('', Validators.required),
-      collectionName: new FormControl('', Validators.required),
-      materials: new FormControl({value:[], disabled: true}, Validators.required),
-      shape: new FormControl({value:'', disabled: true}, Validators.required),
-      extras: new FormControl({value:[], disabled: true}, Validators.required),
       image: new FormControl(null, Validators.required),
-      amount: new FormControl(null, Validators.required),
-      price: new FormControl(null, Validators.required),
-      currency: new FormControl('Euro', Validators.required),
-      productCode: new FormControl(''),
-      year: new FormControl(''),
-      designer: new FormControl(''),
-      isOnSale: new FormControl(false),
-      sale: new FormControl(null)
+      brand: new FormControl('', Validators.required),
+      dimensions : this.fb.group({
+        height: new FormControl(null, Validators.required),
+        width: new FormControl(null),
+        depth: new FormControl(null),
+        diameter: new FormControl(null),
+        measurementUnits: new FormControl('mm', Validators.required),
+      }),
+      price: this.fb.group({
+        fullPrice: new FormControl(null, Validators.required),
+        currency: new FormControl('Euro', Validators.required),
+        isOnSale: new FormControl(false, Validators.required),
+        discount: new FormControl(null),
+        discountedPrice: new FormControl(null)
+      }),
+      details: this.fb.group({
+        collectionName: new FormControl('', Validators.required),
+        shape: new FormControl({value:'', disabled: true}, Validators.required),
+        materials: new FormControl({value:[], disabled: true}, Validators.required),
+        extras: new FormControl({value:[], disabled: true}, Validators.required),
+        productCode: new FormControl(''),
+        year: new FormControl(null),
+      }),
+      total: new FormControl(null, Validators.required)
     });
 
     this.getControl('category').valueChanges.subscribe( selectedValue => {
-      this.getCategoryTypes(selectedValue);
+      if(selectedValue) {
+        this.getCategoryTypes(selectedValue);
+        this.resetDetails();
+      }
     });
     this.getControl('type').valueChanges.subscribe( selectedValue => {
-      this.getArraysByType(selectedValue);
+      if(selectedValue) {
+        this.getArraysByType(selectedValue);
+      }
     })
   }
 
-  public getControl(control: string): AbstractControl {
+  getControl(control: string): AbstractControl {
     const formControl = this.prodForm.get(control);
     return formControl!;
   }
 
-  inputValid(control: string): string {
-    return this.getControl(control).value ? 'select-with-value' : '';
+  resetDetails(): void {
+    this.getControl('details.shape').setValue('');
+    this.getControl('details.materials').setValue([]);
+    this.getControl('details.extras').setValue([]);
+
+    this.getControl('details.shape').disable();
+    this.getControl('details.materials').disable();
+    this.getControl('details.extras').disable();
   }
 
-  private getCategoryTypes(category: string): void {
+  getCategoryTypes(category: string): void {
     const selected = this.categories.find( el => el.name === category );
     const id = selected?.id;
     if(typeof id === 'string') {
       this.categoryService.getCategoryById(id).pipe(take(1)).subscribe( res => {
-        this.types = res.data[0].type;
+        this.types = res.data.type;
         this.getControl('type').enable();
+
       })
     }
   }
@@ -130,17 +166,26 @@ export class AddEditProdDialogComponent implements OnInit {
       this.materials = selectedType[0].materials;
       this.shapes = selectedType[0].shapes;
       this.extras = selectedType[0].extras;
-      this.getControl('materials').enable();
-      this.getControl('shape').enable();
-      this.getControl('extras').enable();
+      this.getControl('details.shape').enable();
+      this.getControl('details.materials').enable();
+      this.getControl('details.extras').enable();
     }
   }
 
-  public onImagePicked(event: Event): void {
-    this.imageChangedEvent = event;
+  getDescountedPrice(discount: number): number {
+    const fullPrice = this.getControl('price.fullPrice').value;
+    const discountInAmount = (fullPrice / 100) * discount;
+    const finalPrice = Math.round(fullPrice - discountInAmount);
+    this.getControl('price.discountedPrice').setValue(finalPrice);
+    return finalPrice;
   }
 
-  public imageCropped(event: ImageCroppedEvent) {
+  onImagePicked(event: Event): void {
+    this.imageChangedEvent = event;
+    this.getControl('image').setValue(this.imageChangedEvent);
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
     this.prodImage = this.base64ToFile(
       event.base64,
       this.imageChangedEvent?.target?.files[0].name,
@@ -162,7 +207,7 @@ export class AddEditProdDialogComponent implements OnInit {
   }
 
   public loadImageFailed() {
-    console.log('Load image is filed');
+    this.snack.openSnackBar('Load image is filed', 'error');
   }
 
   addProduct(): void {
@@ -174,6 +219,9 @@ export class AddEditProdDialogComponent implements OnInit {
   }
 
   updateProduct(): void {
+    if(this.prodImage) {
+      this.getControl('image').setValue(this.prodImage);
+    }
     this.prodService.updateProduct(this.id, this.prodForm.value).subscribe((res) => {
       this.dialogRef.close();
       this.snack.openSnackBar('Product was updated!', 'success');

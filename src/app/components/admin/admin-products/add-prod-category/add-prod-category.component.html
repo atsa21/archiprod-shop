@@ -1,34 +1,44 @@
 <div class="dialog-container">
     <div>
-        <h2 class="dialog-title">{{ dialogTitle }} List</h2>
+        <h2>{{ dialogTitle }} List</h2>
         <button mat-dialog-close class="btn-close" type="button">
             <i class="fa-solid fa-xmark"></i>
         </button>
     </div>
     <div class="dialog-body" mat-dialog-content>
-        <div *ngIf="dialogName === 'category' || 'type'" class="add-container">
+        <div class="add-container">
             <form [formGroup]="categoryForm" class="add-form">
-                <h3>Add category type</h3>
+                <h3>Add category {{dialogName === 'category' ? '' : 'type'}}</h3>
                 <div *ngIf="!isEditing" class="input-container">
-                    <input formControlName="name" class="input input-accent-lined width-100" [placeholder]="'Enter category'"/>
-                </div>
-                <select *ngIf="isEditing" formControlName="name" class="select select-accent-lined">
-                    <option value="" disabled hidden>Select category</option>
-                    <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
-                </select>
-                <div class="input-container">
-                    <input formControlName="typeName" class="input input-accent-lined width-100" [placeholder]="'Enter type name'"/>
+                    <input formControlName="name" class="input input-accent-lined width-100" [placeholder]="'Enter category*'"/>
                     <span class="error-box">
-                        <app-input-error *ngIf="getControl('typeName').touched && getControl('typeName').invalid" [validator]="getControl('typeName')"></app-input-error>
+                        <app-input-error *ngIf="getControl('name').touched && getControl('name').invalid" [validator]="getControl('name')"></app-input-error>
+                    </span>
+                </div>
+                <div *ngIf="isEditing" class="input-container">
+                    <select  formControlName="name" class="select select-accent-lined width-100">
+                        <option value="" disabled hidden>Select category*</option>
+                        <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
+                    </select>
+                    <span class="error-box">
+                        <app-input-error *ngIf="getControlInvalid('name')" [validator]="getControl('name')"></app-input-error>
+                    </span>
+                </div>
+                <div class="input-container">
+                    <input formControlName="typeName" class="input input-accent-lined width-100" [placeholder]="'Enter type name*'"/>
+                    <span class="error-box">
+                        <app-input-error *ngIf="getControlInvalid('typeName')" [validator]="getControl('typeName')"></app-input-error>
                     </span>
                 </div>
                 <div class="input-container">
                     <p>Materials list</p>
-                    <div class="list-box">
-                        <p *ngFor="let material of getControl('materials').value" class="list">{{ material }}</p>
-                    </div>
+                    <ul class="list-box">
+                        <li *ngFor="let material of getControl('materials').value" class="list" (click)="removeItem(material, getControl('materials'))">
+                            <span>{{ material }}</span><i class="fa-solid fa-xmark"></i>
+                        </li>
+                    </ul>
                     <div class="input input-accent-lined-with-icon width-100">
-                        <input [formControl]="newMaterial" class="input-with-icon" placeholder="Enter materials" required>
+                        <input [formControl]="newMaterial" class="input-with-icon" placeholder="Enter materials*" required>
                         <button (click)="addItem('materials', newMaterial)" class="input-btn">
                             <i class="fa-solid fa-circle-plus"></i>
                         </button>
@@ -36,11 +46,13 @@
                 </div>
                 <div class="input-container">
                     <p>Shapes list</p>
-                    <div class="list-box">
-                        <p *ngFor="let shape of getControl('shapes').value" class="list">{{ shape }}</p>
-                    </div>
+                    <ul class="list-box">
+                        <li *ngFor="let shape of getControl('shapes').value" class="list">
+                            <span>{{ shape }}</span><i class="fa-solid fa-xmark"></i>
+                        </li>
+                    </ul>
                     <div class="input input-accent-lined-with-icon width-100">
-                        <input [formControl]="newShape" class="input-with-icon" placeholder="Enter shapes" required>
+                        <input [formControl]="newShape" class="input-with-icon" placeholder="Enter shapes*" required>
                         <button (click)="addItem('shapes', newShape)" class="input-btn">
                             <i class="fa-solid fa-circle-plus"></i>
                         </button>
@@ -48,11 +60,13 @@
                 </div>
                 <div class="input-container">
                     <p>Extras list</p>
-                    <div class="list-box">
-                        <p *ngFor="let extra of getControl('extras').value" class="list">{{ extra }}</p>
-                    </div>
+                    <ul class="list-box">
+                        <li *ngFor="let extra of getControl('extras').value" class="list">
+                            <span>{{ extra }}</span><i class="fa-solid fa-xmark"></i>
+                        </li>
+                    </ul>
                     <div class="input input-accent-lined-with-icon width-100">
-                        <input [formControl]="newExtras" class="input-with-icon" placeholder="Enter extras" required>
+                        <input [formControl]="newExtras" class="input-with-icon" placeholder="Enter extras*" required>
                         <button (click)="addItem('extras', newExtras)" class="input-btn">
                             <i class="fa-solid fa-circle-plus"></i>
                         </button>

@@ -5,6 +5,7 @@
     max-width: 290px;
     border-radius: 6px;
     background: var(--light-grey);
+    outline: 2px solid var(--light-grey);
     cursor: pointer;
     transition: all 0.4s ease-in-out;
 
@@ -27,6 +28,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        min-width: 100%;
+        height: 146px;
         gap: 12px;
         padding: 24px;
 
@@ -49,6 +52,19 @@
                 }
             }
         }
+
+        .card-price {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 4px;
+
+            .full-price {
+                font-size: 14px;
+                text-decoration: line-through;
+                font-style: italic;
+            }
+        }
     }
 }
 
@@ -58,6 +74,14 @@
     top: 16px;
     right: 16px;
     gap: 4px;
+
+    .btn-icon-white {
+        border: 2px solid var(--light-grey);
+
+        &:hover {
+            border: 2px solid var(--accent);
+        }
+    }
 
     .icon-sale {
         display: flex;

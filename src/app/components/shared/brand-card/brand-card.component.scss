@@ -5,6 +5,7 @@
     max-width: 290px;
     border-radius: 6px;
     background: var(--light-grey);
+    outline: 2px solid var(--light-grey);
     cursor: pointer;
     transition: all 0.4s ease-in-out;
 
@@ -45,6 +46,19 @@
                 font-size: 16px;
             }
         }
+    }
+}
+
+.brand-year {
+    display: flex;
+    position: absolute;
+    top: 16px;
+
+    p {
+        font-size: 14px;
+        padding: 10px;
+        background-color: var(--light-grey);
+        border-radius: 0 16px 16px 0;
     }
 }
 

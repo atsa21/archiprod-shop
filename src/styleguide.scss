@@ -65,6 +65,7 @@ h3 {
     font-size: 24px;
     font-weight: 600;
     text-align: center;
+    line-height: 28px;
 }
 
 p {
@@ -211,7 +212,7 @@ input {
         color: var(--ternary-grey);
     }
 
-    &:focus {
+    &:focus:active {
         border: 2px solid var(--black);
     }
 
@@ -243,6 +244,7 @@ input {
 
     .input-with-icon {
         height: 20px;
+        width: 100%;
         border: 0;
         outline: 0;
         background: none;
@@ -258,7 +260,7 @@ input {
         transition: color 0.4s ease-in-out;
 
         &:hover {
-            color: var(--second);
+            color: var(--accent);
         }
     }
 }
@@ -279,6 +281,12 @@ input {
     text-decoration-line: none;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 // Disable style
 
 .disabled-select {
@@ -287,6 +295,11 @@ input {
 
     .mat-mdc-select-min-line {
         color: var(--med-grey);
+    }
+
+    &:focus,
+    &:focus-within {
+        border: 2px solid var(--med-grey);
     }
 }
 
@@ -310,6 +323,10 @@ input {
 .red-text {
     font-size: 16px;
     font-weight: 700;
+    color: var(--danger);
+}
+
+.error-color {
     color: var(--danger);
 }
 

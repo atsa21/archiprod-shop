@@ -52,13 +52,13 @@ export class AddProdCategoryComponent {
     }
   }
 
-  public initCategoryForm(): void {
+  initCategoryForm(): void {
     this.categoryForm = this.fb.group({
       name: new FormControl('', Validators.required),
       typeName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
       materials: new FormControl([], Validators.required),
       shapes: new FormControl([], Validators.required),
-      extras: new FormControl([], Validators.required)
+      extras: new FormControl(['no extras'], Validators.required)
     });
 
     this.getControl('name').valueChanges.subscribe( selected => {
@@ -69,12 +69,16 @@ export class AddProdCategoryComponent {
     })
   }
 
-  public getControl(control: string): AbstractControl {
+  getControl(control: string): AbstractControl {
     const formControl = this.categoryForm.get(control);
     return formControl!;
   }
 
-  public addItem(item: string, control: FormControl): void {
+  getControlInvalid(control: string): boolean {
+    return this.getControl(control).touched && this.getControl(control).invalid;
+  }
+
+  addItem(item: string, control: FormControl): void {
     if(control.value) {
       const initValue = this.getControl(item).value;
       const newList = [...initValue, control.value];
@@ -83,7 +87,15 @@ export class AddProdCategoryComponent {
     }
   }
 
-  public addCategory(): void {
+  removeItem(item: string, control: AbstractControl): void {
+    if(control.value) {
+      const controlValue = control.value;
+      const newList = controlValue.filter((el: any) => el !== item);
+      control.setValue(newList);
+    }
+  }
+
+  addCategory(): void {
     if(this.categoryForm.valid) {
       this.categoryService.addCategory(this.categoryForm.value).pipe(takeUntil(this.destroy$)).subscribe(res => {
         this.snack.openSnackBar('You added new category!', 'success');
@@ -92,10 +104,9 @@ export class AddProdCategoryComponent {
     }
   }
 
-  public addCategoryType(): void {
+  addCategoryType(): void {
     if(this.categoryForm.valid) {
       this.categoryService.addCategoryType(this.categoryForm.value, this.id).pipe(takeUntil(this.destroy$)).subscribe((res: any) => {
-        console.log(res);
         this.dialogRef.close();
       });
     }
@@ -105,21 +116,5 @@ export class AddProdCategoryComponent {
     this.categoryService.deleteCategory(id).subscribe((res: any) => {
       this.categories = this.categories.filter( el => el.id != id);
     });
-  }
-
-  // public editType(id: string): void {
-  //   this.categoryService.deleteCategory(id).subscribe((res: any) => {
-  //     console.log("You deleted the category");
-  //   });
-  // }
-
-  // public deleteType(id: string): void {
-  //   this.categoryService.deleteCategory(id).subscribe((res: any) => {
-  //     console.log("You deleted the category");
-  //   });
-  // }
-
-  public addBrand(): void {
-    
   }
 }

@@ -8,16 +8,19 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
-        <div *ngIf="!canEdit && product.additionalInfo.isOnSale" class="button-icon-box">
-            <div class="icon-sale">- {{product.additionalInfo.sale}}%</div>
+        <div *ngIf="!canEdit && product.price.isOnSale" class="button-icon-box">
+            <div class="icon-sale">- {{product.price.discount}}%</div>
         </div>
-        <img class="img" [src]="product.imagePath" [alt]="product.brand + product.additionalInfo.materials[0] + product.type"/>
+        <img class="img" [src]="product.imagePath" [alt]="product.brand + product.details.materials[0] + product.type"/>
     </div>
     <div class="card-box">
         <div class="card-text">
             <h4 class="brand">{{ product.brand }}</h4>
-            <p class="name"><span class="uppercase-text">{{ product.additionalInfo.collectionName }}</span> - <span *ngFor="let material of product.additionalInfo.materials">{{ material }} </span> {{ product.type }}</p>
+            <p class="name"><span class="uppercase-text">{{ product.details.collectionName }}</span> - <span *ngFor="let material of product.details.materials">{{ material }} </span> {{ product.type }}</p>
         </div>
-        <p class="red-text">{{ product.price.currency | currency }} {{ product.price.amount }},00</p>
+        <div class="card-price">
+            <p class="red-text">{{ product.price.currency | currency }} {{ product.price.isOnSale ? product.price.discountedPrice : product.price.fullPrice }},00</p>
+            <span *ngIf="product.price.isOnSale" class="full-price">{{ product.price.currency | currency }} {{product.price.fullPrice}},00</span>
+        </div>
     </div>
 </div>

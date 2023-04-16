@@ -30,11 +30,17 @@ exports.addCategoryTypeById = (req, res, next) => {
         extras: req.body.extras
     };
 
-    Category.findOneAndUpdate({ _id: req.params.id }, { $push: { type: categoryType } }).then( result => {
-        res.status(200).json({
-            message:"Category update succesfully",
-            result: result
-        });
+    Category.updateOne({ _id: req.params.id }, { $push: { type: categoryType } }).then( result => {
+        if (result.matchedCount) {
+            res.status(200).json({
+                message:"Category update succesfully",
+                result: result
+            });
+        } else {
+            res.status(401).json({
+                message: "Not authorized"
+            }) 
+        }
     }).catch(error => {
         res.status(500).json({ message: "Couldn't update category" });
     });
@@ -50,17 +56,12 @@ exports.getCategories = (req, res, next) => {
 }
 
 exports.getCategoryById = (req, res, next) => {
-    Category.find().then(documents => {
+    const categoryId = req.params.id;
+    
+    Category.findById(categoryId).then(documents => {
         res.status(200).json({
             message: "Category getted by id succesfully!",
             data: documents
         })
     });
 }
-
-exports.deleteCategoryById = (req, res, next) => {
-    Category.deleteOne({_id: req.params.id, creator: req.userData.userId}).then(result => {
-        res.status(200).json({ message: "Category deleted!" })
-    });
-}
-

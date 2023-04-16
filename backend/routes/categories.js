@@ -13,6 +13,4 @@ router.get("", categoryControllers.getCategories);
 
 router.get("/:id", categoryControllers.getCategoryById);
 
-router.delete("/:id", checkAuth, categoryControllers.deleteCategoryById);
-
 module.exports = router;

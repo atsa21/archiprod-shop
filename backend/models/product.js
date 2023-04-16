@@ -1,20 +1,30 @@
 const mongoose = require("mongoose");
 
-const priceSchema = mongoose.Schema({
-    amount: { type: Number, default: 0 },
-    currency: { type: String, required: true },
+const uniqueValidator = require("mongoose-unique-validator");
+
+const dimensionsScema = mongoose.Schema({
+    height: { type: Number, required: true },
+    width: { type: Number },
+    depth: { type: Number},
+    diameter: { type: Number},
+    measurementUnits: { type: String, required: true }
 });
 
-const additionalSchema = mongoose.Schema({
-    materials: [{ type: String, required: true }],
-    shape: { type: String, required: true },
-    extras: [{ type: String, required: true }],
-    productCode: { type: String, required: false },
-    year: { type: Number, required: false },
-    collectionName: { type: String, required: true },
-    designer: { type: String, required: false },
+const priceSchema = mongoose.Schema({
+    fullPrice: { type: Number, required: true },
+    currency: { type: String, required: true },
     isOnSale: { type: Boolean },
-    sale: { type: Number, required: false },
+    discount: { type: Number },
+    discountedPrice: { type: Number },
+});
+
+const detailsSchema = mongoose.Schema({
+    collectionName: { type: String, required: true },
+    shape: { type: String, required: true },
+    materials: [{ type: String, required: true }],
+    extras: [{ type: String, required: true }],
+    productCode: { type: String, required: false, unique: true },
+    year: { type: Number, required: false },
 });
 
 const productsSchema = mongoose.Schema({
@@ -22,10 +32,13 @@ const productsSchema = mongoose.Schema({
     type: { type: String, required: true },
     imagePath: { type: String, required: true },
     brand: { type: String, required: true },
+    dimensions: dimensionsScema,
     price: priceSchema,
-    additionalInfo: additionalSchema,
+    details: detailsSchema,
     total: { type: Number, default: 0 },
     creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
 });
+
+productsSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model("Product", productsSchema);

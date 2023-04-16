@@ -15,6 +15,7 @@ export class AddEditBrandDialogComponent implements OnInit {
   brandForm!: FormGroup;
   imageChangedEvent: any = '';
   logo: any;
+  currentYear: number = new Date().getFullYear();
 
   dialogTitle = 'Add';
   isEditing = false;
@@ -34,6 +35,7 @@ export class AddEditBrandDialogComponent implements OnInit {
       this.isEditing = this.data.isEditing;
       this.dialogTitle = 'Edit';
       this.getControl('name').setValue(this.data.brand.name);
+      this.getControl('year').setValue(this.data.brand.year);
       this.getControl('country').setValue(this.data.brand.country);
       this.getControl('website').setValue(this.data.brand.website);
       this.getControl('logo').setValue(this.data.brand.logo);
@@ -43,13 +45,14 @@ export class AddEditBrandDialogComponent implements OnInit {
   public initForm(): void {
     this.brandForm = this.fb.group({
       name: new FormControl('', Validators.required),
+      year: new FormControl(null, [Validators.required, Validators.max(this.currentYear)]),
       country: new FormControl('', Validators.required),
       website: new FormControl('', Validators.required),
       logo: new FormControl('', Validators.required)
     });
   }
 
-  public getControl(control: string): AbstractControl {
+  getControl(control: string): AbstractControl {
     const formControl = this.brandForm.get(control);
     return formControl!;
   }

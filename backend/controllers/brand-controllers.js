@@ -4,6 +4,7 @@ exports.createBrand = (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");
     const brand = new Brand({
         name: req.body.name,
+        year: req.body.year,
         country: req.body.country,
         website: req.body.website,
         logo: url + "/images/" + req.file.filename,
@@ -77,20 +78,34 @@ exports.updateBrand = (req, res, next) => {
     const brand = new Brand({
         _id: req.body.id,
         name: req.body.name,
+        year: req.body.year,
         country: req.body.country,
         website: req.body.website,
         logo: logo,
         creator: req.userData.userId
     });
     Brand.updateOne({ _id: req.params.id }, brand).then( result => {
-        res.status(200).json({
-            message:"Brand updated succesfully"
-        });
+        if (result.matchedCount) {
+            res.status(200).json({
+                message:"Brand updated succesfully"
+            });
+        } else {
+            res.status(401).json({
+                message: "Not authorized"
+            }) 
+        }
     });
 }
 
 exports.deleteBrandById = (req, res, next) => {
     Brand.deleteOne({_id: req.params.id, creator: req.userData.userId}).then(result => {
-        res.status(200).json({ message: "Brand deleted!"})
+        if (result.deletedCount) {
+            res.status(200).json({ message: "Brand deleted!"})
+        } else {
+            res.status(401).json({
+                message: "Not authorized"
+            })
+        }
+        
     });
 }

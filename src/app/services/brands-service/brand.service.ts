@@ -24,6 +24,7 @@ export class BrandService {
   postBrand(brand: Brand, image: File): Observable<any> {
     const body = new FormData();
     body.append('name', brand.name);
+    body.append('year', brand.year.toString());
     body.append('country', brand.country);
     body.append('website', brand.website);
     body.append('image', image, brand.name);
