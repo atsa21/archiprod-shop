@@ -55,7 +55,7 @@ The backend code is structured as follows:
 ## Features
 
 * Admins can manage products, categories and brands through the admin page.
-* Authentication and authorization is implemented for the admin page.
+* Authentication and authorization is implemented.
 
 ## Inprogress
 
