@@ -47,7 +47,7 @@
                         </mat-select>
                     </div>
                 </div>
-
+                
                 <div class="input-container">
                     <p>Brands list<span class="error-color">*</span></p>
                     <div class="input input-accent-lined width-100">
@@ -100,7 +100,7 @@
                 </div>
 
                 <button *ngIf="!isEditing" class="btn btn-accent width-100" [disabled]="this.categoryForm.invalid" (click)=" dialogName === 'category' ? addCategory() : addType()">Submit</button>
-                <button *ngIf="isEditing" class="btn btn-accent width-100" [disabled]="this.categoryForm.invalid" (click)="editType()">Submit</button>
+                <button *ngIf="isEditing" class="btn btn-accent width-100" [disabled]="this.categoryForm.invalid" (click)="editType()">Save</button>
             </form>
         </div>
     </div>
