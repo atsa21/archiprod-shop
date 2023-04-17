@@ -1,17 +1,14 @@
 export interface Category {
     id: string,
     name: string,
-    type: Type[],
+    type: CategoryType[],
     isEditing?: boolean;
 }
 
-export interface CategoryForm {
-    name: string,
-    type: Type
-}
-
-export interface Type {
+export interface CategoryType {
+    name?: string,
     typeName: string,
+    brands: string[],
     materials: string[],
     shapes: string[],
     extras: string[]

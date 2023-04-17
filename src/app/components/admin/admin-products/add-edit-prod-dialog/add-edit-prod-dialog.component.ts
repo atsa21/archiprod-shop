@@ -2,14 +2,13 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/services/product-service/product.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { Category, Type } from 'src/app/models/products/category.interface';
+import { Category, CategoryType } from 'src/app/models/products/category.interface';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { Brand } from 'src/app/models/products/brand.interface';
 import { take } from 'rxjs';
 import { CategoryService } from 'src/app/services/category-service/category.service';
 import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
 import { ProductCard } from 'src/app/models/products/product-card.interface';
-import { ProductForm } from 'src/app/models/products/product-form.interface';
 
 @Component({
   selector: 'app-add-edit-prod-dialog',
@@ -21,9 +20,9 @@ export class AddEditProdDialogComponent implements OnInit {
   prodForm!: FormGroup;
   
   categories!: Category[];
-  types: Type[] = [];
-  brands: Brand[] = [];
+  types: CategoryType[] = [];
 
+  brands: string[] = [];
   materials: string[] = [];
   shapes: string[] = [];
   extras: string[] = [];
@@ -54,13 +53,13 @@ export class AddEditProdDialogComponent implements OnInit {
     if(this.data) {
       this.isEditing = this.data.isEditing;
       this.categories = this.data.categories;
-      this.brands = this.data.brands;
+
       if(this.isEditing){
         this.dialogTitle = 'Edit';
         const product: ProductCard = this.data.product;
         this.getControl('category').setValue(product.category);
-        this.getControl('type').setValue(this.data.product.type);
-        this.getControl('image').setValue(this.data.product.imagePath);
+        this.getControl('type').setValue(product.type);
+        this.getControl('image').setValue(product.imagePath);
         this.getControl('brand').setValue(product.brand);
 
         this.getControl('dimensions.height').setValue(product.dimensions.height);
@@ -94,7 +93,7 @@ export class AddEditProdDialogComponent implements OnInit {
       category: new FormControl('', Validators.required),
       type: new FormControl({value:'', disabled: true}, [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
       image: new FormControl(null, Validators.required),
-      brand: new FormControl('', Validators.required),
+      brand: new FormControl({value:'', disabled: true}, Validators.required),
       dimensions : this.fb.group({
         height: new FormControl(null, Validators.required),
         width: new FormControl(null),
@@ -139,10 +138,12 @@ export class AddEditProdDialogComponent implements OnInit {
   }
 
   resetDetails(): void {
+    this.getControl('brand').setValue('');
     this.getControl('details.shape').setValue('');
     this.getControl('details.materials').setValue([]);
     this.getControl('details.extras').setValue([]);
 
+    this.getControl('brand').disable();
     this.getControl('details.shape').disable();
     this.getControl('details.materials').disable();
     this.getControl('details.extras').disable();
@@ -155,17 +156,19 @@ export class AddEditProdDialogComponent implements OnInit {
       this.categoryService.getCategoryById(id).pipe(take(1)).subscribe( res => {
         this.types = res.data.type;
         this.getControl('type').enable();
-
       })
     }
   }
 
   private getArraysByType(type: string): void {
-    const selectedType = this.types.filter((el: any) => el.typeName === type);
-    if(selectedType[0]) {
-      this.materials = selectedType[0].materials;
-      this.shapes = selectedType[0].shapes;
-      this.extras = selectedType[0].extras;
+    const findType = this.types.filter((el: any) => el.typeName === type);
+    const selectedType = findType[0];
+    if(selectedType) {
+      this.brands = selectedType.brands;
+      this.materials = selectedType.materials;
+      this.shapes = selectedType.shapes;
+      this.extras = selectedType.extras;
+      this.getControl('brand').enable();
       this.getControl('details.shape').enable();
       this.getControl('details.materials').enable();
       this.getControl('details.extras').enable();

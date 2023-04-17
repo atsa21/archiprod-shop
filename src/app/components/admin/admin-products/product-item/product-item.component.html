@@ -30,21 +30,21 @@
                 </div>
             </div>
             <div class="section">
-                <div class="item-box">
+                <div class="item-box dimension-box">
                     <label class="label">Height:</label>
-                    <p class="item-text item-dimension">{{ product.dimensions.height }} {{ product.dimensions.measurementUnits }}</p>
+                    <p class="item-text">{{ product.dimensions.height }} {{ product.dimensions.measurementUnits }}</p>
                 </div>
-                <div *ngIf="product.dimensions.width" class="item-box">
+                <div *ngIf="product.dimensions.width" class="item-box dimension-box">
                     <label class="label">Width:</label>
-                    <p class="item-text item-dimension">{{ product.dimensions.width }} {{ product.dimensions.measurementUnits }}</p>
+                    <p class="item-text">{{ product.dimensions.width }} {{ product.dimensions.measurementUnits }}</p>
                 </div>
-                <div *ngIf="product.dimensions.depth" class="item-box">
+                <div *ngIf="product.dimensions.depth" class="item-box dimension-box">
                     <label class="label">Depth:</label>
-                    <p class="item-text item-dimension">{{ product.dimensions.depth }} {{ product.dimensions.measurementUnits }}</p>
+                    <p class="item-text">{{ product.dimensions.depth }} {{ product.dimensions.measurementUnits }}</p>
                 </div>
-                <div *ngIf="product.dimensions.diameter" class="item-box">
+                <div *ngIf="product.dimensions.diameter" class="item-box dimension-box">
                     <label class="label">Diameter:</label>
-                    <p class="item-text item-dimension">{{ product.dimensions.diameter }} {{ product.dimensions.measurementUnits }}</p>
+                    <p class="item-text">{{ product.dimensions.diameter }} {{ product.dimensions.measurementUnits }}</p>
                 </div>
             </div>
             <div class="section details-prod">

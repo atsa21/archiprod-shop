@@ -46,7 +46,7 @@
                     <label class="label">Brand<span class="error-color">*</span></label>
                     <div class="input input-accent-lined width-100">
                         <mat-select formControlName="brand" placeholder="Select brand*">
-                            <mat-option *ngFor="let brand of brands" [value]="brand.name">{{brand.name}}</mat-option>
+                            <mat-option *ngFor="let brand of brands" [value]="brand">{{brand}}</mat-option>
                         </mat-select>
                     </div>
                 </div>
