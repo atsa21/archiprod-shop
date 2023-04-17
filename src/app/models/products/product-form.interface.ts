@@ -32,5 +32,5 @@ export interface ProductForm {
     dimensions: Dimensions,
     price: Price,
     details: Details,
-    total: number
+    inStock: number
 }

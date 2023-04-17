@@ -38,10 +38,15 @@
 
             .products-box {
                 display: flex;
-                justify-content: space-between;
-                flex-wrap: wrap;
+                flex-direction: column;
                 margin: 24px;
                 gap: 24px;
+
+                .item {
+                    display: flex;
+                    width: 100%;
+                    border: 2px solid var(--light-grey);
+                }
             }
         }
     }

@@ -17,7 +17,7 @@
         <div *ngIf="products" class="prod-section">
             <p>You added {{ totalElements }} products</p>
             <div class="products-box">
-                <app-product-card *ngFor="let product of products" [product]="product" [categories]="categories" [brands]="brands" [canEdit]="true"></app-product-card>
+                <app-product-item *ngFor="let product of products" [product]="product" [categories]="categories" [brands]="brands" [canEdit]="true" class="item"></app-product-item>
             </div>
         </div>
     </div>

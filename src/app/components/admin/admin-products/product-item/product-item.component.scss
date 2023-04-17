@@ -1,0 +1,111 @@
+.item-container {
+    display: flex;
+    padding: 12px;
+    gap: 12px;
+    width: 100%;
+
+    .item-image {
+        position: relative;
+        width: 140px;
+
+        .img {
+            width: 140px;
+        }
+
+        .button-icon-box {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+
+            .icon-sale {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 18px;
+                width: 34px;
+                border-radius: 9px;
+                background: var(--danger);
+                font-size: 10px;
+            }
+        }
+    }
+
+    .item-details {
+        display: flex;
+        width: 100%;
+        gap: 12px;
+
+        .info {
+            display: flex;
+            padding-top: 12px;
+            gap: 12px;
+            width: 100%;
+
+            .section {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .details-prod {
+                width: 100%;
+            }
+        }
+
+        .button-icon-box {
+            display: flex;
+            padding: 12px 12px 0 0;
+            gap: 6px;
+        }
+    }
+}
+
+.item-box {
+    display: flex;
+
+    .item-text {
+        width: 160px;
+        font-size: 16px;
+        text-align: start;
+        color: var(--grey);
+    }
+
+    .item-dimension,
+    .price-text,
+    .red-text {
+        width: 110px;
+    }
+
+    .red-text {
+        color: var(--danger);
+    }
+
+    .full-price {
+        font-size: 14px;
+        text-decoration: line-through;
+    }
+
+    .tags-box {
+        display: flex;
+        gap: 6px;
+
+        .array-item {
+            display: flex;
+            align-items: center;
+            font-size: 11px;
+            padding: 0 10px;
+            border-radius: 12px;
+            background-color: var(--accent);
+        }
+    }
+}
+
+.box-with-array {
+    margin-bottom: 12px;
+}
+
+.label {
+    width: 120px;
+    text-align: start;
+    font-weight: 700;
+    font-size: 16px;
+}
