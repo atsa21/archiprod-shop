@@ -166,18 +166,17 @@
                         </div>
                     </div>
                     <div>
-                        <label class="label">Product code</label>
-                        <input formControlName="productCode" class="input input-accent-lined width-100" placeholder="Enter product code"/>
-                    </div>
-                    <div>
                         <label class="label">Manufacture year</label>
                         <input formControlName="year" type="number" class="input input-accent-lined width-100" placeholder="0"/>
                     </div>
+                    <div>
+                        <label class="label">Product code<span class="error-color">*</span></label>
+                        <input formControlName="productCode" class="input input-accent-lined width-100" placeholder="Enter product code"/>
+                    </div>
                 </div>
-                
                 <div>
-                    <label class="label">Total products amount<span class="error-color">*</span></label>
-                    <input formControlName="total" type="number" class="input input-accent-lined width-100" placeholder="0"/>
+                    <label class="label">In stock<span class="error-color">*</span></label>
+                    <input formControlName="inStock" type="number" class="input input-accent-lined width-100" placeholder="0"/>
                 </div>
             </div>
 

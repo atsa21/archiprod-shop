@@ -13,7 +13,7 @@ const dimensionsScema = mongoose.Schema({
 const priceSchema = mongoose.Schema({
     fullPrice: { type: Number, required: true },
     currency: { type: String, required: true },
-    isOnSale: { type: Boolean },
+    isOnSale: { type: Boolean, default: false },
     discount: { type: Number },
     discountedPrice: { type: Number },
 });
@@ -35,7 +35,7 @@ const productsSchema = mongoose.Schema({
     dimensions: dimensionsScema,
     price: priceSchema,
     details: detailsSchema,
-    total: { type: Number, default: 0 },
+    inStock: { type: Number, default: 0 },
     creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
 });
 

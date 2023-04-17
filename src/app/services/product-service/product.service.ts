@@ -69,7 +69,7 @@ export class ProductService {
       body.append('year', product.details.year.toString())
     }
 
-    body.append('total', product.total.toString());
+    body.append('inStock', product.inStock.toString());
     return this.http.post<ProductRes>(this.mainUrl, body);
   }
 
@@ -123,7 +123,7 @@ export class ProductService {
         body.append('year', product.details.year.toString())
       }
 
-      body.append('total', product.total.toString());
+      body.append('inStock', product.inStock.toString());
     } else {
       body = {
         id: id,
@@ -151,7 +151,7 @@ export class ProductService {
         productCode: product.details.productCode,
         year: product.details.year,
 
-        total: product.total
+        inStock: product.inStock
       };
     }
     return this.http.put<{message: string, products: ProductCard}>(`${this.mainUrl}/${id}`, body);

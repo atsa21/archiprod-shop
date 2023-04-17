@@ -83,7 +83,7 @@ export class AddEditProdDialogComponent implements OnInit {
           this.getControl('details.year').setValue(product.details.year);
         }
 
-        this.getControl('total').setValue(product.total);
+        this.getControl('inStock').setValue(product.inStock);
         this.id = product.id as string;
       }
     }
@@ -114,10 +114,10 @@ export class AddEditProdDialogComponent implements OnInit {
         shape: new FormControl({value:'', disabled: true}, Validators.required),
         materials: new FormControl({value:[], disabled: true}, Validators.required),
         extras: new FormControl({value:[], disabled: true}, Validators.required),
-        productCode: new FormControl(''),
+        productCode: new FormControl('', Validators.required),
         year: new FormControl(null),
       }),
-      total: new FormControl(null, Validators.required)
+      inStock: new FormControl(null, Validators.required)
     });
 
     this.getControl('category').valueChanges.subscribe( selectedValue => {
