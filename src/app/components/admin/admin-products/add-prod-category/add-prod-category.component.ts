@@ -1,9 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Category } from 'src/app/models/products/category.interface';
+import { Category, CategoryType } from 'src/app/models/products/category.interface';
 import { CategoryService } from 'src/app/services/category-service/category.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, take, takeUntil } from 'rxjs';
 import { DialogRef } from '@angular/cdk/dialog';
 import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
 
@@ -15,6 +15,8 @@ import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.se
 export class AddProdCategoryComponent {
 
   categories: Category[] = [];
+  types: CategoryType[] = [];
+  brands: any[] = [];
   categoryForm!: FormGroup;
 
   item!: FormControl;
@@ -43,9 +45,10 @@ export class AddProdCategoryComponent {
     this.newShape = new FormControl('');
     this.newExtras = new FormControl('');
     if(this.data) {
-      this.dialogTitle = this.data.dialogTitle;
+      this.dialogTitle = this.data.dialogName.charAt(0);
       this.dialogName = this.data.dialogName;
       this.categories = this.data.list;
+      this.brands = this.data.brands;
       this.categories.forEach( item => item.isEditing = false);
       this.isEditing = this.data.isEditing;
       this.initCategoryForm();
@@ -55,18 +58,53 @@ export class AddProdCategoryComponent {
   initCategoryForm(): void {
     this.categoryForm = this.fb.group({
       name: new FormControl('', Validators.required),
-      typeName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
-      materials: new FormControl([], Validators.required),
-      shapes: new FormControl([], Validators.required),
-      extras: new FormControl(['no extras'], Validators.required)
+      typeName: new FormControl({value:'', disabled: this.isEditing ? true : false}, [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
+      brands: new FormControl({value:[], disabled: this.isEditing ? true : false}, Validators.required),
+      materials: new FormControl({value:[], disabled: this.isEditing ? true : false}, Validators.required),
+      shapes: new FormControl({value:[], disabled: this.isEditing ? true : false}, Validators.required),
+      extras: new FormControl({value: this.isEditing ? ['no extras'] : [], disabled: this.isEditing ? true : false}, Validators.required)
     });
 
-    this.getControl('name').valueChanges.subscribe( selected => {
-      const selectedCategory = this.categories.find( el => el.name === selected);
-      if(selectedCategory?.id) {
-        this.id = selectedCategory.id;
+    if(this.dialogName === 'type') {
+      this.getControl('name').valueChanges.subscribe( selected => {
+        const selectedCategory = this.categories.find( el => el.name === selected);
+        if(typeof selectedCategory?.id === 'string') {
+          this.id = selectedCategory?.id;
+          if(this.isEditing) {
+            this.getCategoryTypes();
+            this.resetDetails();
+          }
+        }
+      });
+      if(this.isEditing){
+        this.getControl('typeName').valueChanges.subscribe(selected => {
+          const selectedType = this.types.find(el => el.typeName === selected);
+          this.getControl('brands').setValue(selectedType?.brands);
+          this.getControl('materials').setValue(selectedType?.materials);
+          this.getControl('shapes').setValue(selectedType?.shapes);
+          this.getControl('extras').setValue(selectedType?.extras);
+
+          this.getControl('brands').enable();
+          this.getControl('materials').enable();
+          this.getControl('shapes').enable();
+          this.getControl('extras').enable();
+        })
       }
-    })
+    }
+
+    // if(this.isEditing) {
+    //   this.getControl('category').valueChanges.subscribe( selectedValue => {
+    //     if(selectedValue) {
+    //       this.getCategoryTypes(selectedValue);
+    //       this.resetDetails();
+    //     }
+    //   });
+    //   this.getControl('type').valueChanges.subscribe( selectedValue => {
+    //     if(selectedValue) {
+    //       this.getArraysByType(selectedValue);
+    //     }
+    //   })
+    // }
   }
 
   getControl(control: string): AbstractControl {
@@ -76,6 +114,23 @@ export class AddProdCategoryComponent {
 
   getControlInvalid(control: string): boolean {
     return this.getControl(control).touched && this.getControl(control).invalid;
+  }
+
+  getCategoryTypes(): void {
+    this.categoryService.getCategoryById(this.id).pipe(take(1)).subscribe( res => {
+      this.types = res.data.type;
+      this.getControl('typeName').enable();
+    })
+  }
+
+  resetDetails(): void {
+    // this.getControl('brands').setValue('');
+    // this.getControl('brands').setValue([]);
+    // this.getControl('materials').setValue([]);
+
+    // this.getControl('details.shape').disable();
+    // this.getControl('details.materials').disable();
+    // this.getControl('details.materials').disable();
   }
 
   addItem(item: string, control: FormControl): void {
@@ -104,9 +159,18 @@ export class AddProdCategoryComponent {
     }
   }
 
-  addCategoryType(): void {
+  addType(): void {
     if(this.categoryForm.valid) {
-      this.categoryService.addCategoryType(this.categoryForm.value, this.id).pipe(takeUntil(this.destroy$)).subscribe((res: any) => {
+      this.categoryService.addType(this.categoryForm.value, this.id).pipe(takeUntil(this.destroy$)).subscribe((res: any) => {
+        this.dialogRef.close();
+      });
+    }
+  }
+
+  editType(): void {
+    if(this.categoryForm.valid) {
+      const type = this.getControl('typeName').value;
+      this.categoryService.editType(this.categoryForm.value, this.id).pipe(takeUntil(this.destroy$)).subscribe((res: any) => {
         this.dialogRef.close();
       });
     }

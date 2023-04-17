@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const typeSchema = mongoose.Schema({
     typeName: { type: String, required: true },
+    brands: [{ type: String, required: true }],
     materials: [{ type: String, required: true }],
     shapes: [{ type: String, required: true}],
     extras: [{ type: String, required: true }]

@@ -72,14 +72,6 @@
     right: 16px;
     gap: 4px;
 
-    .btn-icon-white {
-        border: 2px solid var(--light-grey);
-
-        &:hover {
-            border: 2px solid var(--accent);
-        }
-    }
-
     .icon-sale {
         display: flex;
         align-items: center;

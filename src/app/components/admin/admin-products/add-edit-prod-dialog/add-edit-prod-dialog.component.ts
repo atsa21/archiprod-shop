@@ -2,14 +2,13 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/services/product-service/product.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { Category, Type } from 'src/app/models/products/category.interface';
+import { Category, CategoryType } from 'src/app/models/products/category.interface';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { Brand } from 'src/app/models/products/brand.interface';
 import { take } from 'rxjs';
 import { CategoryService } from 'src/app/services/category-service/category.service';
 import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
 import { ProductCard } from 'src/app/models/products/product-card.interface';
-import { ProductForm } from 'src/app/models/products/product-form.interface';
 
 @Component({
   selector: 'app-add-edit-prod-dialog',
@@ -21,7 +20,7 @@ export class AddEditProdDialogComponent implements OnInit {
   prodForm!: FormGroup;
   
   categories!: Category[];
-  types: Type[] = [];
+  types: CategoryType[] = [];
   brands: Brand[] = [];
 
   materials: string[] = [];

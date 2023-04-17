@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { CategoryType } from 'src/app/models/products/category.interface';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -20,7 +21,7 @@ export class CategoryService {
     return this.http.get<{ message: string, data: any }>(`${this.mainUrl}/${id}`);
   }
 
-  addCategory(category: any): Observable<{ message: string, categoryId: string}> {
+  addCategory(category: CategoryType): Observable<{ message: string, categoryId: string}> {
     const body = {
       name: category.name,
       typeName: category.typeName,
@@ -31,14 +32,25 @@ export class CategoryService {
     return this.http.post<{ message: string, categoryId: string}>(this.mainUrl, body);
   }
 
-  addCategoryType(category: any, id: string): Observable<{ message: string, res: any}> {
+  addType(category: CategoryType, id: string): Observable<{ message: string, res: any}> {
+    const body = this.getTypeBody(category);
+    return this.http.put<{ message: string, res: any}>(`${this.mainUrl}/${id}`, body);
+  }
+
+  editType(category: CategoryType, id: string): Observable<{ message: string, res: any}> {
+    const body = this.getTypeBody(category);
+    return this.http.put<{ message: string, res: any}>(`${this.mainUrl}/${id}/update-type`, body);
+  }
+
+  getTypeBody(category: CategoryType): CategoryType {
     const body = {
       typeName: category.typeName,
+      brands: category.brands,
       materials: category.materials,
       shapes: category.shapes,
       extras: category.extras
     };
-    return this.http.put<{ message: string, res: any}>(`${this.mainUrl}/${id}`, body);
+    return body;
   }
 
   deleteCategory(id: string): Observable<{message: string, data: any}> {

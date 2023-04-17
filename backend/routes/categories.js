@@ -9,6 +9,8 @@ router.post("", checkAuth, categoryControllers.createCategory);
 
 router.put("/:id", checkAuth, categoryControllers.addCategoryTypeById);
 
+router.put("/:id/update-type", checkAuth, categoryControllers.editTypeByName);
+
 router.get("", categoryControllers.getCategories);
 
 router.get("/:id", categoryControllers.getCategoryById);

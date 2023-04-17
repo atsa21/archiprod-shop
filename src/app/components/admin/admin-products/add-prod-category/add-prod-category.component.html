@@ -1,6 +1,6 @@
 <div class="dialog-container">
     <div>
-        <h2>{{ dialogTitle }} List</h2>
+        <h2>{{isEditing ? 'Edit' : 'Add'}} {{dialogName}}</h2>
         <button mat-dialog-close class="btn-close" type="button">
             <i class="fa-solid fa-xmark"></i>
         </button>
@@ -8,30 +8,56 @@
     <div class="dialog-body" mat-dialog-content>
         <div class="add-container">
             <form [formGroup]="categoryForm" class="add-form">
-                <h3>Add category {{dialogName === 'category' ? '' : 'type'}}</h3>
-                <div *ngIf="!isEditing" class="input-container">
+
+                <!-- Add category -->
+                <div *ngIf="!isEditing && dialogName === 'category'" class="input-container">
+                    <p>Category<span class="error-color">*</span></p>
                     <input formControlName="name" class="input input-accent-lined width-100" [placeholder]="'Enter category*'"/>
                     <span class="error-box">
                         <app-input-error *ngIf="getControl('name').touched && getControl('name').invalid" [validator]="getControl('name')"></app-input-error>
                     </span>
                 </div>
-                <div *ngIf="isEditing" class="input-container">
-                    <select  formControlName="name" class="select select-accent-lined width-100">
-                        <option value="" disabled hidden>Select category*</option>
-                        <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
-                    </select>
+
+                <!-- Add/edit category type -->
+                <div *ngIf="dialogName === 'type'" class="input-container">
+                    <p>Category<span class="error-color">*</span></p>
+                    <div class="input input-accent-lined width-100">
+                        <mat-select formControlName="name" placeholder="Select category*">
+                            <mat-option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</mat-option>
+                        </mat-select>
+                    </div>
                     <span class="error-box">
                         <app-input-error *ngIf="getControlInvalid('name')" [validator]="getControl('name')"></app-input-error>
                     </span>
                 </div>
-                <div class="input-container">
+
+                <!-- Add category and type -->
+                <div *ngIf="!isEditing" class="input-container">
                     <input formControlName="typeName" class="input input-accent-lined width-100" [placeholder]="'Enter type name*'"/>
                     <span class="error-box">
                         <app-input-error *ngIf="getControlInvalid('typeName')" [validator]="getControl('typeName')"></app-input-error>
                     </span>
                 </div>
+
+                <!-- Edit category type -->
+                <div *ngIf="isEditing && dialogName === 'type'" class="input-container">
+                    <div class="input input-accent-lined width-100">
+                        <mat-select formControlName="typeName" placeholder="Select category*">
+                            <mat-option *ngFor="let type of types" [value]="type.typeName">{{ type.typeName }}</mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+
                 <div class="input-container">
-                    <p>Materials list</p>
+                    <p>Brands list<span class="error-color">*</span></p>
+                    <div class="input input-accent-lined width-100">
+                        <mat-select formControlName="brands" multiple placeholder="Select brands*">
+                            <mat-option *ngFor="let brand of brands" [value]="brand.name">{{ brand.name }}</mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <p>Materials list<span class="error-color">*</span></p>
                     <ul class="list-box">
                         <li *ngFor="let material of getControl('materials').value" class="list" (click)="removeItem(material, getControl('materials'))">
                             <span>{{ material }}</span><i class="fa-solid fa-xmark"></i>
@@ -45,7 +71,7 @@
                     </div>
                 </div>
                 <div class="input-container">
-                    <p>Shapes list</p>
+                    <p>Shapes list<span class="error-color">*</span></p>
                     <ul class="list-box">
                         <li *ngFor="let shape of getControl('shapes').value" class="list">
                             <span>{{ shape }}</span><i class="fa-solid fa-xmark"></i>
@@ -59,7 +85,7 @@
                     </div>
                 </div>
                 <div class="input-container">
-                    <p>Extras list</p>
+                    <p>Extras list<span class="error-color">*</span></p>
                     <ul class="list-box">
                         <li *ngFor="let extra of getControl('extras').value" class="list">
                             <span>{{ extra }}</span><i class="fa-solid fa-xmark"></i>
@@ -72,7 +98,9 @@
                         </button>
                     </div>
                 </div>
-                <button class="btn btn-accent width-100" [disabled]="this.categoryForm.invalid" (click)="!isEditing ? addCategory() : addCategoryType()">Submit</button>
+
+                <button *ngIf="!isEditing" class="btn btn-accent width-100" [disabled]="this.categoryForm.invalid" (click)=" dialogName === 'category' ? addCategory() : addType()">Submit</button>
+                <button *ngIf="isEditing" class="btn btn-accent width-100" [disabled]="this.categoryForm.invalid" (click)="editType()">Submit</button>
             </form>
         </div>
     </div>

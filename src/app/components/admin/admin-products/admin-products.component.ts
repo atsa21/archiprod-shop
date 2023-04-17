@@ -77,13 +77,13 @@ export class AdminProductsComponent implements OnInit {
     })
   }
 
-  public openDialog( title: string, name: string, isEditing: boolean ): void {
+  public openDialog( name: string, isEditing: boolean ): void {
     const dialogRef = this.dialog.open(AddProdCategoryComponent, {
       width: '420px',
       data: { 
-        dialogTitle: title, 
         dialogName: name, 
-        list: this.categories, 
+        list: this.categories,
+        brands: this.brands,
         isEditing: isEditing
       }
     });
