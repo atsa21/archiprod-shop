@@ -1,0 +1,14 @@
+.user-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    p {
+        text-align: start;
+        font-size: 16px;
+    }
+
+    .id {
+        width: 280px;
+    }
+}

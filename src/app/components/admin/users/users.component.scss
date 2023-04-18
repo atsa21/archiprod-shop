@@ -19,11 +19,34 @@
 
         .users-box {
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
             margin: 24px;
             padding: 24px 18px;
             border-radius: 6px;
             background-color: var(--white);
+
+            .users-header {
+                display: flex;
+                padding-left: 16px;
+                padding-bottom: 12px;
+                gap: 190px;
+            }
+
+            .users-body {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+
+                .user-cards {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 16px;
+                    width: 100%;
+                    border: 2px solid var(--light-grey);
+                    border-radius: 6px;
+                }
+            }
         }
     }
 }

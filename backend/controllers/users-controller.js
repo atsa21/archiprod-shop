@@ -43,7 +43,7 @@ exports.userLogin = (req, res, next) => {
             });
             }
             const token = jwt.sign(
-            { email: fetchedUser.email, userId: fetchedUser._id },
+            { email: fetchedUser.email, userId: fetchedUser._id, role: fetchedUser.role },
             process.env.JWT_KEY,
             { expiresIn: "6h" }
             );
@@ -60,4 +60,37 @@ exports.userLogin = (req, res, next) => {
             message: "Invalid authentication credentials!"
             });
         });
+}
+
+exports.getUsers = (req, res, next) => {
+
+    if (req.userData.role !== "ADMIN") {
+        return res.status(401).json({
+            message: "Only admin can get users"
+        });
+    }
+
+    const pageSize = +req.query.size;
+    const currentPage = +req.query.page;
+    const postQuery = User.find({ role: "USER" }).select('-password');
+    let fetchedUsers;
+    if(pageSize && currentPage) {
+        postQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
+    }
+    postQuery.exec().then(users => {
+        fetchedUsers = users;
+        return User.count();
+    })
+    .then(count => {
+        res.status(200).json({
+            message: "Product fetched succesfully!",
+            data: fetchedUsers,
+            totalElements: count
+        });
+    })
+    .catch(error => {
+        res.status(500).json({
+            message: "Fetching products failed"
+        })
+    });
 }
