@@ -29,7 +29,7 @@ exports.createBrand = (req, res, next) => {
 exports.getBrands = (req, res, next) => {
     const pageSize = +req.query.size;
     const currentPage = +req.query.page;
-    const postQuery = Brand.find();
+    const postQuery = Brand.find().sort({ name: 1 });
     let fetchedBrand;
     if(pageSize && currentPage) {
         postQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);

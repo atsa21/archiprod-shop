@@ -3,10 +3,15 @@
     <div class="products-container">
         <div class="products-header">
             <h1>Users</h1>
-            <button class="btn">Add user</button>
         </div>
         <div class="users-box">
-            
+            <div class="users-header">
+                <h3>User id</h3>
+                <h3>Email</h3>
+            </div>
+            <div class="users-body">
+                <app-user-card *ngFor="let user of users" [user]="user" class="user-cards"></app-user-card>
+            </div>
         </div>
     </div>
 </div>

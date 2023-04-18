@@ -1,14 +1,6 @@
 <div class="card-container">
     <div class="card-image">
-        <div *ngIf="canEdit" class="button-icon-box">
-            <button class="btn-icon btn-icon-white" (click)="openEditProducts()">
-                <i class="fa-regular fa-pen-to-square"></i>
-            </button>
-            <button class="btn-icon btn-icon-danger" (click)="deleteProduct()">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        </div>
-        <div *ngIf="!canEdit && product.price.isOnSale" class="button-icon-box">
+        <div *ngIf="product.price.isOnSale" class="button-icon-box">
             <div class="icon-sale">- {{product.price.discount}}%</div>
         </div>
         <img class="img" [src]="product.imagePath" [alt]="product.brand + product.details.materials[0] + product.type"/>

@@ -30,6 +30,10 @@ export class AuthService {
     return localStorage.getItem('role') === userRole.admin;
   }
 
+  getUsers(page: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(`${this.mainUrl}?size=${pageSize}&page=${page}`);
+  }
+
   createUser(email: string, password: string) {
     const body: AuthData = { email: email, password: password };
     return this.http.post(this.mainUrl + '/signup', body);
