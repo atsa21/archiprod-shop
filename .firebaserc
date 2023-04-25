@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "archiprod-shop": {
+      "hosting": {
+        "archiprod": [
+          "archiprod-shop"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "archiprod-shop"
+  }
+}
