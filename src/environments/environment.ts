@@ -1,3 +1,4 @@
 export const environment = {
-    apiUrl: "http://localhost:3000/api"
+    production: true,
+    apiUrl: "http://archiprod-app-env.eba-abyqdppj.eu-north-1.elasticbeanstalk.com/api"
 };
