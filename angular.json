@@ -40,8 +40,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "4mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -61,7 +61,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.development.ts"
+                  "with": "src/environments/environment.prod.ts"
                 }
               ]
             }
@@ -104,6 +104,16 @@
               "src/styleguide.scss"
             ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "archiprod:build:production",
+            "firebaseProject": "archiprod-shop",
+            "firebaseHostingSite": "archiprod-shop"
           }
         }
       }
