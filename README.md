@@ -1,6 +1,6 @@
 # Archiprod
 
-Archiprod is an online shopping platform for home products. It offers a variety of products including furniture, bathroom essentials, kitchen appliances, lighting and decor items. The platform is built on **Angular 15.2.1** for the frontend and **NodeJS version 16.13.0** for the backend.
+Archiprod is an online shopping platform for home products. It offers a variety of products including furniture, bathroom essentials, kitchen appliances, lighting and decor items. The platform is built on **Angular 15.2.1** for the frontend and **NodeJS 16.13.0** for the backend.
 
 ## Installation
 
@@ -59,6 +59,8 @@ The backend code is structured as follows:
 
 ## Inprogress
 
+- [ ] Deploy frontend to Firebase.
+- [ ] Deploy backend.
 - [ ] Users can browse products by category and add them to their cart.
 - [ ] Users can checkout their cart and pay for their order using a payment gateway.
 - [ ] Admins can view and update the status of orders.
