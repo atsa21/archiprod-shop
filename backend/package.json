@@ -1,6 +1,6 @@
 {
   "name": "archiprod",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -14,5 +14,8 @@
     "ngx-image-cropper": "^6.3.2",
     "node-localstorage": "^2.2.1",
     "tslib": "^2.3.0"
+  },
+  "scripts": {
+    "start": "node server.js"
   }
 }
