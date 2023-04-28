@@ -58,6 +58,16 @@ The backend code is structured as follows:
 * `models` - contains the database models.
 * `routes` - contains the API routes.
 
+## Deployed site
+
+Navigate [Heroku Archiprod](https://archiprod.herokuapp.com/api) to see deployed server.
+
+* Main page:
+
+
+* Admin page:
+
+
 ## Features
 
 * Admins can manage products, categories and brands through the admin page.

@@ -61,7 +61,7 @@ export class AddEditBrandDialogComponent implements OnInit {
     this.imageChangedEvent = event;
   }
 
-  public imageCropped(event: ImageCroppedEvent) {
+  public imageCropped(event: ImageCroppedEvent): void {
     this.logo = this.base64ToFile(
       event.base64,
       this.imageChangedEvent?.target?.files[0].name,
@@ -69,7 +69,7 @@ export class AddEditBrandDialogComponent implements OnInit {
     this.getControl('logo').setValue(this.logo);
   }
 
-  private base64ToFile(data: any, filename: any) {
+  private base64ToFile(data: any, filename: any): File {
     const arr = data.split(',');
     const mime = arr[0].match(/:(.*?);/)[1];
     const bstr = atob(arr[1]);
@@ -83,8 +83,8 @@ export class AddEditBrandDialogComponent implements OnInit {
     return new File([u8arr], filename, { type: mime });
   }
 
-  public loadImageFailed() {
-    console.log('Load image is filed');
+  public loadImageFailed(): void {
+    this.snack.openSnackBar('Load image is filed', 'error');
   }
 
   addBrand(): void {
