@@ -35,7 +35,6 @@ export class AddEditBrandDialogComponent implements OnInit {
     if(this.data.isEditing) {
       this.isEditing = this.data.isEditing;
       this.dialogTitle = 'Edit';
-      console.log(this.data.brand);
       this.id = this.data.brand.id;
       this.getControl('name').setValue(this.data.brand.name);
       this.getControl('year').setValue(this.data.brand.year);
