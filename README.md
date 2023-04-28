@@ -2,12 +2,19 @@
 
 Archiprod is an online shopping platform for home products. It offers a variety of products including furniture, bathroom essentials, kitchen appliances, lighting and decor items. The platform is built on **Angular 15.2.1** and **NodeJS 16.13.0**.
 
-## Installation
+## Installation frontend part
 
 1. Clone the repository from [GitHub](https://github.com/atsa21/archiprod-shop).
 2. Install the required dependencies using `npm install`.
 3. Start the frontend app using `ng serve`.
 5. Navigate to http://localhost:4200/ in your web browser to use the application.
+
+## Installation backend part
+
+1. Clone the repository from [GitHub](https://github.com/atsa21/archiprod-backend).
+2. Install the required dependencies using `npm install`.
+3. Start the frontend app using `nodemon server.js`.
+5. Navigate to http://localhost:3000/ in your web browser to use the application.
 
 ## Check version
 
@@ -45,15 +52,16 @@ The frontend code is structured as follows:
 ### Backend
 The backend code is structured as follows:
 
-* `backend/controllers` - contains the controllers for the API endpoints.
-* `backend/image` - contains all images for shopping platform.
-* `backend/middleware` - contains the middleware functions used by the routes.
-* `backend/models` - contains the database models.
-* `backend/routes` - contains the API routes.
+* `controllers` - contains the controllers for the API endpoints.
+* `image` - contains all images for shopping platform.
+* `middleware` - contains the middleware functions used by the routes.
+* `models` - contains the database models.
+* `routes` - contains the API routes.
 
 ## Features
 
 * Admins can manage products, categories and brands through the admin page.
+* Admin can see all registered users on Admin - Users page.
 * Authentication and authorization is implemented.
 
 ## Inprogress
