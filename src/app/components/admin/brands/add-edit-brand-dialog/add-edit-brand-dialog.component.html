@@ -43,7 +43,7 @@
                 </div>
             </div>
 
-            <button [disabled]="brandForm.invalid" class="btn btn-accent width-100" (click)="addBrand()">Add brand</button>
+            <button [disabled]="brandForm.invalid" class="btn btn-accent width-100" (click)="isEditing ? updateBrand() : addBrand()">{{ dialogTitle }} brand</button>
         </form>
     </div>
 </div>
