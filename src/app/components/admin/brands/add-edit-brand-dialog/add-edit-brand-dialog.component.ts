@@ -16,6 +16,7 @@ export class AddEditBrandDialogComponent implements OnInit {
   imageChangedEvent: any = '';
   logo: any;
   currentYear: number = new Date().getFullYear();
+  id: string = '';
 
   dialogTitle = 'Add';
   isEditing = false;
@@ -34,6 +35,7 @@ export class AddEditBrandDialogComponent implements OnInit {
     if(this.data.isEditing) {
       this.isEditing = this.data.isEditing;
       this.dialogTitle = 'Edit';
+      this.id = this.data.brand.id;
       this.getControl('name').setValue(this.data.brand.name);
       this.getControl('year').setValue(this.data.brand.year);
       this.getControl('country').setValue(this.data.brand.country);
@@ -66,7 +68,6 @@ export class AddEditBrandDialogComponent implements OnInit {
       event.base64,
       this.imageChangedEvent?.target?.files[0].name,
     );
-    this.getControl('logo').setValue(this.logo);
   }
 
   private base64ToFile(data: any, filename: any): File {
@@ -92,6 +93,16 @@ export class AddEditBrandDialogComponent implements OnInit {
     this.brandService.postBrand(this.brandForm.value, image).pipe().subscribe((res) => {
       this.dialogRef.close();
       this.snack.openSnackBar('Brand was added!', 'success');
+    });
+  }
+
+  updateBrand(): void {
+    if(this.logo) {
+      this.getControl('logo').setValue(this.logo);
+    }
+    this.brandService.updateBrand(this.id, this.brandForm.value).subscribe((res) => {
+      this.dialogRef.close();
+      this.snack.openSnackBar('Brand was updated!', 'success');
     });
   }
 }
