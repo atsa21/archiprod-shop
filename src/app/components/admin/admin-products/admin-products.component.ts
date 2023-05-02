@@ -8,7 +8,6 @@ import { CategoryService } from 'src/app/services/category-service/category.serv
 import { ProductService } from 'src/app/services/product-service/product.service';
 import { AddEditProdDialogComponent } from './add-edit-prod-dialog/add-edit-prod-dialog.component';
 import { AddProdCategoryComponent } from './add-prod-category/add-prod-category.component';
-import { AddEditBrandDialogComponent } from '../brands/add-edit-brand-dialog/add-edit-brand-dialog.component';
 import { BrandService } from 'src/app/services/brands-service/brand.service';
 import { BrandListRes } from 'src/app/models/products/brand.interface';
 

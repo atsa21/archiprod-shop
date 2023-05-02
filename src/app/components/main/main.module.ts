@@ -20,7 +20,7 @@ import { SeoTextComponent } from './home-page/seo-text/seo-text.component';
         AdvantagesCardComponent,
         AboutComponent,
         MainBannerComponent,
-        SeoTextComponent
+        SeoTextComponent,
     ],
     imports: [
         CommonModule,
