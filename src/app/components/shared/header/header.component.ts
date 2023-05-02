@@ -20,11 +20,12 @@ export class HeaderComponent implements OnInit {
   isAdmin = false;
 
   menuList: Navigation[] = [
-    { name: 'Furniture', link: '/homepage/shop'},
-    { name: 'Bathroom', link: '/homepage/shop'},
-    { name: 'Kitchen', link: '/homepage/shop'},
-    { name: 'Lighting', link: '/homepage/shop'},
-    { name: 'Decor', link: '/homepage/shop'}
+    { name: 'All Categories', link: '/shop'},
+    { name: 'Furniture', link: '/shop/furniture'},
+    { name: 'Bathroom', link: '/shop/bathroom'},
+    { name: 'Kitchen', link: '/shop/kitchen'},
+    { name: 'Lighting', link: '/shop/lighting'},
+    { name: 'Decor', link: '/shop/decor'}
   ];
 
   private destroy: Subject<boolean> = new Subject<boolean>();

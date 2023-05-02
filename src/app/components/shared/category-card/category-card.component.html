@@ -1,0 +1,12 @@
+<div *ngIf="category" class="card-container">
+    <div class="card-image">
+        <h3 class="name">{{category.name}}</h3>
+        <img class="img" [src]="image" alt="image" (click)="goToPage()"/>
+    </div>
+
+    <div class="card-box">
+        <div class="card-text">
+            <p *ngFor="let types of category.type" class="type">{{types.typeName}}</p>
+        </div>
+    </div>
+</div>
