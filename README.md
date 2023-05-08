@@ -60,7 +60,7 @@ The backend code is structured as follows:
 
 ## Deployed site
 
-Navigate [Heroku Archiprod](https://archiprod.herokuapp.com/api) to see deployed server.
+Navigate [Glitch Archiprod](https://archiprod.glitch.me/api) to see deployed server.
 
 * Main page:
 ![image](https://user-images.githubusercontent.com/104850911/235160968-f0247766-af3f-455c-9e27-fcecc9fedea2.png)
