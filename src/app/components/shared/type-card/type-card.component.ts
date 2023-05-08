@@ -14,13 +14,6 @@ export class TypeCardComponent {
     private router: Router
   ){}
 
-  ngOnInit(): void {
-    if(this.type) {
-      console.log(this.type);
-      let imageForCategory = '';
-    }
-  }
-
   goToPage(link: string | undefined): void {
     this.router.navigate([link]);
   }
