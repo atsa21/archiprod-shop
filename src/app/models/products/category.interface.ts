@@ -2,7 +2,8 @@ export interface Category {
     id: string,
     name: string,
     type: CategoryType[],
-    isEditing?: boolean;
+    isEditing?: boolean,
+    link?: string
 }
 
 export interface CategoryType {
@@ -11,5 +12,6 @@ export interface CategoryType {
     brands: string[],
     materials: string[],
     shapes: string[],
-    extras: string[]
+    extras: string[],
+    link?: string
 }

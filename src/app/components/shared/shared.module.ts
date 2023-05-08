@@ -11,11 +11,13 @@ import { OnSaleComponent } from './on-sale/on-sale.component';
 import { ArticlesCardsComponent } from './articles-cards/articles-cards.component';
 import { BannerComponent } from './banner/banner.component';
 import { ProductCardComponent } from './product-card/product-card.component';
-import { CurrencyPipe } from 'src/app/pipe/currency.pipe';
+import { CurrencyPipe } from 'src/app/pipes/currency/currency.pipe';
 import { InputErrorComponent } from './input-error/input-error.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrandCardComponent } from './brand-card/brand-card.component';
 import { CategoryCardComponent } from './category-card/category-card.component';
+import { CapitalizeFirstLetterPipe } from 'src/app/pipes/capitalizeFirstLetter/capitalize-first-letter.pipe';
+import { TypeCardComponent } from './type-card/type-card.component';
+import { AngularMaterialsModule } from './angular-materials.module';
 
 @NgModule({
   declarations: [
@@ -27,16 +29,18 @@ import { CategoryCardComponent } from './category-card/category-card.component';
     BannerComponent,
     ProductCardComponent,
     CurrencyPipe,
+    CapitalizeFirstLetterPipe,
     InputErrorComponent,
     BrandCardComponent,
-    CategoryCardComponent
+    CategoryCardComponent,
+    TypeCardComponent
   ],
   imports: [
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
     ImageCropperModule,
-    MatSnackBarModule
+    AngularMaterialsModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -50,9 +54,11 @@ import { CategoryCardComponent } from './category-card/category-card.component';
     ImageCropperModule,
     ProductCardComponent,
     CurrencyPipe,
+    CapitalizeFirstLetterPipe,
     InputErrorComponent,
     BrandCardComponent,
-    CategoryCardComponent
+    CategoryCardComponent,
+    TypeCardComponent
   ]
 })
 export class SharedModule { }

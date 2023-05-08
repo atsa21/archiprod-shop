@@ -65,6 +65,10 @@ export class AdminProductsComponent implements OnInit {
         })
       }), takeUntil(this.destroy$))
       .subscribe(data => {
+        data.forEach((el: any) => {
+          const name = el.name.toLowerCase();
+          el.link = '/shop/' + name;
+        });
         this.categories = data;
     })
   }
