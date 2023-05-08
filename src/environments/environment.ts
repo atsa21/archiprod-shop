@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: "https://archiprod.herokuapp.com/api"
+    apiUrl: "https://archiprod.glitch.me/api"
 };
