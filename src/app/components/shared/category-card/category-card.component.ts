@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class CategoryCardComponent implements OnInit {
   @Input() category!: Category;
+  @Input() canEdit = false;
 
   private categoryImages: any[] = [
     { name: 'Furniture', url: '/assets/img/categories/furniture.png'},

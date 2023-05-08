@@ -14,6 +14,7 @@ export class SideBarComponent {
 
   public navList: Navigation[] = [
     { name: 'Products', link: '/admin', icon: 'fa-solid fa-chair' },
+    { name: 'Categories', link: '/admin/categories', icon: 'fa-solid fa-book-atlas' },
     { name: 'Brands', link: '/admin/brands', icon: 'fa-solid fa-book-atlas' },
     { name: 'Users', link: '/admin/users', icon: 'fa-solid fa-user-pen' }
   ];

@@ -14,6 +14,9 @@ import { AddEditBrandDialogComponent } from './brands/add-edit-brand-dialog/add-
 import { BrandsComponent } from './brands/brands.component';
 import { ProductItemComponent } from './admin-products/product-item/product-item.component';
 import { UserCardComponent } from './users/user-card/user-card.component';
+import { AdminCategoriesComponent } from './admin-categories/admin-categories.component';
+import { AdminBrandsComponent } from './admin-brands/admin-brands.component';
+import { AddEditCategoryComponent } from './admin-categories/add-edit-category/add-edit-category.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { UserCardComponent } from './users/user-card/user-card.component';
     AddEditBrandDialogComponent,
     BrandsComponent,
     ProductItemComponent,
-    UserCardComponent
+    UserCardComponent,
+    AdminCategoriesComponent,
+    AdminBrandsComponent,
+    AddEditCategoryComponent
   ],
   imports: [
     CommonModule,
