@@ -60,7 +60,7 @@ The backend code is structured as follows:
 
 ## Deployed site
 
-Navigate [Archiprod](https://archiprod-shop.web.app/homepage) to see deployed web site.
+First navigate https://glitch.com/edit/#!/archiprod and wait for server deploy. Then navigate [Archiprod](https://archiprod-shop.web.app/homepage) to see deployed web site.
 
 * Main page:
 ![image](https://user-images.githubusercontent.com/104850911/235160968-f0247766-af3f-455c-9e27-fcecc9fedea2.png)
