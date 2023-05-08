@@ -21,6 +21,10 @@ export class CategoryService {
     return this.http.get<{ message: string, data: any }>(`${this.mainUrl}/${id}`);
   }
 
+  getCategoryByName(category: string): Observable<{ message: string, data: any }> {
+    return this.http.get<{ message: string, data: any }>(`${this.mainUrl}?category=${category}`);
+  }
+
   addCategory(category: CategoryType): Observable<{ message: string, categoryId: string}> {
     const body = {
       name: category.name,

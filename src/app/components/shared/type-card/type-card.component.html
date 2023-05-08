@@ -1,0 +1,6 @@
+<div *ngIf="type" class="card-container">
+    <div class="card-image">
+        <h3 class="name">{{type.typeName}}</h3>
+        <img class="img" src="/assets/img/categories/decor.png" alt="image" (click)="goToPage(type.link)"/>
+    </div>
+</div>

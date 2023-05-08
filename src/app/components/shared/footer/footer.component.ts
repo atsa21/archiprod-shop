@@ -9,7 +9,7 @@ export class FooterComponent {
 
   footerList = [
     { name: 'Main menu', items: ['Furniture', 'Bathroom', 'Kitchen', 'Lighting', 'Office', 'Decor', 'Brands']},
-    { name: 'Arciprod', items: ['About', 'FAQ', 'Contact us']},
+    { name: 'Archiprod', items: ['About', 'FAQ', 'Contact us']},
     { name: 'Social media', items: ['Facebook', 'Instagram', 'Pinterest', 'Youtube']},
     { name: 'Shop', items: ['Design Center', 'Shopping', 'Terms and Conditions', 'FAQ Shop']},
   ]

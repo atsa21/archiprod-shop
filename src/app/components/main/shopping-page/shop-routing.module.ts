@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CategoriesComponent } from './categories/categories.component';
-import { FurnitureComponent } from './furniture/furniture.component';
-import { ChairsComponent } from './furniture/chairs/chairs.component';
 
 const shopRoutes: Routes = [
   { path: '',  component: CategoriesComponent },
-  { path: 'furniture', component: FurnitureComponent },
-  { path: 'furniture/chairs', component: ChairsComponent}
+  { path: ':category', component: CategoriesComponent },
+  { path: ':category/:type', component: CategoriesComponent }
 ];
 
 @NgModule({

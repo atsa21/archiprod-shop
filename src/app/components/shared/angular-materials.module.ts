@@ -6,6 +6,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatRadioModule,
     MatSliderModule,
     MatSnackBarModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatInputModule,
@@ -24,7 +26,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatRadioModule,
     MatSliderModule,
     MatSnackBarModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressSpinnerModule
   ]
 })
 export class AngularMaterialsModule { }

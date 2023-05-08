@@ -1,8 +1,14 @@
-<div class="page-container">
+<div *ngIf="!loading" class="page-container">
     <div class="categories">
-        <h2>Categories</h2>
-        <div class="cards">
+        <h2>{{ title }}</h2>
+        <div *ngIf="categories" class="cards">
             <app-category-card class="card" *ngFor="let category of categories" [category]="category"></app-category-card>
         </div>
+        <div *ngIf="types" class="cards">
+            <app-type-card class="card" *ngFor="let type of types" [type]="type"></app-type-card>
+        </div>
     </div>
+</div>
+<div *ngIf="loading" class="loading">
+    <mat-spinner color="accent" [diameter]="140"></mat-spinner>
 </div>
