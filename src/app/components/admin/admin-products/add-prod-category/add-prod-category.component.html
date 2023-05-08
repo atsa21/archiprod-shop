@@ -73,7 +73,7 @@
                 <div class="input-container">
                     <p>Shapes list<span class="error-color">*</span></p>
                     <ul class="list-box">
-                        <li *ngFor="let shape of getControl('shapes').value" class="list">
+                        <li *ngFor="let shape of getControl('shapes').value" class="list" (click)="removeItem(shape, getControl('shapes'))">
                             <span>{{ shape }}</span><i class="fa-solid fa-xmark"></i>
                         </li>
                     </ul>
@@ -87,7 +87,7 @@
                 <div class="input-container">
                     <p>Extras list<span class="error-color">*</span></p>
                     <ul class="list-box">
-                        <li *ngFor="let extra of getControl('extras').value" class="list">
+                        <li *ngFor="let extra of getControl('extras').value" class="list" (click)="removeItem(extra, getControl('extras'))">
                             <span>{{ extra }}</span><i class="fa-solid fa-xmark"></i>
                         </li>
                     </ul>
