@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminProductsComponent } from './admin-products/admin-products.component';
 import { UsersComponent } from './users/users.component';
-import { BrandsComponent } from './brands/brands.component';
 import { AdminCategoriesComponent } from './admin-categories/admin-categories.component';
+import { AdminBrandsComponent } from './admin-brands/admin-brands.component';
 
 const routesAdmin: Routes = [
-    { path: '',  component: AdminProductsComponent },
-    { path: 'categories', component: AdminCategoriesComponent },
-    { path: 'brands', component: BrandsComponent },
-    { path: 'users', component: UsersComponent }
+  { path: '',  component: AdminProductsComponent },
+  { path: 'categories', component: AdminCategoriesComponent },
+  { path: 'brands', component: AdminBrandsComponent },
+  { path: 'users', component: UsersComponent }
 ];
 
 @NgModule({

@@ -7,6 +7,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogRef } from '@angular/cdk/dialog';
 import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
 import { CapitalizeFirstLetterPipe } from 'src/app/pipes/capitalizeFirstLetter/capitalize-first-letter.pipe';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-add-edit-category',
@@ -15,10 +16,15 @@ import { CapitalizeFirstLetterPipe } from 'src/app/pipes/capitalizeFirstLetter/c
   providers: [ CapitalizeFirstLetterPipe ]
 })
 export class AddEditCategoryComponent {
+
   categories: Category[] = [];
   types: CategoryType[] = [];
   brands: any[] = [];
+
   categoryForm!: FormGroup;
+  imageChangedEvent: any = '';
+  categoryImage: any;
+  editImage: string = '';
 
   item!: FormControl;
   newMaterial!: FormControl;
@@ -46,6 +52,7 @@ export class AddEditCategoryComponent {
     this.newShape = new FormControl('');
     this.newExtras = new FormControl('');
     if(this.data) {
+      this.dialogName = 'category';
       this.categories = this.data.list;
       this.brands = this.data.brands;
       this.categories.forEach( item => item.isEditing = false);
@@ -149,9 +156,40 @@ export class AddEditCategoryComponent {
     }
   }
 
+  onImagePicked(event: Event): void {
+    this.imageChangedEvent = event;
+    this.getControl('image').setValue(this.imageChangedEvent);
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.categoryImage = this.base64ToFile(
+      event.base64,
+      this.imageChangedEvent?.target?.files[0].name,
+    )
+  }
+
+  private base64ToFile(data: any, filename: any) {
+    const arr = data.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    let u8arr = new Uint8Array(n);
+  
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+  
+    return new File([u8arr], filename, { type: mime });
+  }
+
+  public loadImageFailed() {
+    this.snack.openSnackBar('Load image is filed', 'error');
+  }
+
   addCategory(): void {
     if(this.categoryForm.valid) {
-      this.categoryService.addCategory(this.categoryForm.value).pipe(takeUntil(this.destroy$)).subscribe(res => {
+      const image: File = this.categoryImage;
+      this.categoryService.addCategory(this.categoryForm.value, image).pipe(takeUntil(this.destroy$)).subscribe(res => {
         this.snack.openSnackBar('You added new category!', 'success');
         this.dialogRef.close();
       });

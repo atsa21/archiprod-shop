@@ -13,6 +13,7 @@ import { AddEditCategoryComponent } from './add-edit-category/add-edit-category.
 export class AdminCategoriesComponent implements OnInit {
 
   categories: Category[] = [];
+  brands: any[] = [];
   totalElements = 0;
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
@@ -23,20 +24,31 @@ export class AdminCategoriesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getCategories();
+    this.getBrands();
+  }
+
+  getCategories(): void {
     this.categoryService.getAllCategories().pipe(takeUntil(this.destroy$)).subscribe((res: any) => {
       res.data.forEach((el: any) => {
         el.id = el._id;
         delete el._id;
       });
       this.categories = res.data;
-      this.totalElements = res.totalElements;
+      this.totalElements = res.data.length;
     })
+  }
+
+  getBrands(): void {
+
   }
 
   public openBrandDialog(isEditing: boolean ): void {
     const dialogRef = this.dialog.open(AddEditCategoryComponent, {
       width: '420px',
-      data: { isEditing: isEditing }
+      data: { 
+        isEditing: isEditing
+      }
     });
   }
 }

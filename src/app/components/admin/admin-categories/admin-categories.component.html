@@ -8,7 +8,7 @@
             </div>
         </div>
         <div *ngIf="categories" class="prod-section">
-            <p>You added {{ totalElements }} brand</p>
+            <p>You added {{ totalElements }} categories</p>
             <div class="products-box">
                 <app-category-card *ngFor="let category of categories" [category]="category" [canEdit]="true"></app-category-card>
             </div>

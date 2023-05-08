@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Brand } from 'src/app/models/products/brand.interface';
 import { BrandService } from 'src/app/services/brands-service/brand.service';
 import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
-import { AddEditBrandDialogComponent } from '../../admin/brands/add-edit-brand-dialog/add-edit-brand-dialog.component';
+import { AddEditBrandDialogComponent } from '../../admin/admin-brands/add-edit-brand-dialog/add-edit-brand-dialog.component';
 import { take } from 'rxjs';
 
 @Component({

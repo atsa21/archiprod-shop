@@ -99,7 +99,7 @@
                     </div>
                 </div>
 
-                <button *ngIf="!isEditing" class="btn btn-accent width-100" [disabled]="this.categoryForm.invalid" (click)=" dialogName === 'category' ? addCategory() : addType()">Submit</button>
+                <!-- <button *ngIf="!isEditing" class="btn btn-accent width-100" [disabled]="this.categoryForm.invalid" (click)=" dialogName === 'category' ? addCategory() : addType()">Submit</button> -->
                 <button *ngIf="isEditing" class="btn btn-accent width-100" [disabled]="this.categoryForm.invalid" (click)="editType()">Save</button>
             </form>
         </div>

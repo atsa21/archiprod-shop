@@ -150,14 +150,14 @@ export class AddProdCategoryComponent {
     }
   }
 
-  addCategory(): void {
-    if(this.categoryForm.valid) {
-      this.categoryService.addCategory(this.categoryForm.value).pipe(takeUntil(this.destroy$)).subscribe(res => {
-        this.snack.openSnackBar('You added new category!', 'success');
-        this.dialogRef.close();
-      });
-    }
-  }
+  // addCategory(): void {
+  //   if(this.categoryForm.valid) {
+  //     this.categoryService.addCategory(this.categoryForm.value).pipe(takeUntil(this.destroy$)).subscribe(res => {
+  //       this.snack.openSnackBar('You added new category!', 'success');
+  //       this.dialogRef.close();
+  //     });
+  //   }
+  // }
 
   addType(): void {
     if(this.categoryForm.valid) {
