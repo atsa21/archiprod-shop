@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, take, takeUntil } from 'rxjs';
 import { Category } from 'src/app/models/products/category.interface';
 import { CategoryService } from 'src/app/services/category-service/category.service';
 import { AddEditCategoryComponent } from './add-edit-category/add-edit-category.component';
+import { BrandService } from 'src/app/services/brands-service/brand.service';
+import { BrandListRes } from 'src/app/models/products/brand.interface';
 
 @Component({
   selector: 'app-admin-categories',
@@ -13,14 +15,15 @@ import { AddEditCategoryComponent } from './add-edit-category/add-edit-category.
 export class AdminCategoriesComponent implements OnInit {
 
   categories: Category[] = [];
-  brands: any[] = [];
+  brands: string[] = [];
   totalElements = 0;
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private dialog: MatDialog,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private brandService: BrandService
   ) {}
 
   ngOnInit(): void {
@@ -40,15 +43,21 @@ export class AdminCategoriesComponent implements OnInit {
   }
 
   getBrands(): void {
-
+    this.brandService.getBrandsList().pipe(takeUntil(this.destroy$)).subscribe((res: {message: string, data: string[]}) => {
+      this.brands = res.data;
+    })
   }
 
   public openBrandDialog(isEditing: boolean ): void {
     const dialogRef = this.dialog.open(AddEditCategoryComponent, {
       width: '420px',
       data: { 
-        isEditing: isEditing
+        isEditing: isEditing,
+        brands: this.brands
       }
+    });
+    dialogRef.afterClosed().pipe(take(1)).subscribe(() => {
+      this.getCategories();
     });
   }
 }

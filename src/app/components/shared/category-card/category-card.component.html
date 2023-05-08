@@ -1,12 +1,21 @@
 <div *ngIf="category" class="card-container">
     <div class="card-image">
         <h3 class="name">{{category.name}}</h3>
-        <img class="img" [src]="image" alt="image" (click)="goToPage(category.link)"/>
+        <div *ngIf="canEdit" class="button-icon-box">
+            <button class="btn-icon btn-icon-white" >
+                <i class="fa-regular fa-pen-to-square"></i>
+            </button>
+            <button class="btn-icon btn-icon-danger" (click)="deleteCategory()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <img class="img" [src]="category.image" alt="image" (click)="goToPage(category.link)"/>
     </div>
 
     <div class="card-box">
         <div class="card-text">
             <p *ngFor="let types of category.type" class="type">{{types.typeName}}</p>
+            <button class="btn btn-s btn-add">Add type</button>
         </div>
     </div>
 </div>

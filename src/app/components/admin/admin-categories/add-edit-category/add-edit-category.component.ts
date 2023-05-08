@@ -53,9 +53,7 @@ export class AddEditCategoryComponent {
     this.newExtras = new FormControl('');
     if(this.data) {
       this.dialogName = 'category';
-      this.categories = this.data.list;
       this.brands = this.data.brands;
-      this.categories.forEach( item => item.isEditing = false);
       this.isEditing = this.data.isEditing;
       this.initCategoryForm();
     }
@@ -68,7 +66,7 @@ export class AddEditCategoryComponent {
       brands: new FormControl({value:[], disabled: this.isEditing ? true : false}, Validators.required),
       materials: new FormControl({value:[], disabled: this.isEditing ? true : false}, Validators.required),
       shapes: new FormControl({value:[], disabled: this.isEditing ? true : false}, Validators.required),
-      extras: new FormControl({value: this.isEditing ? ['no extras'] : [], disabled: this.isEditing ? true : false}, Validators.required)
+      extras: new FormControl({value: ['no extras'], disabled: this.isEditing ? true : false}, Validators.required)
     });
 
     if(this.dialogName === 'type') {

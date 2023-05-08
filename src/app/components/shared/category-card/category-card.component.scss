@@ -23,8 +23,9 @@
 
         .name {
             position: absolute;
+            font-size: 18px;
             top: 12px;
-            padding: 12px;
+            padding: 4px 12px;
             background-color: var(--white);
             border-radius: 0 24px 24px 0;
         }
@@ -54,6 +55,23 @@
             }
         }
     }
+}
+
+.btn-add {
+    background-color: var(--accent);
+
+    &:hover {
+        box-shadow: none;
+        background-color: var(--accent-click);
+    }
+}
+
+.button-icon-box {
+    display: flex;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    gap: 4px;
 }
 
 @media only screen and (max-width: 1600px) {
