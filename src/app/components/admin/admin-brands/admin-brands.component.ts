@@ -25,6 +25,10 @@ export class AdminBrandsComponent {
   ) {}
 
   ngOnInit(): void {
+    this.getBrands();
+  }
+
+  getBrands(): void {
     this.brandService.getAllBrands(this.page, this.pageSize).pipe(takeUntil(this.destroy$)).subscribe((res: BrandListRes) => {
       const brandList = res.data.map(el => ({ ...el, id: el._id })).map(({ _id, ...rest }) => rest);
       this.brands = brandList;
@@ -32,7 +36,7 @@ export class AdminBrandsComponent {
     })
   }
 
-  public openBrandDialog(isEditing: boolean ): void {
+  openBrandDialog(isEditing: boolean ): void {
     const dialogRef = this.dialog.open(AddEditBrandDialogComponent, {
       width: '420px',
       data: { isEditing: isEditing }
