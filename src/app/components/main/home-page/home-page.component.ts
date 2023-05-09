@@ -62,6 +62,7 @@ export class HomePageComponent implements OnInit {
           return {
             id: res._id,
             name: res.name,
+            image: res.image,
             type: res.type
           }
         })
