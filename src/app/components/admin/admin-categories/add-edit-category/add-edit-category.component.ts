@@ -1,23 +1,30 @@
 import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Category, CategoryType } from 'src/app/models/products/category.interface';
-import { CategoryService } from 'src/app/services/category-service/category.service';
 import { Subject, take, takeUntil } from 'rxjs';
+import { CategoryService } from 'src/app/services/category-service/category.service';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogRef } from '@angular/cdk/dialog';
 import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
+import { CapitalizeFirstLetterPipe } from 'src/app/pipes/capitalizeFirstLetter/capitalize-first-letter.pipe';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
-  selector: 'app-add-prod-category',
-  templateUrl: './add-prod-category.component.html',
-  styleUrls: ['./add-prod-category.component.scss']
+  selector: 'app-add-edit-category',
+  templateUrl: './add-edit-category.component.html',
+  styleUrls: ['./add-edit-category.component.scss'],
+  providers: [ CapitalizeFirstLetterPipe ]
 })
-export class AddProdCategoryComponent {
+export class AddEditCategoryComponent {
 
   categories: Category[] = [];
   types: CategoryType[] = [];
   brands: any[] = [];
+
   categoryForm!: FormGroup;
+  imageChangedEvent: any = '';
+  categoryImage: any;
+  editImage: string = '';
 
   item!: FormControl;
   newMaterial!: FormControl;
@@ -34,7 +41,7 @@ export class AddProdCategoryComponent {
   constructor(
     private categoryService: CategoryService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: DialogRef<AddProdCategoryComponent>,
+    private dialogRef: DialogRef<AddEditCategoryComponent>,
     private fb: FormBuilder,
     private snack: SnackBarService
     ) { }
@@ -45,11 +52,8 @@ export class AddProdCategoryComponent {
     this.newShape = new FormControl('');
     this.newExtras = new FormControl('');
     if(this.data) {
-      this.dialogTitle = this.data.dialogName.charAt(0);
-      this.dialogName = this.data.dialogName;
-      this.categories = this.data.list;
+      this.dialogName = 'category';
       this.brands = this.data.brands;
-      this.categories.forEach( item => item.isEditing = false);
       this.isEditing = this.data.isEditing;
       this.initCategoryForm();
     }
@@ -62,11 +66,11 @@ export class AddProdCategoryComponent {
       brands: new FormControl({value:[], disabled: this.isEditing ? true : false}, Validators.required),
       materials: new FormControl({value:[], disabled: this.isEditing ? true : false}, Validators.required),
       shapes: new FormControl({value:[], disabled: this.isEditing ? true : false}, Validators.required),
-      extras: new FormControl({value: this.isEditing ? ['no extras'] : [], disabled: this.isEditing ? true : false}, Validators.required)
+      extras: new FormControl({value: ['no extras'], disabled: this.isEditing ? true : false}, Validators.required)
     });
 
     if(this.dialogName === 'type') {
-      this.getControl('name').valueChanges.subscribe( selected => {
+      this.getControl('name').valueChanges.subscribe((selected: any) => {
         const selectedCategory = this.categories.find( el => el.name === selected);
         if(typeof selectedCategory?.id === 'string') {
           this.id = selectedCategory?.id;
@@ -77,7 +81,7 @@ export class AddProdCategoryComponent {
         }
       });
       if(this.isEditing){
-        this.getControl('typeName').valueChanges.subscribe(selected => {
+        this.getControl('typeName').valueChanges.subscribe((selected: any) => {
           const selectedType = this.types.find(el => el.typeName === selected);
           this.getControl('brands').setValue(selectedType?.brands);
           this.getControl('materials').setValue(selectedType?.materials);
@@ -150,9 +154,40 @@ export class AddProdCategoryComponent {
     }
   }
 
+  onImagePicked(event: Event): void {
+    this.imageChangedEvent = event;
+    this.getControl('image').setValue(this.imageChangedEvent);
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.categoryImage = this.base64ToFile(
+      event.base64,
+      this.imageChangedEvent?.target?.files[0].name,
+    )
+  }
+
+  private base64ToFile(data: any, filename: any) {
+    const arr = data.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    let u8arr = new Uint8Array(n);
+  
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+  
+    return new File([u8arr], filename, { type: mime });
+  }
+
+  public loadImageFailed() {
+    this.snack.openSnackBar('Load image is filed', 'error');
+  }
+
   addCategory(): void {
     if(this.categoryForm.valid) {
-      this.categoryService.addCategory(this.categoryForm.value).pipe(takeUntil(this.destroy$)).subscribe(res => {
+      const image: File = this.categoryImage;
+      this.categoryService.addCategory(this.categoryForm.value, image).pipe(takeUntil(this.destroy$)).subscribe(res => {
         this.snack.openSnackBar('You added new category!', 'success');
         this.dialogRef.close();
       });
@@ -174,11 +209,5 @@ export class AddProdCategoryComponent {
         this.dialogRef.close();
       });
     }
-  }
-
-  public deleteCategory(id: string): void {
-    this.categoryService.deleteCategory(id).subscribe((res: any) => {
-      this.categories = this.categories.filter( el => el.id != id);
-    });
   }
 }

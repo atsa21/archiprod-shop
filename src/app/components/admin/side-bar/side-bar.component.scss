@@ -31,6 +31,7 @@
 
 .nav-btn {
     display: flex;
+    width: 100%;
     background: none;
     border: 0;
     border-radius: 18px;
@@ -42,10 +43,16 @@
         background-color: var(--dark-grey);
     }
 
+    &:disabled {
+        cursor: default;
+        background: none;
+    }
+
     .nav-icon {
         display: flex;
         align-items: center;
         justify-content: center;
+        border-radius: 18px;
         height: 36px;
         width: 36px;
         border: 0;
@@ -57,4 +64,9 @@
         text-align: start;
         padding-right: 16px;
     }
+}
+
+.nav-btn-selected {
+    border-radius: 0;
+    border-bottom: 1px solid var(--white);
 }

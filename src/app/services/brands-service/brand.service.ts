@@ -13,8 +13,12 @@ export class BrandService {
 
   constructor(private http: HttpClient) { }
 
-  getAllBrands(page: number, pageSize: number): Observable<BrandListRes> {
+  getAllBrands(page?: number, pageSize?: number): Observable<BrandListRes> {
     return this.http.get<BrandListRes>(`${this.mainUrl}?size=${pageSize}&page=${page}`);
+  }
+
+  getBrandsList(): Observable<{message: string, data: string[]}> {
+    return this.http.get<{message: string, data: string[]}>(`${this.mainUrl}/list`);
   }
 
   getBrandById(): Observable<{ message: string, data: any }> {

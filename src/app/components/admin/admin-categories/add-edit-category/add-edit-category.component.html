@@ -1,6 +1,6 @@
 <div class="dialog-container">
     <div>
-        <h2>{{isEditing ? 'Edit' : 'Add'}} {{dialogName}}</h2>
+        <h2>{{isEditing ? 'Edit' : 'Add'}} category</h2>
         <button mat-dialog-close class="btn-close" type="button">
             <i class="fa-solid fa-xmark"></i>
         </button>
@@ -9,6 +9,23 @@
         <div class="add-container">
             <form [formGroup]="categoryForm" class="add-form">
 
+                <div *ngIf="isEditing && !categoryImage" class="img-preview">
+                    <img [src]="this.getControl('image').value"/>
+                </div>
+                <div class="prod-image-box width-100">
+                    <image-cropper
+                    *ngIf="imageChangedEvent"
+                    [imageChangedEvent]="imageChangedEvent"
+                    [maintainAspectRatio]="true"
+                    [aspectRatio]="6 / 7"
+                    format="png"
+                    [resizeToWidth]="300"
+                    (imageCropped)="imageCropped($event)"
+                    (loadImageFailed)="loadImageFailed()"
+                    ></image-cropper>
+                    <button class="btn btn-line width-100" (click)="filePicker.click()">Select Image</button>
+                    <input type="file" #filePicker hidden (change)="onImagePicked($event)"/>
+                </div>
                 <!-- Add category -->
                 <div *ngIf="!isEditing && dialogName === 'category'" class="input-container">
                     <p>Category<span class="error-color">*</span></p>
@@ -52,7 +69,7 @@
                     <p>Brands list<span class="error-color">*</span></p>
                     <div class="input input-accent-lined width-100">
                         <mat-select formControlName="brands" multiple placeholder="Select brands*">
-                            <mat-option *ngFor="let brand of brands" [value]="brand.name">{{ brand.name }}</mat-option>
+                            <mat-option *ngFor="let brand of brands" [value]="brand">{{ brand }}</mat-option>
                         </mat-select>
                     </div>
                 </div>
@@ -105,3 +122,4 @@
         </div>
     </div>
 </div>
+

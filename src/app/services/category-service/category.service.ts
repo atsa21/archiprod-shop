@@ -17,6 +17,10 @@ export class CategoryService {
     return this.http.get<{ message: string, data: any }>(this.mainUrl);
   }
 
+  getCategoriesList(): Observable<{ message: string, data: string[] }> {
+    return this.http.get<{ message: string, data: string[] }>(`${this.mainUrl}/list`);
+  }
+
   getCategoryById(id: string): Observable<{ message: string, data: any }> {
     return this.http.get<{ message: string, data: any }>(`${this.mainUrl}/${id}`);
   }
@@ -25,15 +29,26 @@ export class CategoryService {
     return this.http.get<{ message: string, data: any }>(`${this.mainUrl}?category=${category}`);
   }
 
-  addCategory(category: CategoryType): Observable<{ message: string, categoryId: string}> {
-    const body = {
-      name: category.name,
-      typeName: category.typeName,
-      materials: category.materials,
-      shapes: category.shapes,
-      extras: category.extras,
-    };
-    return this.http.post<{ message: string, categoryId: string}>(this.mainUrl, body);
+  addCategory(category: CategoryType, image: File): Observable<{ message: string, category: any}> {
+    const body = new FormData();
+    if(category.name) {
+      body.append('name', category.name);
+    }
+    body.append('typeName', category.typeName);
+    body.append('image', image, category.typeName);
+    category.brands.forEach(val => {
+      body.append('brands', val);
+    });
+    category.materials.forEach(val => {
+      body.append('materials', val);
+    });
+    category.shapes.forEach(val => {
+      body.append('shapes', val);
+    });
+    category.extras.forEach(val => {
+      body.append('extras', val);
+    });
+    return this.http.post<{ message: string, category: any}>(this.mainUrl, body);
   }
 
   addType(category: CategoryType, id: string): Observable<{ message: string, res: any}> {

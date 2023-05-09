@@ -6,6 +6,7 @@ import { LoginSignUpDialogComponent } from '../../main/login-sign-up-dialog/logi
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { Subject, takeUntil } from 'rxjs';
 import { SnackBarService } from 'src/app/services/snack-bar-service/snack-bar.service';
+import { CategoryService } from 'src/app/services/category-service/category.service';
 
 @Component({
   selector: 'app-header',
@@ -19,33 +20,41 @@ export class HeaderComponent implements OnInit {
   isUserLogin = false;
   isAdmin = false;
 
-  menuList: Navigation[] = [
-    { name: 'All Categories', link: '/shop'},
-    { name: 'Furniture', link: '/shop/furniture'},
-    { name: 'Bathroom', link: '/shop/bathroom'},
-    { name: 'Kitchen', link: '/shop/kitchen'},
-    { name: 'Lighting', link: '/shop/lighting'},
-    { name: 'Decor', link: '/shop/decor'}
-  ];
+  menuList: Navigation[] = [];
 
-  private destroy: Subject<boolean> = new Subject<boolean>();
+  private destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private router: Router,
+    private categoryService: CategoryService,
     private dialog : MatDialog,
     private auth: AuthService,
     private snack: SnackBarService
   ) {}
 
   ngOnInit(): void {
-    this.isUserLogin = this.auth.isLoggedIn();
-    if(this.isUserLogin) {
+    this.getMenuNav();
+    const expireTokenTime = localStorage.getItem('expiration');
+    const now = new Date().toISOString();
+
+    if(expireTokenTime && now > expireTokenTime) {
+      this.auth.logOut();
+    } else {
+      this.isUserLogin = true;
       this.isAdmin = this.auth.isAdmin();
+      this.auth.getAuthStatusListener().pipe(takeUntil(this.destroy$)).subscribe((res: boolean) => {
+        this.isUserLogin = res;
+        this.isAdmin = this.auth.isAdmin();
+      });
     }
-    this.auth.getAuthStatusListener().pipe(takeUntil(this.destroy)).subscribe((res) => {
-      this.isUserLogin = res;
-      this.isAdmin = this.auth.isAdmin();
-    });
+  }
+
+  getMenuNav(): void {
+    this.categoryService.getCategoriesList().pipe(takeUntil(this.destroy$)).subscribe((res: { message: string, data: string[] }) => {
+      this.menuList = res.data.map((category) => ({
+        name: category, link: `/shop/${category.toLowerCase()}`
+      }));
+    })
   }
 
   goToPage(name: string): void {

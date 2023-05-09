@@ -8,7 +8,7 @@
             </div>
         </div>
         <div *ngIf="brands" class="prod-section">
-            <p>You added {{ totalElements }} brand</p>
+            <p>You added {{ totalElements }} brands</p>
             <div class="products-box">
                 <app-brand-card *ngFor="let brand of brands" [brand]="brand" [canEdit]="true"></app-brand-card>
             </div>
