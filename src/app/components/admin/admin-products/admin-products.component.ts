@@ -7,7 +7,6 @@ import { ProductCard, ProductListRes } from 'src/app/models/products/product-car
 import { CategoryService } from 'src/app/services/category-service/category.service';
 import { ProductService } from 'src/app/services/product-service/product.service';
 import { AddEditProdDialogComponent } from './add-edit-prod-dialog/add-edit-prod-dialog.component';
-import { AddProdCategoryComponent } from './add-prod-category/add-prod-category.component';
 import { BrandService } from 'src/app/services/brands-service/brand.service';
 import { BrandListRes } from 'src/app/models/products/brand.interface';
 
@@ -78,22 +77,6 @@ export class AdminProductsComponent implements OnInit {
       const brandList = res.data.map(el => ({ ...el, id: el._id })).map(({ _id, ...rest }) => rest);
       this.brands = brandList;
     })
-  }
-
-  public openDialog( name: string, isEditing: boolean ): void {
-    const dialogRef = this.dialog.open(AddProdCategoryComponent, {
-      width: '420px',
-      data: { 
-        dialogName: name, 
-        list: this.categories,
-        brands: this.brands,
-        isEditing: isEditing
-      }
-    });
-    this.openCloseMenu();
-    dialogRef.afterClosed().pipe(take(1)).subscribe(() => {
-      this.getCategories();
-    });
   }
 
   public openAddProducts(): void {

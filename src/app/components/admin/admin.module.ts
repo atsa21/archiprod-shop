@@ -9,7 +9,6 @@ import { AdminProductsComponent } from './admin-products/admin-products.componen
 import { AdminRoutingModule } from './admin-routing.module';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { AddEditProdDialogComponent } from './admin-products/add-edit-prod-dialog/add-edit-prod-dialog.component';
-import { AddProdCategoryComponent } from './admin-products/add-prod-category/add-prod-category.component';
 import { AddEditBrandDialogComponent } from './admin-brands/add-edit-brand-dialog/add-edit-brand-dialog.component';
 import { ProductItemComponent } from './admin-products/product-item/product-item.component';
 import { UserCardComponent } from './users/user-card/user-card.component';
@@ -23,7 +22,6 @@ import { AddEditCategoryComponent } from './admin-categories/add-edit-category/a
     AdminProductsComponent,
     SideBarComponent,
     AddEditProdDialogComponent,
-    AddProdCategoryComponent,
     AddEditBrandDialogComponent,
     ProductItemComponent,
     UserCardComponent,
