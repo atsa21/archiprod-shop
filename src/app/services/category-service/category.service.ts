@@ -17,8 +17,8 @@ export class CategoryService {
     return this.http.get<{ message: string, data: any }>(this.mainUrl);
   }
 
-  getCategoriesList(): Observable<{ message: string, data: any }> {
-    return this.http.get<{ message: string, data: any }>(`${this.mainUrl}/list`);
+  getCategoriesList(): Observable<{ message: string, data: string[] }> {
+    return this.http.get<{ message: string, data: string[] }>(`${this.mainUrl}/list`);
   }
 
   getCategoryById(id: string): Observable<{ message: string, data: any }> {

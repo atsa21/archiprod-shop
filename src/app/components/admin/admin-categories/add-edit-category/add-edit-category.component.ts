@@ -210,10 +210,4 @@ export class AddEditCategoryComponent {
       });
     }
   }
-
-  public deleteCategory(id: string): void {
-    this.categoryService.deleteCategory(id).subscribe((res: any) => {
-      this.categories = this.categories.filter( el => el.id != id);
-    });
-  }
 }

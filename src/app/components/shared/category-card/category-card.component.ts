@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Category } from 'src/app/models/products/category.interface';
 import { Router } from '@angular/router';
 import { CategoryService } from 'src/app/services/category-service/category.service';
@@ -14,6 +14,8 @@ export class CategoryCardComponent {
   @Input() category!: Category;
   @Input() canEdit = false;
 
+  @Output() deletedCategoryId = new EventEmitter<string>();
+
   constructor(
     private router: Router,
     private categoryService: CategoryService,
@@ -28,6 +30,7 @@ export class CategoryCardComponent {
       if(this.category.id) {
         this.categoryService.deleteCategory(this.category.id).pipe(take(1)).subscribe((res) => {
           this.snack.openSnackBar(res.message, 'success');
+          this.deletedCategoryId.emit(this.category.id);
         })
       }
   }

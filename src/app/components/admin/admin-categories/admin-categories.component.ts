@@ -48,7 +48,7 @@ export class AdminCategoriesComponent implements OnInit {
     })
   }
 
-  public openBrandDialog(isEditing: boolean ): void {
+  openBrandDialog(isEditing: boolean ): void {
     const dialogRef = this.dialog.open(AddEditCategoryComponent, {
       width: '420px',
       data: { 
@@ -59,5 +59,9 @@ export class AdminCategoriesComponent implements OnInit {
     dialogRef.afterClosed().pipe(take(1)).subscribe(() => {
       this.getCategories();
     });
+  }
+
+  deleteCategory(id: string): void {
+    this.categories = this.categories.filter(el => el.id !== id);
   }
 }

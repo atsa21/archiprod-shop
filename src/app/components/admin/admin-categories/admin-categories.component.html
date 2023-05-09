@@ -10,7 +10,7 @@
         <div *ngIf="categories" class="prod-section">
             <p>You added {{ totalElements }} categories</p>
             <div class="products-box">
-                <app-category-card *ngFor="let category of categories" [category]="category" [canEdit]="true"></app-category-card>
+                <app-category-card *ngFor="let category of categories" [category]="category" (deletedCategoryId)="deleteCategory($event)" [canEdit]="true"></app-category-card>
             </div>
         </div>
     </div>
