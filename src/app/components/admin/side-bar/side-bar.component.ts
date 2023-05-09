@@ -9,10 +9,10 @@ import { Navigation } from 'src/app/models/navigation';
 })
 export class SideBarComponent implements OnInit {
 
-  public sideBarOpened = true;
-  public arrowClass: string = 'fa-solid fa-chevron-right';
+  sideBarOpened = false;
+  arrowClass: string = 'fa-solid fa-chevron-right';
 
-  public navList: Navigation[] = [
+  navList: Navigation[] = [
     { name: 'Products', link: '/admin', icon: 'fa-solid fa-chair', selected: false },
     { name: 'Categories', link: '/admin/categories', icon: 'fa-solid fa-folder-open', selected: false },
     { name: 'Brands', link: '/admin/brands', icon: 'fa-solid fa-tags', selected: false },
@@ -27,12 +27,12 @@ export class SideBarComponent implements OnInit {
     this.navList.forEach(el => el.selected = this.router.url === el.link);
   }
 
-  public openSideBar(): void {
+  openSideBar(): void {
     this.sideBarOpened = !this.sideBarOpened;
     this.arrowClass = this.sideBarOpened ? 'fa-solid fa-chevron-left' : 'fa-solid fa-chevron-right';
   }
 
-  public navigate(link: string): void {
+  navigate(link: string): void {
     this.router.navigate([link]);
   }
 
