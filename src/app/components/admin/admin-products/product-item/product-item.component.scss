@@ -137,3 +137,14 @@
         padding: 0;
     }
 }
+
+@media only screen and (max-width: 1600px) {
+    .item-container .item-image {
+        width: 120px;
+        height: 120px;
+
+        .img {
+            width: 120px;
+        }
+    }
+}
