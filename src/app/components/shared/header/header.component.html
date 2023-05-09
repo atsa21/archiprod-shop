@@ -27,6 +27,9 @@
 </div>
 <div class="container menu" *ngIf="isMenuOpened">
     <div class="list">
+        <div class="list-item">
+            <a href="/shop" class="link-light">All Categories</a>
+        </div>
         <div *ngFor="let menu of menuList" class="list-item">
             <a [href]="menu.link" class="link-light">{{ menu.name }}</a>
         </div>

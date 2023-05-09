@@ -7,8 +7,8 @@
             </button>
         </div>
         <div *ngFor="let nav of navList" class="nav-box">
-            <button class="nav-btn" [ngClass]="{'nav-opened' : sideBarOpened}" (click)="navigate(nav.link)">
-                <i class="nav-icon" [class]="nav.icon"></i>
+            <button class="nav-btn" [ngClass]="{'nav-opened' : sideBarOpened, 'nav-btn-selected' : nav.selected}" [disabled]="nav.selected" (click)="navigate(nav.link)">
+                <i *ngIf="nav.icon" class="nav-icon" [class]="nav.icon"></i>
                 <p *ngIf="sideBarOpened">{{ nav.name }}</p>
             </button>
         </div>

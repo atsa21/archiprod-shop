@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Navigation } from 'src/app/models/navigation';
 
@@ -7,21 +7,25 @@ import { Navigation } from 'src/app/models/navigation';
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.scss']
 })
-export class SideBarComponent {
+export class SideBarComponent implements OnInit {
 
-  public sideBarOpened = false;
+  public sideBarOpened = true;
   public arrowClass: string = 'fa-solid fa-chevron-right';
 
   public navList: Navigation[] = [
-    { name: 'Products', link: '/admin', icon: 'fa-solid fa-chair' },
-    { name: 'Categories', link: '/admin/categories', icon: 'fa-solid fa-book-atlas' },
-    { name: 'Brands', link: '/admin/brands', icon: 'fa-solid fa-book-atlas' },
-    { name: 'Users', link: '/admin/users', icon: 'fa-solid fa-user-pen' }
+    { name: 'Products', link: '/admin', icon: 'fa-solid fa-chair', selected: false },
+    { name: 'Categories', link: '/admin/categories', icon: 'fa-solid fa-folder-open', selected: false },
+    { name: 'Brands', link: '/admin/brands', icon: 'fa-solid fa-tags', selected: false },
+    { name: 'Users', link: '/admin/users', icon: 'fa-solid fa-user-pen', selected: false }
   ];
 
   constructor(
     private router: Router
   ) {}
+
+  ngOnInit(): void {
+    this.navList.forEach(el => el.selected = this.router.url === el.link);
+  }
 
   public openSideBar(): void {
     this.sideBarOpened = !this.sideBarOpened;

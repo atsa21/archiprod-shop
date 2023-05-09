@@ -18,7 +18,7 @@ export class BrandService {
   }
 
   getBrandsList(): Observable<{message: string, data: string[]}> {
-    return this.http.get<{message: string, data: string[]}>(`${this.mainUrl}/brands-list`);
+    return this.http.get<{message: string, data: string[]}>(`${this.mainUrl}/list`);
   }
 
   getBrandById(): Observable<{ message: string, data: any }> {

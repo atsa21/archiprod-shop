@@ -22,7 +22,7 @@ export class AuthService {
     return !!localStorage.getItem('token');
   }
 
-  getAuthStatusListener() {
+  getAuthStatusListener(): Observable<boolean> {
     return this.authStatusListener.asObservable();
   }
 
@@ -44,7 +44,7 @@ export class AuthService {
     return this.http.post<{ token: string; expiresIn: number; role: string; userId: string }>(this.mainUrl + '/login', body);
   }
 
-  setAuthRes(token: string, expiresIn: number, role: string, userId: string) {
+  setAuthRes(token: string, expiresIn: number, role: string, userId: string): void {
     const expiresInDuration = expiresIn;
     this.setAuthTimer(expiresInDuration);
     const now = new Date();
@@ -60,7 +60,7 @@ export class AuthService {
     this.router.navigate(['/homepage']);
   }
 
-  private setAuthTimer(duration: number) {
+  private setAuthTimer(duration: number):void {
     this.tokenTimer = setTimeout(() => {
       this.logOut();
     }, duration * 1000);
