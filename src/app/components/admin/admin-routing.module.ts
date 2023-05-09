@@ -8,6 +8,7 @@ import { AdminBrandsComponent } from './admin-brands/admin-brands.component';
 const routesAdmin: Routes = [
   { path: '',  component: AdminProductsComponent },
   { path: 'categories', component: AdminCategoriesComponent },
+  { path: 'categories/:category', component: AdminCategoriesComponent },
   { path: 'brands', component: AdminBrandsComponent },
   { path: 'users', component: UsersComponent }
 ];

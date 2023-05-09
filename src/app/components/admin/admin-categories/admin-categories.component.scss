@@ -34,6 +34,20 @@
                 display: flex;
                 margin: 24px;
                 margin-bottom: 0;
+                cursor: default;
+
+                span {
+                    padding-right: 8px;
+                    color: var(--grey);
+                    cursor: pointer;
+                    text-decoration: underline;
+                    text-decoration-color: var(--white);
+                    transition: all 0.4s ease-in-out;
+
+                    &:hover {
+                        text-decoration-color: var(--grey);
+                    }
+                }
             }
 
             .products-box {

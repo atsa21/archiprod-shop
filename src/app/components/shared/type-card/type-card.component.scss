@@ -3,7 +3,6 @@
     flex-direction: column;
     box-sizing: border-box;
     max-width: 260px;
-    height: 260px;
     border-radius: 6px;
     background: var(--light-grey);
     outline: 2px solid var(--light-grey);
@@ -39,7 +38,6 @@
 @media only screen and (max-width: 1600px) {
     .card-container {
         max-width: 220px;
-        height: 220px;
 
         .card-image{
             width: 220px;

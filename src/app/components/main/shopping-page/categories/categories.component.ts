@@ -56,6 +56,7 @@ export class CategoriesComponent {
           return {
             id: res._id,
             name: res.name,
+            image: res.image,
             type: res.type
           }
         })

@@ -2,44 +2,48 @@
     display: flex;
     width: 100%;
     height: 100vh;
+    overflow-y: hidden;
+    overflow-x: hidden;
     padding-top: 70px;
     background: var(--light-grey);
 
     .products-container {
+        display: flex;
+        flex-direction: column;
         width: 100%;
-        overflow-y: scroll;
+        height: calc(100vh - 70px);
+        padding: 24px;
+        gap: 24px;
 
         .products-header {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            margin: 24px;
             padding: 18px;
             border-radius: 6px;
             background-color: var(--white);
-
-            .prod-buttons {
-                display: flex;
-                gap: 16px;
-            }
         }
 
         .prod-section {
             display: flex;
             flex-direction: column;
-            margin: 24px;
+            height: calc(100vh - 231px);
             border-radius: 6px;
+            padding: 24px;
+            gap: 24px;
             background-color: var(--white);
 
             p {
                 display: flex;
-                margin: 24px;
                 margin-bottom: 0;
             }
 
             .products-box {
                 display: flex;
                 flex-direction: column;
-                margin: 24px;
+                height: 100%;
+                overflow-y: scroll;
+                overflow-x: hidden;
                 gap: 24px;
 
                 .item {

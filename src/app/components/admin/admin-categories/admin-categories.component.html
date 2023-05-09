@@ -7,10 +7,16 @@
                 <button class="btn btn-accent" (click)="openBrandDialog(false)">Add Category</button>
             </div>
         </div>
-        <div *ngIf="categories" class="prod-section">
-            <p>You added {{ totalElements }} categories</p>
+        <div *ngIf="categories && categories.length" class="prod-section">
+            <p>Categories</p>
             <div class="products-box">
                 <app-category-card *ngFor="let category of categories" [category]="category" (deletedCategoryId)="deleteCategory($event)" [canEdit]="true"></app-category-card>
+            </div>
+        </div>
+        <div *ngIf="types && types.length" class="prod-section">
+            <p><span (click)="goToCategories()">Categories</span> >&nbsp; {{ title }}</p>
+            <div class="products-box">
+                <app-type-card *ngFor="let type of types" [type]="type" [canEdit]="true"></app-type-card>
             </div>
         </div>
     </div>

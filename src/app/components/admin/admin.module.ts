@@ -15,6 +15,7 @@ import { UserCardComponent } from './users/user-card/user-card.component';
 import { AdminCategoriesComponent } from './admin-categories/admin-categories.component';
 import { AdminBrandsComponent } from './admin-brands/admin-brands.component';
 import { AddEditCategoryComponent } from './admin-categories/add-edit-category/add-edit-category.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AddEditCategoryComponent } from './admin-categories/add-edit-category/a
     CommonModule,
     AdminRoutingModule,
     AngularMaterialsModule,
-    SharedModule
+    SharedModule,
+    InfiniteScrollModule
   ]
 })
 export class AdminModule { }
