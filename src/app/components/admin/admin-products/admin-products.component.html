@@ -12,6 +12,7 @@
             <div class="products-box">
                 <app-product-item *ngFor="let product of products" [product]="product" [categories]="categories" [brands]="brands" [canEdit]="true" class="item"></app-product-item>
             </div>
+            <div infinite-scroll [infiniteScrollDistance]="0" [infiniteScrollThrottle]="1000" (scrolled)="onScroll()">
         </div>
     </div>
 </div>

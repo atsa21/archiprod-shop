@@ -25,7 +25,8 @@ export class AdminProductsComponent implements OnInit {
 
   prodDescriptionData: any;
   totalElements = 0;
-  pageSize = 8;
+  page = 1;
+  pageSize = 6;
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -43,11 +44,11 @@ export class AdminProductsComponent implements OnInit {
   }
 
   private getProducts(): void {
-    this.productService.getProducts(1, this.pageSize)
+    this.productService.getProducts(this.page, this.pageSize)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res: ProductListRes) => {
         const prodList = res.data.map(el => ({ ...el, id: el._id })).map(({ _id, ...rest }) => rest);
-        this.products = prodList;
+        this.products = !this.page ? prodList : this.products.concat(prodList);
         this.totalElements = res.totalElements;
       })
   }
@@ -79,7 +80,7 @@ export class AdminProductsComponent implements OnInit {
     })
   }
 
-  public openAddProducts(): void {
+  openAddProducts(): void {
     const dialogRef = this.dialog.open(AddEditProdDialogComponent, {
       width: '480px',
       data: {
@@ -92,8 +93,13 @@ export class AdminProductsComponent implements OnInit {
     });
   }
 
-  public openCloseMenu(): void {
+  openCloseMenu(): void {
     this.menuOpened = !this.menuOpened;
+  }
+
+  onScroll(): void {
+    this.page += 1;
+    this.getProducts();
   }
   
 }
