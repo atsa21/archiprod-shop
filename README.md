@@ -76,20 +76,9 @@ Navigate [Glitch Archiprod](https://archiprod.glitch.me/api) to see deployed ser
 * Admin can see all registered users on Admin - Users page.
 * Authentication and authorization is implemented.
 
-## Inprogress
-
-- [x] Deploy frontend to Firebase.
-- [ ] Users can browse products by category and add them to their cart.
-- [ ] Users can checkout their cart and pay for their order using a payment gateway.
-- [ ] Admins can view and update the status of orders.
-
 ## Code scaffolding
 
 Run `ng g c component-name` to generate a new component. You can also use `ng g directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Running unit tests
 
