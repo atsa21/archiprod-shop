@@ -1,0 +1,20 @@
+<div *ngIf="order.length; else noItems" class="container">
+    <section class="order-details">
+        <app-client-info class="info-box" (orderEmitter)="setOrderValue($event)"></app-client-info>
+        <div class="cart-box">
+            
+        </div>
+    </section>
+    <section class="submit-box">
+        <h3>Total price: {{ totalPrice }} ₴</h3>
+        <button class="btn btn-accent" [disabled]="!personalInfo || !isFormValid" (click)="addOrder()">Submit</button>
+    </section>
+</div>
+<ng-template #noItems>
+    <div class="container-no-items">
+        <img src="/assets/img/empty-cart.svg" alt="Man with box in hands" class="image"/>
+        <h1>Cart is empty</h1>
+        <button class="btn btn-accent" (click)="goToShop()">Go to shop</button>
+    </div>
+</ng-template>
+

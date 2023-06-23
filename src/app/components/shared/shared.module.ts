@@ -18,6 +18,8 @@ import { CategoryCardComponent } from './category-card/category-card.component';
 import { CapitalizeFirstLetterPipe } from 'src/app/pipes/capitalizeFirstLetter/capitalize-first-letter.pipe';
 import { TypeCardComponent } from './type-card/type-card.component';
 import { AngularMaterialsModule } from './angular-materials.module';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { AngularMaterialsModule } from './angular-materials.module';
     FormsModule,
     CommonModule,
     ImageCropperModule,
-    AngularMaterialsModule
+    AngularMaterialsModule,
+    GooglePlaceModule,
+    GoogleMapsModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -58,7 +62,9 @@ import { AngularMaterialsModule } from './angular-materials.module';
     InputErrorComponent,
     BrandCardComponent,
     CategoryCardComponent,
-    TypeCardComponent
+    TypeCardComponent,
+    GooglePlaceModule,
+    GoogleMapsModule
   ]
 })
 export class SharedModule { }

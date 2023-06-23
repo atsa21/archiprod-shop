@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { AuthData } from 'src/app/models/auth-data.interface';
-import { userRole } from 'src/app/models/userRole.model';
+import { userRole } from 'src/app/models/user/userRole.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

@@ -11,6 +11,8 @@ import { AdvantagesCardComponent } from './home-page/advantages/advantages-card/
 import { AboutComponent } from './home-page/about/about.component';
 import { MainBannerComponent } from './home-page/main-banner/main-banner.component';
 import { SeoTextComponent } from './home-page/seo-text/seo-text.component';
+import { CartPageComponent } from './cart-page/cart-page.component';
+import { ClientInfoComponent } from './cart-page/client-info/client-info.component';
 
 @NgModule({
     declarations: [
@@ -21,6 +23,8 @@ import { SeoTextComponent } from './home-page/seo-text/seo-text.component';
         AboutComponent,
         MainBannerComponent,
         SeoTextComponent,
+        CartPageComponent,
+        ClientInfoComponent
     ],
     imports: [
         CommonModule,

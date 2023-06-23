@@ -1,0 +1,77 @@
+<div class="personal-info">
+    <h1>Personal inforamtion</h1>
+    <form [formGroup]="orderForm" class="form">
+        <div class="column">
+            <div class="input-box">
+                <label class="label">Name<span class="error-color">*</span></label>
+                <input 
+                    formControlName="name" 
+                    class="small-input" 
+                    placeholder="Enter name" 
+                    [ngClass]="{ 'input-invalid' : getIsControlInvalid('name')}" 
+                    required
+                />
+                <span class="error-box">
+                    <app-input-error *ngIf="getIsControlInvalid('name')" [validator]="getControl('name')"></app-input-error>
+                </span>
+            </div>
+            <div class="input-box">
+                <label class="label">Email<span class="error-color">*</span></label>
+                <input 
+                    formControlName="email" 
+                    class="small-input" 
+                    placeholder="Enter email" 
+                    [ngClass]="{ 'input-invalid' : getIsControlInvalid('email')}" 
+                    required
+                />
+                <span class="error-box">
+                    <app-input-error *ngIf="getIsControlInvalid('email')" [validator]="getControl('email')"></app-input-error>
+                </span>
+            </div>
+            <div class="input-box">
+                <label class="label">Comment</label>
+                <textarea 
+                    formControlName="comment" 
+                    class="small-input text-area" 
+                    placeholder="Enter Comment" 
+                    [ngClass]="{ 'input-invalid' : getIsControlInvalid('comment')}"
+                ></textarea>
+                <span class="error-box">
+                    <app-input-error *ngIf="getIsControlInvalid('comment')" [validator]="getControl('comment')"></app-input-error>
+                </span>
+            </div>
+        </div>
+        <div class="column">
+            <div class="input-box">
+                <label class="label">Address<span class="error-color">*</span></label>
+                <input 
+                    formControlName="address" 
+                    class="small-input" 
+                    ngx-google-places-autocomplete
+                    [options]="inputOptions"
+                    #placesRef="ngx-places"
+                    placeholder="Enter your address" 
+                    [ngClass]="{ 'input-invalid' : getIsControlInvalid('address')}" 
+                    (onAddressChange)="onAddressChange($event)"
+                    required
+                />
+                <span class="error-box">
+                    <app-input-error *ngIf="getIsControlInvalid('address')" [validator]="getControl('address')"></app-input-error>
+                </span>
+            </div>
+            <google-map 
+                id="map"
+                height="300px"
+                width="100%"
+                [options]="mapOptions"
+                [center]="center"
+                (mapClick)="moveMap($event)"
+                (mapMousemove)="move($event)"
+                (mapClick)="onChangedMapMarker($event)"
+            >
+                <map-marker [position]="center"></map-marker>
+            </google-map>
+        </div>
+    </form>
+</div>
+
