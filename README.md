@@ -2,6 +2,18 @@
 
 Archiprod is an online shopping platform for home products. It offers a variety of products including furniture, bathroom essentials, kitchen appliances, lighting and decor items. The platform is built on **Angular 15.2.1** and **NodeJS 16.13.0**.
 
+## Deployed site
+
+First navigate https://glitch.com/edit/#!/archiprod and wait for server deploy. Then navigate [Archiprod](https://archiprod.glitch.me/homepage) to see deployed web site.
+
+* Main page:
+![image](https://user-images.githubusercontent.com/104850911/235160968-f0247766-af3f-455c-9e27-fcecc9fedea2.png)
+
+* Admin page:
+![image](https://user-images.githubusercontent.com/104850911/235161156-5acc25d4-4370-4a00-b20e-beb94d62b6fe.png)
+
+Navigate [Glitch Archiprod](https://archiprod.glitch.me/api) to see deployed server.
+
 ## Installation frontend part
 
 1. Clone the repository from [GitHub Archiprod](https://github.com/atsa21/archiprod-shop).
@@ -57,18 +69,6 @@ The backend code is structured as follows:
 * `middleware` - contains the middleware functions used by the routes.
 * `models` - contains the database models.
 * `routes` - contains the API routes.
-
-## Deployed site
-
-First navigate https://glitch.com/edit/#!/archiprod and wait for server deploy. Then navigate [Archiprod](https://archiprod.glitch.me/homepage) to see deployed web site.
-
-* Main page:
-![image](https://user-images.githubusercontent.com/104850911/235160968-f0247766-af3f-455c-9e27-fcecc9fedea2.png)
-
-* Admin page:
-![image](https://user-images.githubusercontent.com/104850911/235161156-5acc25d4-4370-4a00-b20e-beb94d62b6fe.png)
-
-Navigate [Glitch Archiprod](https://archiprod.glitch.me/api) to see deployed server.
 
 ## Features
 
